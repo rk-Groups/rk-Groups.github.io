@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
 <title>RK Group Converter</title>
+
 <body>
 
-<h2>Converter for liquid oxygen Version 1.00</h2>
-<p>Type a value in any of the following:</p>
+  <h2>Converter for liquid oxygen Version 2.00</h2>
+  <p>Type a value in any of the following:</p>
 
-<p>
-  <label>Kilogram (KGS)</label>
-  <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value, 1)">
-</p>
+  <p>
+    <label>Kilogram (KGS)</label>
+    <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value)">
+  </p>
 
-<p>
-  <label>Ton (TON)</label>
-  <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, 1000)">
-</p>
+  <p>
+    <label>Ton (TON)</label>
+    <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, .001)">
+  </p>
 
-<p>
-  <label>Standard metric cube (sm3)</label>
-  <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 0.77)">
-</p>
+  <p>
+    <label>Standard metric cube (sm3)</label>
+    <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 1/0.77)">
+  </p>
 
-<p>
-  <label value=>Liters (ltr)</label>
-  <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, .89)">
-</p>
+  <p>
+    <label value=>Liters (ltr)</label>
+    <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
+  </p>
+
+</body>
 
 <script>
-function Converter(_unit, factor) {
-  document.getElementById("KGS").value = _unit/1*factor;
-  document.getElementById("TON").value = _unit/1000*factor;
-  document.getElementById("SM3").value = _unit*0.77/factor;
-  document.getElementById("LTR").value = _unit*0.89/factor;
-}
+  function Converter(unit, factor) {
+    KGConverter(unit * factor)
+  }
+
+  function KGConverter(kgs) {
+    document.getElementById("KGS").value = Math.round(100 * kgs * 1) / 100;
+    document.getElementById("TON").value = kgs / 1000;
+    document.getElementById("SM3").value = Math.round(100 * kgs * 0.77) / 100;
+    document.getElementById("LTR").value = Math.round(100 * kgs * 0.89) / 100;
+  }
 
 </script>
 
-</body>
+
 </html>
