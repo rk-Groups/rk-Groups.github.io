@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html>
 <title>RK Group Converter</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 <body>
 
-  <h2>Converter for liquid oxygen Version 2.00</h2>
-  <p>Type a value in any of the following:</p>
+  <div class="jumbotron text-center">
+    <h2>Converter for liquid oxygen Version 2.00</h2>
+    <p>Type a value in any of the following:</p>
 
-  <p>
-    <label>Kilogram (KGS)</label>
-    <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value)">
-  </p>
+    <p>
+      <label>Kilogram (KGS)</label>
+      <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value)">
+    </p>
 
-  <p>
-    <label>Ton (TON)</label>
-    <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, .001)">
-  </p>
+    <p>
+      <label>Ton (TON)</label>
+      <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, .001)">
+    </p>
 
-  <p>
-    <label>Standard metric cube (sm3)</label>
-    <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 1/0.77)">
-  </p>
+    <p>
+      <label>Standard metric cube (sm3)</label>
+      <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 1/0.77)">
+    </p>
 
-  <p>
-    <label value=>Liters (ltr)</label>
-    <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
-  </p>
-
+    <p>
+      <label value=>Liters (ltr)</label>
+      <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
+    </p>
+  </div>
 </body>
 
 <script>
