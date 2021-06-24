@@ -1,1 +1,40 @@
-# rk-Groups.github.io
+<!DOCTYPE html>
+<html>
+<title>RK Group Converter</title>
+<body>
+
+<h2>Converter for liquid oxygen Version 1.00</h2>
+<p>Type a value in any of the following:</p>
+
+<p>
+  <label>Kilogram (KGS)</label>
+  <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value, 1)">
+</p>
+
+<p>
+  <label>Ton (TON)</label>
+  <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, 1000)">
+</p>
+
+<p>
+  <label>Standard metric cube (sm3)</label>
+  <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 0.77)">
+</p>
+
+<p>
+  <label value=>Liters (ltr)</label>
+  <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, .89)">
+</p>
+
+<script>
+function Converter(_unit, factor) {
+  document.getElementById("KGS").value = _unit*factor;
+  document.getElementById("TON").value = _unit/1000*factor;
+  document.getElementById("SM3").value = _unit*0.77*factor;
+  document.getElementById("LTR").value = _unit*0.89*factor;
+}
+
+</script>
+
+</body>
+</html>
