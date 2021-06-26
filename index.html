@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
   <div class="jumbotron text-center">
@@ -15,12 +16,12 @@
 
     <p>
       <label>Kilogram (KGS)</label>
-      <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value)">
+      <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value, 1)">
     </p>
 
     <p>
       <label>Ton (TON)</label>
-      <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, .001)">
+      <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, 1000)">
     </p>
 
     <p>
@@ -36,13 +37,14 @@
 </body>
 
 <script>
+
   function Converter(unit, factor) {
-    KGConverter(unit * factor)
+    KGConverter(unit * factor);
   }
 
   function KGConverter(kgs) {
     document.getElementById("KGS").value = Math.round(100 * kgs * 1) / 100;
-    document.getElementById("TON").value = kgs / 1000;
+    document.getElementById("TON").value = Math.round(kgs) / 1000;
     document.getElementById("SM3").value = Math.round(100 * kgs * 0.77) / 100;
     document.getElementById("LTR").value = Math.round(100 * kgs * 0.89) / 100;
   }
