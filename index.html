@@ -35,6 +35,12 @@
       <label value=>Liters (ltr)</label>
       <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
     </p>
+
+    <p>
+      <label value=>Cylinder (cyl) @7 sm3</label>
+      <input id="CYL" type="number" placeholder="CYL" oninput="Converter(this.value, 1/.11)">
+    </p>
+
   </div>
 
   <hr>
@@ -55,6 +61,7 @@
     document.getElementById("TON").value = Math.round(kgs) / 1000;
     document.getElementById("SM3").value = Math.round(100 * kgs * 0.77) / 100;
     document.getElementById("LTR").value = Math.round(100 * kgs * 0.89) / 100;
+    document.getElementById("CYL").value = Math.round(100 * kgs * 0.11) / 100;
   }
 
 </script>
