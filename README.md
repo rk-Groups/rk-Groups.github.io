@@ -10,15 +10,18 @@ This is the official website for RK Oxygen, providing tools, calculators, and co
 - **GST Calculator**: Located at [`Calc/GST/index.html`](Calc/GST/index.html)
 - **Liquid Calculator**: Located at [`Calc/LIQ/index.html`](Calc/LIQ/index.html)
 - **Modern Navigation**: Fixed top navigation bar for easy access to all pages and calculators.
+- **Centralized Link Management**: All navigation and footer links are managed via `site-links.js` for easy updates across the site. Update links in `site-links.js` to change navigation everywhere.
 - **Legal & Policy Pages**: Terms and refund policy are easily accessible from the navigation bar.
 
 ## Navigation
-The site features a fixed navigation bar with quick links to:
+The site features a fixed navigation bar and footers with quick links to:
 - Home
 - Terms of Service
 - Refund & Cancellation Policy
 - GST Calculator
 - Liquid Calculator
+
+All navigation and footer links use special classes (e.g., `nav-home`, `nav-terms`) and are set automatically by `site-links.js`.
 
 ## Legal & Policy Pages
 - [Terms of Service](rkoxygengkp/terms.html)
