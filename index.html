@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="site-links.js"></script>
+  <!-- site-links.js will be loaded after topbar is injected -->
   <style>
     body { background: #f8f9fa; }
     .converter-box {
@@ -26,11 +26,17 @@
 <body>
   <div id="topbar-include"></div>
   <script>
-    // Dynamically load the shared topbar
+    // Dynamically load the shared topbar, then load site-links.js
     fetch('Shared/topbar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('topbar-include').innerHTML = html;
+        var s = document.createElement('script');
+        s.src = 'site-links.js';
+        s.onload = function() {
+          if (typeof setLinksWhenReady === 'function') setLinksWhenReady();
+        };
+        document.body.appendChild(s);
       });
   </script>
   <div class="jumbotron text-center" style="padding: 2rem 1rem; margin-bottom: 0;">
