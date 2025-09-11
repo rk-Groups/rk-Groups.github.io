@@ -1,3 +1,9 @@
+### High Priority
+- [ ] Move the "Report Issue" button to the bottom bar, floating at the bottom right corner:
+	1. Remove the current "Report Issue" button from `_layouts/default.html`.
+	2. Add a floating button to `_includes/bottombar.html` linking to the GitHub issues page.
+	3. Style the button to always appear in the lower right corner above the bottombar.
+	4. Test on desktop and mobile for visibility and accessibility.
 # TODO for rk-Groups.github.io
 
 This file tracks pending and future tasks for the static site. Completed tasks have been moved to `COMPLETED.md` in the `dev/` folder.
