@@ -2,14 +2,14 @@
 // Centralized link references for navigation and footer
 
 
-const RK_OXYGEN_GKP = "companies/rk-oxygen/gorakhpur";
+const RK_OXYGEN_GKP = "/companies/rk-oxygen/gorakhpur";
 
 const siteLinks = {
-  home: "index.html",
+  home: "/index.html",
   terms: `${RK_OXYGEN_GKP}/terms.html`,
   refund: `${RK_OXYGEN_GKP}/refund-policy.html`,
-  gst: "Calc/GST/index.html",
-  liq: "Calc/LIQ/index.html"
+  gst: "/Calc/GST/index.html",
+  liq: "/Calc/LIQ/index.html"
 };
 
 function setSiteLinks() {
