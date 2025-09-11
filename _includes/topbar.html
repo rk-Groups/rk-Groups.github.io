@@ -14,10 +14,10 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Companies <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{{ '/companies/rk-electrodes/' | relative_url }}">RK Electrodes</a></li>
-            <li><a href="{{ '/companies/rk-oxygen/gorakhpur/' | relative_url }}">RK Oxygen</a></li>
-            <li><a href="{{ '/companies/rk-palace/' | relative_url }}">RK Palace</a></li>
-            <li><a href="{{ '/companies/sand-creations/' | relative_url }}">Sand Creations</a></li>
+            {% assign companies = site.data.navigation.main | where: "title", "Companies" | first %}
+            {% for company in companies.dropdown %}
+              <li><a href="{{ company.url | replace: 'index.md', '' | relative_url }}">{{ company.title }}</a></li>
+            {% endfor %}
           </ul>
         </li>
         <li class="dropdown">
