@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: site.title }}</title>
   {% seo %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- Bootstrap removed: now using MUI-only styles -->
   <link rel="stylesheet" href="{{ '/assets/mui.css' | relative_url }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Bootstrap JS and jQuery removed: now using MUI-only styles -->
   <!-- Styles moved to assets/mui.css for global reuse -->
 </head>
 <body>
@@ -18,7 +17,7 @@
   </button>
   {% include topbar.html %}
   {% include sidebar.html %}
-  <div class="container" style="margin-left:230px;">
+  <div class="mui-container" style="margin-left:220px;">
     {{ content }}
   </div>
   <script>
