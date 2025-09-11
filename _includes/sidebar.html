@@ -1,20 +1,24 @@
 <div class="sidebar navbar-inverse" style="position:fixed;top:60px;left:0;width:220px;height:100%;padding-top:20px;z-index:1000;overflow-y:auto;">
   <ul class="nav nav-pills nav-stacked" style="margin-bottom:20px;">
     <li><a href="{{ '/' | relative_url }}">Home</a></li>
-    {% assign company = page.url | split: '/' | slice: 2, 1 | first %}
-    {% assign branch = page.url | split: '/' | slice: 3, 1 | first %}
+    {% comment %}Detect company and branch from page URL. If not a company page,
+       fall back to an empty sidebar or show a simple navigation.%}
+    {% assign segments = page.url | split: '/' %}
+    {% assign company = segments[2] %}
+    {% assign branch = segments[3] %}
     {% assign sidebar_nav = site.data.navigation.sidebar[company] %}
-    {% if sidebar_nav %}
+    {% if sidebar_nav and sidebar_nav.size > 0 %}
       {% for section in sidebar_nav %}
         <li><a href="{{ section.url | relative_url }}">{{ section.title }}</a></li>
-        {% if section.children %}
-          <ul class="nav nav-pills nav-stacked" style="margin-left:15px;">
-            {% for child in section.children %}
-              <li><a href="{{ child.url | relative_url }}">{{ child.title }}</a></li>
-            {% endfor %}
-          </ul>
+        {% if section.children and section.children.size > 0 %}
+          {% for child in section.children %}
+            <li style="margin-left:15px;"><a href="{{ child.url | relative_url }}">{{ child.title }}</a></li>
+          {% endfor %}
         {% endif %}
       {% endfor %}
+    {% else %}
+      <li><a href="{{ '/' | relative_url }}">Site Home</a></li>
+      <li><a href="{{ '/companies/' | relative_url }}">All Companies (Network)</a></li>
     {% endif %}
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Calculators <span class="caret"></span></a>
