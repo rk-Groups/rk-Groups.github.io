@@ -61,3 +61,66 @@
   </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service - RK Oxygen Gorakhpur</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../../../site-links.js"></script>
+  <script src="details.js"></script>
+</head>
+<body>
+  <div id="topbar-include"></div>
+  <script>fetch('../../../Shared/topbar.html').then(r=>r.text()).then(h=>{document.getElementById('topbar-include').innerHTML=h;});</script>
+  <div class="container">
+    <h1>Terms of Service</h1>
+
+  <div id="company-details"></div>
+  <script>
+    // Dynamically render company details
+    function renderCompanyDetails() {
+      if (!window.companyDetails) return;
+      const partners = companyDetails.partners.map(p => `<li>${p}</li>`).join('');
+      document.getElementById('company-details').innerHTML = `
+        <p><strong>Company:</strong> ${companyDetails.name}<br>
+        <strong>GSTIN:</strong> ${companyDetails.gstin}<br>
+        <strong>Constitution:</strong> ${companyDetails.constitution}<br>
+        <strong>Principal Place of Business:</strong> ${companyDetails.principalPlace}<br>
+        <strong>Additional Place of Business:</strong> ${companyDetails.branchAddress}<br>
+        <strong>Partners:</strong> <ul>${partners}</ul></p>
+      `;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCompanyDetails);
+    } else {
+      renderCompanyDetails();
+    }
+  </script>
+
+    <h2>1. Introduction</h2>
+    <p>By making a purchase or payment through our platform, you agree to these Terms of Service. Please read them carefully before proceeding.</p>
+
+    <h2>2. Services</h2>
+    <p>We supply industrial gases, welding electrodes, and related products. All transactions are subject to availability and confirmation.</p>
+
+    <h2>3. Pricing & Payments</h2>
+    <p>All prices are exclusive of GST unless stated otherwise. Payments must be made in full at the time of purchase via secure payment gateways.</p>
+
+    <h2>4. Delivery</h2>
+    <p>Orders will be processed and delivered as per mutually agreed timelines. Delays due to transport or unforeseen issues will be communicated.</p>
+
+    <h2>5. Refunds & Cancellations</h2>
+    <p>Refunds and cancellations are governed by our <a class="nav-refund" href="#">Refund & Cancellation Policy</a>.</p>
+
+    <h2>6. Limitation of Liability</h2>
+    <p>We are not liable for indirect, incidental, or consequential damages beyond our reasonable control.</p>
+
+    <h2>7. Governing Law</h2>
+    <p>These terms are governed by the laws of India. Disputes fall under the jurisdiction of Lucknow, Uttar Pradesh courts.</p>
+  </div>
+</body>
+</html>

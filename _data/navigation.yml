@@ -3,6 +3,8 @@ main:
     url: /
   - title: Companies
     dropdown:
+      - title: All Companies (Network)
+        url: /companies/
       - title: RK Electrodes
         url: /companies/rk-electrodes/
       - title: RK Oxygen

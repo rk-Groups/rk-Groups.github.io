@@ -65,3 +65,70 @@
   </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund & Cancellation Policy - RK Oxygen Gorakhpur</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../../../site-links.js"></script>
+  <script src="details.js"></script>
+</head>
+<body>
+  <div id="topbar-include"></div>
+  <script>fetch('../../../Shared/topbar.html').then(r=>r.text()).then(h=>{document.getElementById('topbar-include').innerHTML=h;});</script>
+  <div class="container">
+    <h1>Refund & Cancellation Policy</h1>
+
+  <div id="company-details"></div>
+
+    <h2>1. Cancellations</h2>
+    <p>Orders once confirmed cannot be cancelled after dispatch. Pre-dispatch cancellations may be considered on request.</p>
+
+    <h2>2. Refunds</h2>
+    <p>Refunds are only applicable in cases of:</p>
+    <ul>
+      <li>Duplicate payments</li>
+      <li>Non-availability of product/service</li>
+      <li>Approved cancellation before dispatch</li>
+    </ul>
+    <p>Refunds are processed within 7–10 working days via the original payment method.</p>
+
+    <h2>3. No Refund Cases</h2>
+    <p>No refunds will be made for products already delivered/used. Gas cylinders and industrial consumables once supplied are non-returnable.</p>
+
+  <h2>4. Contact</h2>
+  <div id="company-contact"></div>
+  <script>
+    // Dynamically render company details and contact
+    function renderCompanyDetails() {
+      if (!window.companyDetails) return;
+      const partners = companyDetails.partners.map(p => `<li>${p}</li>`).join('');
+      document.getElementById('company-details').innerHTML = `
+        <p><strong>Company:</strong> ${companyDetails.name}<br>
+        <strong>GSTIN:</strong> ${companyDetails.gstin}<br>
+        <strong>Constitution:</strong> ${companyDetails.constitution}<br>
+        <strong>Principal Place of Business:</strong> ${companyDetails.principalPlace}<br>
+        <strong>Additional Place of Business:</strong> ${companyDetails.branchAddress}<br>
+        <strong>Partners:</strong> <ul>${partners}</ul></p>
+      `;
+      document.getElementById('company-contact').innerHTML = `
+        <p>For refunds/cancellations, please contact:<br>
+        <strong>${companyDetails.name}</strong><br>
+        ${companyDetails.principalPlace}<br>
+        Email: <a href="mailto:${companyDetails.contact.email}">${companyDetails.contact.email}</a><br>
+        Phone: <a href="tel:${companyDetails.contact.phone}">${companyDetails.contact.phone}</a></p>
+      `;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCompanyDetails);
+    } else {
+      renderCompanyDetails();
+    }
+  </script>
+  </div>
+</body>
+</html>

@@ -1,3 +1,10 @@
+## Automation & Quality
+- Set up GitHub Actions workflow to automatically check all Markdown links on every push and pull request, ensuring documentation and site links remain healthy.
+## Network & Multi-Company Dashboard
+- Created a central "Our Companies Network" page at `/companies/` listing all companies and branches with quick links and summaries.
+- Added navigation to the network page from the Companies dropdown in the topbar.
+## UI Improvements
+- Moved the "Report Issue" button to the bottom bar, floating at the bottom right corner on all pages for better visibility and accessibility.
 # Completed Tasks for rk-Groups.github.io
 
 This file tracks all completed tasks and milestones for the static site project. Use this as a historical record of progress.
