@@ -12,10 +12,12 @@ rk-electrodes:
       phone: "+91-7355755506"
 
 
+# RK Oxygen main and branches
 rk-oxygen:
   main:
-  lucknow:
     name: "RK Oxygen"
+  lucknow:
+    name: "Lucknow"
     gstin: "09AAAFR4114P1Z3"
     constitution: "Partnership"
     principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
@@ -24,17 +26,23 @@ rk-oxygen:
     contact:
       email: "oxygen.rkgroup@gmail.com"
   gorakhpur:
-    main:
-      name: "RK Oxygen"
-      gstin: "09AAAFR4114P1Z3"
-      constitution: "Partnership"
-      principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
-      partners:
-        - "Ruhil Jaiswal"
-      contact:
-        email: "oxygen.rkgroup@gmail.com"
-        phone: ""
+    name: "Gorakhpur"
+    gstin: "09AAAFR4114P1Z3"
+    constitution: "Partnership"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    partners:
+      - "Ruhil Jaiswal"
     contact:
       email: "oxygen.rkgroup@gmail.com"
-      phone: "+91-7355755506"
+      phone: ""
+
+# RK Palace
+rk-palace:
+  main:
+    name: "RK Palace"
+
+# Sand Creations
+sand-creations:
+  main:
+    name: "Sand Creations"
 # Add more companies/branches below as needed
