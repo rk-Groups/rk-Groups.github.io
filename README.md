@@ -29,9 +29,6 @@ The navigation bar itself is loaded dynamically from `Shared/topbar.html` for tr
 - [Terms of Service](companies/rk-oxygen/gorakhpur/terms.html)
 - [Refund & Cancellation Policy](companies/rk-oxygen/gorakhpur/refund-policy.html)
 
+These pages, as well as the Gorakhpur branch landing page, now display company details (GSTIN, addresses, partners, contact info) dynamically using a shared `details.js` file. Update `companies/rk-oxygen/gorakhpur/details.js` to change company information in one place for all relevant pages.
+
 ---
-**Company:** RK Oxygen  
-**GSTIN:** 09ABAFR4114P1ZX  
-**Principal Place of Business:** 85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh  
-**Additional Place of Business:** K-1A, Sector 15, GIDA, Gorakhpur – 273209, Uttar Pradesh  
-**Partners:** Ruhil Jaiswal, Ajay Kumar Jaiswal, Kushagra Jaiswal

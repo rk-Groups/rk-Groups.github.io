@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RK Groups - Central Landing</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body { background: #f8f9fa; }
+    .center-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+    }
+    .center-logo img {
+      max-width: 180px;
+      margin-bottom: 24px;
+    }
+    .center-logo h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #222;
+    }
+    .center-logo p {
+      color: #555;
+      font-size: 1.2em;
+    }
+    @media (max-width: 600px) {
+      .center-logo h1 { font-size: 1.3em; }
+    }
+    .sidebar { margin-top: 60px; }
+  </style>
+</head>
+<body>
+  <div id="topbar-include"></div>
+  <div id="sidebar-include"></div>
+  <div class="center-logo">
+    <img src="/favicon.ico" alt="RK Groups Logo">
+    <h1>Welcome to RK Groups</h1>
+    <p>Your gateway to calculators, company branches, and more.</p>
+  </div>
+  <div id="bottombar-include"></div>
+  <script>
+    // Load topbar, sidebar, and bottombar dynamically
+    fetch('Shared/topbar.html').then(r=>r.text()).then(h=>{document.getElementById('topbar-include').innerHTML=h;});
+    fetch('Shared/sidebar.html').then(r=>r.text()).then(h=>{document.getElementById('sidebar-include').innerHTML=h;});
+    fetch('Shared/bottombar.html').then(r=>r.text()).then(h=>{document.getElementById('bottombar-include').innerHTML=h;});
+    // Load site-links.js after navs are loaded
+    function loadLinksScript() {
+      var s = document.createElement('script');
+      s.src = 'site-links.js';
+      s.onload = function() {
+        if (typeof setLinksWhenReady === 'function') setLinksWhenReady();
+      };
+      document.body.appendChild(s);
+    }
+    setTimeout(loadLinksScript, 400); // Wait for navs to be injected
+  </script>
+</body>
+</html>

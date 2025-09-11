@@ -39,91 +39,53 @@
         document.body.appendChild(s);
       });
   </script>
-  <div class="jumbotron text-center" style="padding: 2rem 1rem; margin-bottom: 0;">
-    <h2 style="margin-bottom: 0.5em;">Converter for Liquid Oxygen <span class="label label-info">v2.00</span></h2>
-    <p style="font-size: 1.1em; color: #555;">Type a value in any field below</p>
+  <div id="sidebar-include"></div>
+  <div class="center-logo">
+    <img src="/favicon.ico" alt="RK Groups Logo">
+    <h1>Welcome to RK Groups</h1>
+    <p>Your gateway to calculators, company branches, and more.</p>
   </div>
-  <div class="converter-box">
-    <form autocomplete="off">
-      <div class="form-group">
-        <label for="KGS">Kilogram (KGS)</label>
-        <input id="KGS" class="form-control" type="number" min="0" step="any" placeholder="KGS">
-      </div>
-      <div class="form-group">
-        <label for="TON">Ton (TON)</label>
-        <input id="TON" class="form-control" type="number" min="0" step="any" placeholder="TON">
-      </div>
-      <div class="form-group">
-        <label for="SM3">Standard metric cube (sm³)</label>
-        <input id="SM3" class="form-control" type="number" min="0" step="any" placeholder="SM3">
-      </div>
-      <div class="form-group">
-        <label for="LTR">Liters (LTR)</label>
-        <input id="LTR" class="form-control" type="number" min="0" step="any" placeholder="LTR">
-      </div>
-      <div class="form-group">
-        <label for="CYL">Cylinder (CYL) @7 sm³</label>
-        <input id="CYL" class="form-control" type="number" min="0" step="any" placeholder="CYL">
-      </div>
-      <button type="button" class="btn btn-default clear-btn" id="clearBtn">Clear</button>
-    </form>
-  </div>
-  <button onclick="window.scrollTo({top:0,behavior:'smooth'});" id="backToTop" title="Back to Top" style="display:none;position:fixed;bottom:30px;right:30px;z-index:99;" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-chevron-up"></span></button>
-  <footer class="footer text-center" style="margin-top:30px;padding:20px 0;background:#222;color:#eee;">
-    <div>Author: Ruhil Jaiswal</div>
-    <div style="margin-top:8px;">
-  <a class="nav-home" style="color:#eee;margin:0 10px;" href="#">Home</a>|
-  <a class="nav-terms" style="color:#eee;margin:0 10px;" href="#">Terms</a>|
-  <a class="nav-refund" style="color:#eee;margin:0 10px;" href="#">Refund Policy</a>|
-  <a class="nav-gst" style="color:#eee;margin:0 10px;" href="#">GST Calculator</a>|
-  <a class="nav-liq" style="color:#eee;margin:0 10px;" href="#">Liquid Calculator</a>
-    </div>
-  </footer>
-<script>
-  // Prevent infinite update loop by tracking the source
-  let isUpdating = false;
-  const fields = [
-    { id: "KGS", toKgs: v => v, fromKgs: v => v },
-    { id: "TON", toKgs: v => v * 1000, fromKgs: v => v / 1000 },
-    { id: "SM3", toKgs: v => v * 0.77, fromKgs: v => v / 0.77 },
-    { id: "LTR", toKgs: v => v * 0.89, fromKgs: v => v / 0.89 },
-    { id: "CYL", toKgs: v => v * 0.11, fromKgs: v => v / 0.11 }
-  ];
-
-  function updateAllFields(fromId, value) {
-    if (isUpdating) return;
-    isUpdating = true;
-    let kgs = fields.find(f => f.id === fromId).toKgs(Number(value));
-    fields.forEach(f => {
-      const el = document.getElementById(f.id);
-      if (f.id !== fromId) {
-        el.value = kgs ? Math.round(f.fromKgs(kgs) * 100) / 100 : '';
-      }
-    });
-    isUpdating = false;
-  }
-
-  fields.forEach(f => {
-    document.getElementById(f.id).addEventListener('input', function() {
-      updateAllFields(f.id, this.value);
-    });
-  });
-
-  document.getElementById('clearBtn').addEventListener('click', function() {
-    isUpdating = true;
-    fields.forEach(f => document.getElementById(f.id).value = '');
-    isUpdating = false;
-  });
-
-  // Back to Top button logic
-  const backToTop = document.getElementById('backToTop');
-  window.onscroll = function() {
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      backToTop.style.display = 'block';
-    } else {
-      backToTop.style.display = 'none';
+  <div id="bottombar-include"></div>
+  <script>
+    // Load sidebar and bottombar dynamically
+    fetch('Shared/sidebar.html').then(r=>r.text()).then(h=>{document.getElementById('sidebar-include').innerHTML=h;});
+    fetch('Shared/bottombar.html').then(r=>r.text()).then(h=>{document.getElementById('bottombar-include').innerHTML=h;});
+    // Load site-links.js after navs are loaded
+    function loadLinksScript() {
+      var s = document.createElement('script');
+      s.src = 'site-links.js';
+      s.onload = function() {
+        if (typeof setLinksWhenReady === 'function') setLinksWhenReady();
+      };
+      document.body.appendChild(s);
     }
-  };
-</script>
+    setTimeout(loadLinksScript, 400); // Wait for navs to be injected
+  </script>
+  <style>
+    .center-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+    }
+    .center-logo img {
+      max-width: 180px;
+      margin-bottom: 24px;
+    }
+    .center-logo h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #222;
+    }
+    .center-logo p {
+      color: #555;
+      font-size: 1.2em;
+    }
+    @media (max-width: 600px) {
+      .center-logo h1 { font-size: 1.3em; }
+    }
+    .sidebar { margin-top: 60px; }
+  </style>
 </body>
 </html>
