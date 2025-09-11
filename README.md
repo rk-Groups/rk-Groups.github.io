@@ -12,7 +12,7 @@ This is the official website for RK Oxygen, providing tools and information for 
 
 ### Legal & Policy Pages
 - [Terms of Service](terms.html)
-- [Refund & Cancellation Policy](refund-policy.html)
+- [Refund & Cancellation Policy](rkoxygengkp/refund-policy.html)
 
 ---
 **Company:** RK Oxygen  
