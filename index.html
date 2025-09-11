@@ -24,34 +24,15 @@
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" style="border-radius:0;">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNavbar" aria-expanded="false">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-  <a class="navbar-brand nav-home" href="#">RK Oxygen</a>
-      </div>
-      <div class="collapse navbar-collapse" id="mainNavbar">
-        <ul class="nav navbar-nav">
-          <li><a class="nav-home" href="#">Home</a></li>
-          <li><a class="nav-terms" href="#">Terms of Service</a></li>
-          <li><a class="nav-refund" href="#">Refund Policy</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Calculators <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-gst" href="#">GST Calculator</a></li>
-              <li><a class="nav-liq" href="#">Liquid Calculator</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div style="height: 60px;"></div> <!-- Spacer for fixed navbar -->
+  <div id="topbar-include"></div>
+  <script>
+    // Dynamically load the shared topbar
+    fetch('Shared/topbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('topbar-include').innerHTML = html;
+      });
+  </script>
   <div class="jumbotron text-center" style="padding: 2rem 1rem; margin-bottom: 0;">
     <h2 style="margin-bottom: 0.5em;">Converter for Liquid Oxygen <span class="label label-info">v2.00</span></h2>
     <p style="font-size: 1.1em; color: #555;">Type a value in any field below</p>

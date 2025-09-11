@@ -1,12 +1,13 @@
 // site-links.js
 // Centralized link references for navigation and footer
 
-const RKOGKP = "rkoxygengkp"
+
+const RK_OXYGEN_GKP = "companies/rk-oxygen/gorakhpur";
 
 const siteLinks = {
   home: "index.html",
-  terms: `${RKOGKP}/terms.html`,
-  refund: `${RKOGKP}/refund-policy.html`,
+  terms: `${RK_OXYGEN_GKP}/terms.html`,
+  refund: `${RK_OXYGEN_GKP}/refund-policy.html`,
   gst: "Calc/GST/index.html",
   liq: "Calc/LIQ/index.html"
 };
@@ -26,4 +27,17 @@ function setSiteLinks() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', setSiteLinks);
+// If topbar is loaded dynamically, wait for it before setting links
+function setLinksWhenReady() {
+  // Try to set links, and if nav is not present, retry a few times
+  let tries = 0;
+  function trySet() {
+    setSiteLinks();
+    // If nav links are present, we're done
+    if (document.querySelector('.nav-home')) return;
+    if (++tries < 10) setTimeout(trySet, 100);
+  }
+  trySet();
+}
+
+document.addEventListener('DOMContentLoaded', setLinksWhenReady);

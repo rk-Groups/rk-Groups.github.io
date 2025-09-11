@@ -9,7 +9,17 @@
 <script src="../../site-links.js"></script>
 </head>
 
+
 <body>
+  <div id="topbar-include"></div>
+  <script>
+    // Dynamically load the shared topbar
+    fetch('../../Shared/topbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('topbar-include').innerHTML = html;
+      });
+  </script>
 
   <div class="jumbotron text-center">
     <h2>Calculator for taxes and base rates</h2>

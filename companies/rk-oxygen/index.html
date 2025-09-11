@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RK Oxygen</title>
+  <script src="../../site-links.js"></script>
+</head>
+<body>
+  <div id="topbar-include"></div>
+  <script>fetch('../../Shared/topbar.html').then(r=>r.text()).then(h=>{document.getElementById('topbar-include').innerHTML=h;});</script>
+  <div class="container">
+    <h1>RK Oxygen</h1>
+    <p>Welcome to RK Oxygen. Choose a branch:</p>
+    <ul>
+      <li><a href="lucknow/index.html">Lucknow Branch</a></li>
+      <li><a href="gorakhpur/index.html">Gorakhpur Branch</a></li>
+    </ul>
+  </div>
+</body>
+</html>
