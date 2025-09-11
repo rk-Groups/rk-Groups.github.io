@@ -5,13 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RK Oxygen - Gorakhpur Branch</title>
   <script src="../../../site-links.js"></script>
+  <script src="details.js"></script>
 </head>
 <body>
   <div id="topbar-include"></div>
   <script>fetch('../../../Shared/topbar.html').then(r=>r.text()).then(h=>{document.getElementById('topbar-include').innerHTML=h;});</script>
   <div class="container">
-    <h1>RK Oxygen - Gorakhpur Branch</h1>
-    <p>Welcome to the Gorakhpur branch of RK Oxygen. Add your content here.</p>
+    <h1 id="company-name">RK Oxygen - Gorakhpur Branch</h1>
+    <div id="company-details"></div>
   </div>
+  <script>
+    // Dynamically render company details
+    function renderCompanyDetails() {
+      if (!window.companyDetails) return;
+      document.getElementById('company-name').textContent = `${companyDetails.name} - ${companyDetails.branch} Branch`;
+      const partners = companyDetails.partners.map(p => `<li>${p}</li>`).join('');
+      document.getElementById('company-details').innerHTML = `
+        <ul style="list-style:none;padding:0;">
+          <li><strong>GSTIN:</strong> ${companyDetails.gstin}</li>
+          <li><strong>Constitution:</strong> ${companyDetails.constitution}</li>
+          <li><strong>Principal Place of Business:</strong> ${companyDetails.principalPlace}</li>
+          <li><strong>Branch Address:</strong> ${companyDetails.branchAddress}</li>
+          <li><strong>Partners:</strong> <ul>${partners}</ul></li>
+          <li><strong>Contact Email:</strong> <a href="mailto:${companyDetails.contact.email}">${companyDetails.contact.email}</a></li>
+          <li><strong>Contact Phone:</strong> <a href="tel:${companyDetails.contact.phone}">${companyDetails.contact.phone}</a></li>
+        </ul>
+      `;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCompanyDetails);
+    } else {
+      renderCompanyDetails();
+    }
+  </script>
 </body>
 </html>

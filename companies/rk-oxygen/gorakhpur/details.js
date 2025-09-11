@@ -1,0 +1,19 @@
+
+// Company details for RK Oxygen - Gorakhpur Branch
+const companyDetails = {
+	name: "RK Oxygen",
+	branch: "Gorakhpur",
+	gstin: "09ABAFR4114P1ZX",
+	constitution: "Partnership",
+	principalPlace: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh",
+	branchAddress: "K-1A, Sector 15, GIDA, Gorakhpur – 273209, Uttar Pradesh",
+	partners: [
+		"Ruhil Jaiswal",
+		"Ajay Kumar Jaiswal",
+		"Kushagra Jaiswal"
+	],
+	contact: {
+		email: "oxygen.rkgroup@gmail.com",
+		phone: "+91-7355755506"
+	}
+};

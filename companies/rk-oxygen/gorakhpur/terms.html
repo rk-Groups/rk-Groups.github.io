@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Terms of Service - RK Oxygen Gorakhpur</title>
   <script src="../../../site-links.js"></script>
+  <script src="details.js"></script>
 </head>
 <body>
   <div id="topbar-include"></div>
@@ -12,12 +13,27 @@
   <div class="container">
     <h1>Terms of Service</h1>
 
-    <p><strong>Company:</strong> RK Oxygen<br>
-    <strong>GSTIN:</strong> 09ABAFR4114P1ZX<br>
-    <strong>Constitution:</strong> Partnership<br>
-    <strong>Principal Place of Business:</strong> 85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh<br>
-    <strong>Additional Place of Business:</strong> K-1A, Sector 15, GIDA, Gorakhpur – 273209, Uttar Pradesh<br>
-    <strong>Partners:</strong> Ruhil Jaiswal, Ajay Kumar Jaiswal, Kushagra Jaiswal</p>
+  <div id="company-details"></div>
+  <script>
+    // Dynamically render company details
+    function renderCompanyDetails() {
+      if (!window.companyDetails) return;
+      const partners = companyDetails.partners.map(p => `<li>${p}</li>`).join('');
+      document.getElementById('company-details').innerHTML = `
+        <p><strong>Company:</strong> ${companyDetails.name}<br>
+        <strong>GSTIN:</strong> ${companyDetails.gstin}<br>
+        <strong>Constitution:</strong> ${companyDetails.constitution}<br>
+        <strong>Principal Place of Business:</strong> ${companyDetails.principalPlace}<br>
+        <strong>Additional Place of Business:</strong> ${companyDetails.branchAddress}<br>
+        <strong>Partners:</strong> <ul>${partners}</ul></p>
+      `;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderCompanyDetails);
+    } else {
+      renderCompanyDetails();
+    }
+  </script>
 
     <h2>1. Introduction</h2>
     <p>By making a purchase or payment through our platform, you agree to these Terms of Service. Please read them carefully before proceeding.</p>
