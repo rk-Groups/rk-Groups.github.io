@@ -3,10 +3,10 @@ main:
     url: /
   - title: Companies
     dropdown:
-      - title: RK Oxygen
-        url: /companies/rk-oxygen/gorakhpur/
       - title: RK Electrodes
         url: /companies/rk-electrodes/
+      - title: RK Oxygen
+        url: /companies/rk-oxygen/gorakhpur/
       - title: RK Palace
         url: /companies/rk-palace/
       - title: Sand Creations
