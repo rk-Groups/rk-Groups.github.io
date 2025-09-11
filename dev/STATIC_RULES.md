@@ -7,10 +7,11 @@ This repository is a static website hosted on GitHub Pages, fully managed by Jek
 3. **No Legacy HTML**: All content must be in Markdown (`.md`) or Jekyll-supported formats. Do not add or restore `.html` files for main content pages.
 4. **No Build Step Required**: All files should be ready to serve as-is. GitHub Pages will build Jekyll sites automatically.
 5. **Legal & Policy Pages**: Place legal documents (e.g., Terms, Refund Policy) under the appropriate company/branch folder (e.g., `companies/rk-oxygen/gorakhpur/terms.md`).
-6. **Navigation**: All navigation and footer links should be managed in `_data/navigation.yml` and included via Jekyll layouts and includes. The navigation bar, sidebar, and footer are single-source-of-truth includes for the entire site.
-7. **No Sensitive Data**: Do not include any private or sensitive information in the repository.
-8. **README Maintenance**: Keep the `README.md` up to date with structure, navigation, and usage instructions.
-9. **Development Docs**: All development documentation (e.g., TODO, rules) must be kept in the `dev/` folder.
+6. **Navigation**: All navigation, sidebar, and footer links should be managed in `_data/navigation.yml` and included via Jekyll layouts and includes. The navigation bar, sidebar, and footer are single-source-of-truth includes for the entire site. Sidebar must show all subpages for the current company/branch.
+7. **Report Issue**: Every page must have a "Report Issue" button linking to the GitHub issues page.
+8. **No Sensitive Data**: Do not include any private or sensitive information in the repository.
+9. **README Maintenance**: Keep the `README.md` up to date with structure, navigation, and usage instructions.
+10. **Development Docs**: All development documentation (e.g., TODO, rules, completed) must be kept in the `dev/` folder.
 
 ---
 

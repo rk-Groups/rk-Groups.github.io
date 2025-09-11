@@ -1,0 +1,32 @@
+name: Update Issues List
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install requests
+        run: pip install requests
+      - name: Fetch open issues and update dev/issues.md
+        env:
+          REPO: rk-Groups/rk-Groups.github.io
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python .github/scripts/update_issues_md.py
+      - name: Commit and push dev/issues.md
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add dev/issues.md
+          git commit -m "chore: update dev/issues.md with latest open issues [auto]" || echo "No changes to commit"
+          git push

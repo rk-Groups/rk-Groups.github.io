@@ -32,4 +32,4 @@ This file tracks pending and future tasks for the static site. Completed tasks h
 
 ---
 
-**Last updated:** September 12, 2025
+**Last updated:** September 12, 2025 (navigation, sidebar, and report issue button implemented)

@@ -8,8 +8,13 @@ This file tracks all completed tasks and milestones for the static site project.
 - Migrated all content to Jekyll with Markdown and YAML front matter.
 - Centralized navigation using `_data/navigation.yml` and Jekyll includes.
 - Removed all legacy and duplicate HTML files (site is now fully Jekyll-managed).
-- Moved development docs (`TODO.md`, `STATIC_RULES.md`) to the `dev/` folder.
+- Moved development docs (`TODO.md`, `STATIC_RULES.md`, `COMPLETED.md`) to the `dev/` folder.
 - Updated `README.md` and all references to reflect new structure.
+
+## Navigation & User Experience
+- Topbar "Companies" dropdown for fast switching between companies.
+- Sidebar dynamically lists all subpages for the current company/branch.
+- "Report Issue" button on every page linking to GitHub issues.
 
 ## Navigation & UI Consistency
 - Used a shared Bootstrap navigation bar, sidebar, and bottombar via Jekyll includes (`_includes/topbar.html`, etc.).
