@@ -1,0 +1,11 @@
+main:
+  - title: Home
+    url: /
+  - title: Terms of Service
+    url: /companies/rk-oxygen/gorakhpur/terms.html
+  - title: Refund Policy
+    url: /companies/rk-oxygen/gorakhpur/refund-policy.html
+  - title: GST Calculator
+    url: /Calc/GST/index.html
+  - title: Liquid Calculator
+    url: /Calc/LIQ/index.html

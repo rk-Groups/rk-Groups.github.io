@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body { background: #f8f9fa; }
+    .sidebar { margin-top: 60px; }
+    .center-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+    }
+    .center-logo img {
+      max-width: 180px;
+      margin-bottom: 24px;
+    }
+    .center-logo h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #222;
+    }
+    .center-logo p {
+      color: #555;
+      font-size: 1.2em;
+    }
+    @media (max-width: 600px) {
+      .center-logo h1 { font-size: 1.3em; }
+    }
+  </style>
+</head>
+<body>
+  {% include topbar.html %}
+  {% include sidebar.html %}
+  <div class="container" style="margin-left:230px;">
+    {{ content }}
+  </div>
+  {% include bottombar.html %}
+</body>
+</html>

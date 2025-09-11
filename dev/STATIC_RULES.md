@@ -1,0 +1,3 @@
+# STATIC RULES
+
+...existing content from STATIC_RULES.md...

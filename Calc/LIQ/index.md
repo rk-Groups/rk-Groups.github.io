@@ -1,0 +1,38 @@
+---
+layout: default
+title: Liquid Oxygen Converter
+---
+
+<div class="jumbotron text-center">
+  <h2>Converter for liquid oxygen Version 2.00</h2>
+</div>
+<div class="text-center">
+  <p>Type a value in any of the following:</p>
+  <p>
+    <label>Kilogram (KGS)</label>
+    <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value, 1)">
+  </p>
+  <p>
+    <label>Ton (TON)</label>
+    <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, 1000)">
+  </p>
+  <p>
+    <label>Standard metric cube (sm3)</label>
+    <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 1/0.77)">
+  </p>
+  <p>
+    <label>Liters (ltr)</label>
+    <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
+  </p>
+</div>
+<script>
+function Converter(unit, factor) {
+  KGConverter(unit * factor);
+}
+function KGConverter(kgs) {
+  document.getElementById("KGS").value = Math.round(100 * kgs * 1) / 100;
+  document.getElementById("TON").value = Math.round(kgs) / 1000;
+  document.getElementById("SM3").value = Math.round(100 * kgs * 0.77) / 100;
+  document.getElementById("LTR").value = Math.round(100 * kgs * 0.89) / 100;
+}
+</script>
