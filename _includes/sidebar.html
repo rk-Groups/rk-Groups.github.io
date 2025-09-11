@@ -1,8 +1,8 @@
 <div class="sidebar navbar-inverse" style="position:fixed;top:60px;left:0;width:220px;height:100%;padding-top:20px;z-index:1000;overflow-y:auto;">
   <ul class="nav nav-pills nav-stacked" style="margin-bottom:20px;">
     <li><a href="{{ '/' | relative_url }}">Home</a></li>
-    {% comment %}Detect company and branch from page URL. If not a company page,
-       fall back to an empty sidebar or show a simple navigation.%}
+   {% comment %}Detect company and branch from page URL. If not a company page,
+     fall back to an empty sidebar or show a simple navigation.{% endcomment %}
     {% assign segments = page.url | split: '/' %}
     {% assign company = segments[2] %}
     {% assign branch = segments[3] %}
