@@ -1,70 +1,95 @@
 <!DOCTYPE html>
-<html>
-<title>RK Group Converter</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RK Group Converter</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body { background: #f8f9fa; }
+    .converter-box {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 30px 30px 20px 30px;
+    }
+    .form-group label { font-weight: 500; }
+    .clear-btn { margin-top: 10px; }
+    .footer { margin-top: 30px; color: #888; }
+  </style>
 </head>
-
 <body>
-
-  <div class="jumbotron text-center">
-    <h2>Converter for liquid oxygen Version 2.00</h2>
+  <div class="jumbotron text-center" style="padding: 2rem 1rem; margin-bottom: 0;">
+    <h2 style="margin-bottom: 0.5em;">Converter for Liquid Oxygen <span class="label label-info">v2.00</span></h2>
+    <p style="font-size: 1.1em; color: #555;">Type a value in any field below</p>
   </div>
-  <div class="text-center">
-    <p>Type a value in any of the following:</p>
-
-    <p>
-      <label>Kilogram (KGS)</label>
-      <input id="KGS" type="number" placeholder="KGS" oninput="Converter(this.value, 1)">
-    </p>
-
-    <p>
-      <label>Ton (TON)</label>
-      <input id="TON" type="number" placeholder="TON" oninput="Converter(this.value, 1000)">
-    </p>
-
-    <p>
-      <label>Standard metric cube (sm3)</label>
-      <input id="SM3" type="number" placeholder="SM3" oninput="Converter(this.value, 1/0.77)">
-    </p>
-
-    <p>
-      <label value=>Liters (ltr)</label>
-      <input id="LTR" type="number" placeholder="LTR" oninput="Converter(this.value, 1/.89)">
-    </p>
-
-    <p>
-      <label value=>Cylinder (cyl) @7 sm3</label>
-      <input id="CYL" type="number" placeholder="CYL" oninput="Converter(this.value, 1/.11)">
-    </p>
-
+  <div class="converter-box">
+    <form autocomplete="off">
+      <div class="form-group">
+        <label for="KGS">Kilogram (KGS)</label>
+        <input id="KGS" class="form-control" type="number" min="0" step="any" placeholder="KGS">
+      </div>
+      <div class="form-group">
+        <label for="TON">Ton (TON)</label>
+        <input id="TON" class="form-control" type="number" min="0" step="any" placeholder="TON">
+      </div>
+      <div class="form-group">
+        <label for="SM3">Standard metric cube (sm³)</label>
+        <input id="SM3" class="form-control" type="number" min="0" step="any" placeholder="SM3">
+      </div>
+      <div class="form-group">
+        <label for="LTR">Liters (LTR)</label>
+        <input id="LTR" class="form-control" type="number" min="0" step="any" placeholder="LTR">
+      </div>
+      <div class="form-group">
+        <label for="CYL">Cylinder (CYL) @7 sm³</label>
+        <input id="CYL" class="form-control" type="number" min="0" step="any" placeholder="CYL">
+      </div>
+      <button type="button" class="btn btn-default clear-btn" id="clearBtn">Clear</button>
+    </form>
   </div>
-
-  <hr>
-
-  <div class="text-center">
-    Author Ruhil Jaiswal
+  <div class="footer text-center">
+    Author: Ruhil Jaiswal
   </div>
-</body>
-
 <script>
+  // Prevent infinite update loop by tracking the source
+  let isUpdating = false;
+  const fields = [
+    { id: "KGS", toKgs: v => v, fromKgs: v => v },
+    { id: "TON", toKgs: v => v * 1000, fromKgs: v => v / 1000 },
+    { id: "SM3", toKgs: v => v * 0.77, fromKgs: v => v / 0.77 },
+    { id: "LTR", toKgs: v => v * 0.89, fromKgs: v => v / 0.89 },
+    { id: "CYL", toKgs: v => v * 0.11, fromKgs: v => v / 0.11 }
+  ];
 
-  function Converter(unit, factor) {
-    KGConverter(unit * factor);
+  function updateAllFields(fromId, value) {
+    if (isUpdating) return;
+    isUpdating = true;
+    let kgs = fields.find(f => f.id === fromId).toKgs(Number(value));
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (f.id !== fromId) {
+        el.value = kgs ? Math.round(f.fromKgs(kgs) * 100) / 100 : '';
+      }
+    });
+    isUpdating = false;
   }
 
-  function KGConverter(kgs) {
-    document.getElementById("KGS").value = Math.round(100 * kgs * 1) / 100;
-    document.getElementById("TON").value = Math.round(kgs) / 1000;
-    document.getElementById("SM3").value = Math.round(100 * kgs * 0.77) / 100;
-    document.getElementById("LTR").value = Math.round(100 * kgs * 0.89) / 100;
-    document.getElementById("CYL").value = Math.round(100 * kgs * 0.11) / 100;
-  }
+  fields.forEach(f => {
+    document.getElementById(f.id).addEventListener('input', function() {
+      updateAllFields(f.id, this.value);
+    });
+  });
 
+  document.getElementById('clearBtn').addEventListener('click', function() {
+    isUpdating = true;
+    fields.forEach(f => document.getElementById(f.id).value = '');
+    isUpdating = false;
+  });
 </script>
-
-
+</body>
 </html>
