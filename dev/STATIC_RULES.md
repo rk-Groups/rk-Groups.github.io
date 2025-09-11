@@ -5,7 +5,8 @@
   HTML; use Markdown only.
 2. Set up and maintain automated checks for broken links in the Jekyll build process
   (e.g., GitHub Actions).
-3. Use a pre-commit linter for Markdown and basic formatting to ensure code quality.
+3. Linting is optional. Hybrid Markdown/HTML is allowed for interactive calculators and advanced layouts. No markdownlint or pre-commit hook is required.
+11. **CI Caching**: Use CI caching in GitHub Actions workflows to speed up builds and reduce dependency download times.
 4. Add onboarding notes for new contributors in the `dev/` folder.
 5. Periodically review navigation and company structure for consistency.
 6. Use Jekyll data files for company details and navigation wherever possible for
@@ -41,10 +42,11 @@ Please follow these rules:
 9. **README Maintenance**: Keep the `README.md` up to date with structure, navigation,
   and usage instructions.
 10. **Jekyll Data Access**: When accessing data from Jekyll data files (e.g.,
-   `_data/companies.yml`), always use dot notation in Liquid assign statements (e.g.,
-   `{% assign details = site.data.companies.rk-oxygen.main %}`) instead of
-   single-quoted keys. This avoids markdownlint MD052 errors and ensures compatibility
-   with markdown processors.
+  `_data/companies.yml`), always use dot notation in Liquid assign statements (e.g.,
+  `{% assign details = site.data.companies.rk-oxygen.main %}`). Single-quoted keys are discouraged for compatibility and maintainability.
+## Hybrid Content Policy
+
+Hybrid Markdown/HTML is allowed for interactive calculators and advanced layouts (e.g., see `Calc/LIQ/index.md`). Linting is not enforced. All content must remain static and compatible with GitHub Pages/Jekyll.
 
 ---
 

@@ -60,12 +60,13 @@ Use this as a historical record of progress.
 - Dynamically rendered company details (GSTIN, addresses, partners, contact info)
   on all legal/policy and branch landing pages.
 
-## Link Integrity & Pre-commit Checks
 
-- Used `check-hrefs.js` to validate all internal links before commit (for legacy HTML;
-  not needed for Jekyll-generated links).
-- Set up pre-commit linter for Markdown and basic formatting using pre-commit and
-  markdownlint.
+## Hybrid Calculator, Linting & CI Improvements
+- Added hybrid interactive/pure-Markdown calculator for liquid conversions (`Calc/LIQ/index.md`).
+- Hybrid Markdown/HTML content is now allowed for interactive calculators and advanced layouts.
+- Removed markdownlint and pre-commit hook (hybrid Markdown/HTML now allowed).
+- Added CI caching to GitHub Actions workflow for faster, more reliable builds.
+- Pinned Ruby version for workflow compatibility.
 
 ## Legal/Policy Page Consistency
 

@@ -1,25 +1,17 @@
+## TODO
 
-# TODO for rk-Groups.github.io
+### Ongoing
+- [ ] Keep documentation up to date as features change
+- [ ] Monitor GitHub Actions for build failures or dependency issues
+- [ ] Periodically audit legal/policy pages for compliance
 
-This file tracks pending and future tasks for the static site. Completed tasks have been
-moved to `COMPLETED.md` in the `dev/` folder.
+### Backlog
+- [ ] Add more calculators (e.g., medical O₂, industrial N₂)
+- [ ] Improve accessibility for all interactive content
+- [ ] Add more test coverage for calculators and navigation
+- [ ] Explore further CI optimizations (e.g., parallel jobs, artifact caching)
 
 ---
-
-## Maintenance & Best Practices
-
-### High Priority
-
-- [x] Keep legal/policy pages up to date in each company/branch folder. (All legacy
-      HTML removed, only Markdown remains)
-- [x] Set up automated checks for broken links in the Jekyll build process.
-- [x] Add pre-commit linter for Markdown and basic formatting.
-
-### Medium Priority
-
-- [ ] Add onboarding notes for new contributors in `dev/`.
-- [ ] Periodically review navigation and company structure for consistency.
-- [ ] Use Jekyll data files for company details and navigation where possible.
 - [x] Pre-commit link checker (`check-hrefs.js`) is now disabled in the hook; use only if
       needed for legacy HTML. Markdown link checking is automated via GitHub Actions.
 - [ ] Document the process for adding a new company/branch (step-by-step guide).
