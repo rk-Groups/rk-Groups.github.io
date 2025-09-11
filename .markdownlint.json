@@ -1,0 +1,11 @@
+{
+  "default": true,
+  "MD013": { "line_length": 100 },
+  "MD024": false,
+  "overrides": [
+    {
+      "files": ["Calc/LIQ/index.md"],
+      "MD033": false
+    }
+  ]
+}
