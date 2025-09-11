@@ -1,4 +1,21 @@
+
 title: RK Groups
 baseurl: ""
 url: "https://rk-groups.github.io"
 theme: null
+
+# Plugins
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# SEO tag config (optional, can be expanded)
+description: "Multi-company static site for RK Groups with calculators, legal pages, and more."
+author: "RK Groups"
+
+# Sitemap config (optional, can be expanded)
+sitemap:
+  exclude:
+    - /dev/
+    - /README.md
