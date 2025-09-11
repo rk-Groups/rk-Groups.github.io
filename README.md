@@ -3,15 +3,25 @@
 
 ## Overview
 
-This is the official website for RK Oxygen, providing tools and information for industrial gas and related services.
+This is the official website for RK Oxygen, providing tools, calculators, and company information for industrial gas and related services.
 
-### Features
-- **Liquid Oxygen Converter**: Instantly convert between kilograms, tons, standard metric cubes (sm³), liters, and cylinders.
-- **GST and Liquid Calculators**: Find calculators for GST and liquid conversions in the `Calc/` directory.
-- **Company Information**: Details about RK Oxygen, its partners, and business locations.
+## Features
+- **Liquid Oxygen Converter**: Instantly convert between kilograms, tons, standard metric cubes (sm³), liters, and cylinders on the homepage.
+- **GST Calculator**: Located at [`Calc/GST/index.html`](Calc/GST/index.html)
+- **Liquid Calculator**: Located at [`Calc/LIQ/index.html`](Calc/LIQ/index.html)
+- **Modern Navigation**: Fixed top navigation bar for easy access to all pages and calculators.
+- **Legal & Policy Pages**: Terms and refund policy are easily accessible from the navigation bar.
 
-### Legal & Policy Pages
-- [Terms of Service](terms.html)
+## Navigation
+The site features a fixed navigation bar with quick links to:
+- Home
+- Terms of Service
+- Refund & Cancellation Policy
+- GST Calculator
+- Liquid Calculator
+
+## Legal & Policy Pages
+- [Terms of Service](rkoxygengkp/terms.html)
 - [Refund & Cancellation Policy](rkoxygengkp/refund-policy.html)
 
 ---
