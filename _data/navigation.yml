@@ -7,8 +7,10 @@ main:
         url: /companies/
       - title: RK Electrodes
         url: /companies/rk-electrodes/
-      - title: RK Oxygen
+      - title: RK Oxygen (Gorakhpur)
         url: /companies/rk-oxygen/gorakhpur/
+      - title: RK Oxygen (Lucknow)
+        url: /companies/rk-oxygen/lucknow/
       - title: RK Palace
         url: /companies/rk-palace/
       - title: Sand Creations
