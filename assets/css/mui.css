@@ -1,3 +1,59 @@
+/* MUI Bottombar */
+.mui-bottombar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--panel-bg);
+  color: var(--text);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.10);
+  border-top: 1px solid var(--panel-border);
+  z-index: 2002;
+  font-size: 1em;
+}
+.mui-bottombar-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  text-align: center;
+}
+.mui-bottombar-links {
+  margin-left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.mui-bottombar-links a {
+  color: var(--text);
+  margin: 0 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.mui-bottombar-links a:hover, .mui-bottombar-links a:focus {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.mui-divider {
+  color: var(--divider);
+  margin: 0 2px;
+  user-select: none;
+}
+@media (max-width: 600px) {
+  .mui-bottombar-content {
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 4px;
+  }
+  .mui-bottombar-links {
+    margin-left: 0;
+    gap: 0.2em;
+  }
+}
 /* Material UI Theme Variables */
 body.light-mode {
   --mui-radius: 8px;
@@ -314,10 +370,6 @@ a.mui-disabled, a[aria-disabled="true"] {
 
 /* Theme Toggle */
 .theme-toggle {
-  position: fixed;
-  top: 16px;
-  right: 24px;
-  z-index: 2001;
   background: var(--panel-bg);
   color: var(--text);
   border: none;
@@ -332,6 +384,7 @@ a.mui-disabled, a[aria-disabled="true"] {
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   outline: none;
+  margin-left: auto;
 }
 .theme-toggle:hover, .theme-toggle:focus {
   background: #e0e0e0;
@@ -395,4 +448,5 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  gap: 12px;
 }

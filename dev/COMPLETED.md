@@ -6,58 +6,41 @@ Use this as a historical record of progress.
 
 ---
 
-## Automation & Quality
+## 2025 Milestones
 
-- Set up GitHub Actions workflow to automatically check all Markdown links on every
-  push and pull request, ensuring documentation and site links remain healthy.
-
-## Network & Multi-Company Dashboard
-
-- Created a central "Our Companies Network" page at `/companies/` listing all
-  companies and branches with quick links and summaries.
-- Added navigation to the network page from the Companies dropdown in the topbar.
-
-## UI Improvements
-
-- Moved the "Report Issue" button to the bottom bar, floating at the bottom right
-  corner on all pages for better visibility and accessibility.
-
-## Jekyll Migration & Cleanup
-
-- Migrated all content to Jekyll with Markdown and YAML front matter.
-- Centralized navigation using `_data/navigation.yml` and Jekyll includes.
-- Removed all legacy and duplicate HTML files (site is now fully Jekyll-managed).
-- Moved development docs (`TODO.md`, `STATIC_RULES.md`, `COMPLETED.md`) to the
-  `dev/` folder.
-- Updated `README.md` and all references to reflect new structure.
-
-## Navigation & User Experience
-
-- Topbar "Companies" dropdown for fast switching between companies.
-- Sidebar dynamically lists all subpages for the current company/branch.
-- "Report Issue" button on every page linking to GitHub issues.
-
-## Navigation & UI Consistency
-
-- Used a shared Bootstrap navigation bar, sidebar, and bottombar via Jekyll includes
-  (`_includes/topbar.html`, etc.).
-- Centralized all navigation links in `_data/navigation.yml` for global updates.
-- All pages use the Jekyll layout system for consistent UI.
-- Navigation and UI are now consistent across all company/branch and calculator pages.
-
-## Company/Branch Structure
-
+- Migrated all content to Jekyll with Markdown and YAML front matter
+- Centralized navigation using `_data/navigation.yml` and Jekyll includes
+- Removed all legacy and duplicate HTML files (site is now fully Jekyll-managed)
+- Moved development docs (`TODO.md`, `STATIC_RULES.md`, `COMPLETED.md`) to the `dev/` folder
+- Updated `README.md` and all references to reflect new structure
+- Set up GitHub Actions workflow to automatically check all Markdown links on every push and pull request
+- Created a central "Our Companies Network" page at `/companies/` listing all companies and branches
+- Added navigation to the network page from the Companies dropdown in the topbar
+- Moved the "Report Issue" button to the bottom bar, floating at the bottom right corner on all pages
+- Topbar "Companies" dropdown for fast switching between companies
+- Sidebar dynamically lists all subpages for the current company/branch
+- "Report Issue" button on every page linking to GitHub issues
+- Used a shared navigation bar, sidebar, and bottombar via Jekyll includes
+- Centralized all navigation links in `_data/navigation.yml` for global updates
+- All pages use the Jekyll layout system for consistent UI
+- Navigation and UI are now consistent across all company/branch and calculator pages
 - Organized all company content under `companies/` with a subfolder for each branch
-  (e.g., `companies/rk-oxygen/gorakhpur`).
-- Placed legal/policy pages (`terms.md`, `refund-policy.md`) in the correct branch
-  folder.
-- Each branch folder has its own `index.md` as a landing page.
-- Removed legacy folders (e.g., `rkoxygengkp`).
-
-## Dynamic Company Details
-
-- Stored company/branch details in a single `details.js` file per branch.
+- Placed legal/policy pages (`terms.md`, `refund-policy.md`) in the correct branch folder
+- Each branch folder has its own `index.md` as a landing page
+- Removed legacy folders (e.g., `rkoxygengkp`)
+- Stored company/branch details in a single `details.js` file per branch
 - Dynamically rendered company details (GSTIN, addresses, partners, contact info)
+- Migrated all UI to Material UI-inspired design system (mui.css)
+- Removed Bootstrap and all related dependencies
+- Implemented dark/light theme toggle using CSS variables and prefers-color-scheme
+- Moved all reusable and utility styles to `assets/css/mui.css`
+- Ensured all custom classes used in the layout are defined in `mui.css`
+- Added accessibility, responsive, and utility helpers to `mui.css`
+- Added SEO meta tags and plugin
+
+---
+
+**Last updated:** September 12, 2025
   on all legal/policy and branch landing pages.
 
 
