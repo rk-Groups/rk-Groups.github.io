@@ -24,25 +24,33 @@
 </head>
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-default" style="margin-bottom:0; border-radius:0;">
+  <nav class="navbar navbar-inverse navbar-fixed-top" style="border-radius:0;">
     <div class="container-fluid">
       <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNavbar" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" href="index.html">RK Oxygen</a>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="terms.html">Terms of Service</a></li>
-        <li><a href="rkoxygengkp/refund-policy.html">Refund Policy</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Calculators <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="Calc/GST/index.html">GST Calculator</a></li>
-            <li><a href="Calc/LIQ/index.html">Liquid Calculator</a></li>
-          </ul>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rkoxygengkp/terms.html">Terms of Service</a></li>
+          <li><a href="rkoxygengkp/refund-policy.html">Refund Policy</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Calculators <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="Calc/GST/index.html">GST Calculator</a></li>
+              <li><a href="Calc/LIQ/index.html">Liquid Calculator</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
+  <div style="height: 60px;"></div> <!-- Spacer for fixed navbar -->
   <div class="jumbotron text-center" style="padding: 2rem 1rem; margin-bottom: 0;">
     <h2 style="margin-bottom: 0.5em;">Converter for Liquid Oxygen <span class="label label-info">v2.00</span></h2>
     <p style="font-size: 1.1em; color: #555;">Type a value in any field below</p>
@@ -72,9 +80,17 @@
       <button type="button" class="btn btn-default clear-btn" id="clearBtn">Clear</button>
     </form>
   </div>
-  <div class="footer text-center">
-    Author: Ruhil Jaiswal
-  </div>
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'});" id="backToTop" title="Back to Top" style="display:none;position:fixed;bottom:30px;right:30px;z-index:99;" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-chevron-up"></span></button>
+  <footer class="footer text-center" style="margin-top:30px;padding:20px 0;background:#222;color:#eee;">
+    <div>Author: Ruhil Jaiswal</div>
+    <div style="margin-top:8px;">
+      <a href="index.html" style="color:#eee;margin:0 10px;">Home</a>|
+      <a href="rkoxygengkp/terms.html" style="color:#eee;margin:0 10px;">Terms</a>|
+      <a href="rkoxygengkp/refund-policy.html" style="color:#eee;margin:0 10px;">Refund Policy</a>|
+      <a href="Calc/GST/index.html" style="color:#eee;margin:0 10px;">GST Calculator</a>|
+      <a href="Calc/LIQ/index.html" style="color:#eee;margin:0 10px;">Liquid Calculator</a>
+    </div>
+  </footer>
 <script>
   // Prevent infinite update loop by tracking the source
   let isUpdating = false;
@@ -110,6 +126,16 @@
     fields.forEach(f => document.getElementById(f.id).value = '');
     isUpdating = false;
   });
+
+  // Back to Top button logic
+  const backToTop = document.getElementById('backToTop');
+  window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      backToTop.style.display = 'block';
+    } else {
+      backToTop.style.display = 'none';
+    }
+  };
 </script>
 </body>
 </html>
