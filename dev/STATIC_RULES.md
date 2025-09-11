@@ -1,3 +1,6 @@
+## Iconography
+
+- Use Material UI icons (Material Icons CDN) for all icons throughout the website for consistency and modern appearance.
 
 # Best Practices
 
@@ -77,6 +80,13 @@ companies/
     terms.md
     refund-policy.md
 ```
+
+
+## UI & Navigation Rules
+
+- No static HTML main pages—use only Jekyll Markdown for all company/branch landing pages.
+- Sidebar and topbar must be visually aligned; avoid extra spacers or mismatched offsets.
+- Dropdowns for companies must list all major branches as separate options if needed.
 
 This ensures clear separation and maintainability for all company and branch content.
 

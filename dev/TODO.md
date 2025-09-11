@@ -4,16 +4,13 @@
 - [ ] Keep documentation up to date as features change
 - [ ] Monitor GitHub Actions for build failures or dependency issues
 - [ ] Periodically audit legal/policy pages for compliance
+- [ ] Review sidebar/topbar alignment after manual edits
+- [ ] Maintain SLSA/build provenance if required by workflow
 
 ### Backlog
-- [ ] Add more calculators (e.g., medical O₂, industrial N₂)
 - [ ] Improve accessibility for all interactive content
 - [ ] Add more test coverage for calculators and navigation
 - [ ] Explore further CI optimizations (e.g., parallel jobs, artifact caching)
-
----
-- [x] Pre-commit link checker (`check-hrefs.js`) is now disabled in the hook; use only if
-      needed for legacy HTML. Markdown link checking is automated via GitHub Actions.
 - [ ] Document the process for adding a new company/branch (step-by-step guide).
 - [ ] Add a changelog or release notes file for major updates.
 
@@ -25,7 +22,7 @@
 - [ ] Expand company/branch support as needed.
 - [ ] Add a search feature for site-wide content.
 - [ ] Integrate analytics (privacy-respecting) to monitor site usage.
-- [ ] Add dark mode/theme toggle for better user experience.
+- [ ] Add dark mode/theme toggle for better user experience. (Use CSS variables and prefers-color-scheme for static sites.)
 - [ ] Create a feedback/contact form (static or using a service like Formspree).
 
 ---

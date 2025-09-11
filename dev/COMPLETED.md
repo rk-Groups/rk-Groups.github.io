@@ -61,7 +61,10 @@ Use this as a historical record of progress.
   on all legal/policy and branch landing pages.
 
 
-## Hybrid Calculator, Linting & CI Improvements
+- Removed all legacy static HTML main pages for companies/branches
+- Sidebar and topbar alignment fixed (no gap)
+- Companies dropdown now shows both RK Oxygen Lucknow and Gorakhpur
+- Improved company/branch pages with switcher and details table
 - Added hybrid interactive/pure-Markdown calculator for liquid conversions (`Calc/LIQ/index.md`).
 - Hybrid Markdown/HTML content is now allowed for interactive calculators and advanced layouts.
 - Removed markdownlint and pre-commit hook (hybrid Markdown/HTML now allowed).
