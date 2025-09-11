@@ -7,87 +7,14 @@
   <title>{{ page.title | default: site.title }}</title>
   {% seo %}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ '/assets/mui.css' | relative_url }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    :root {
-      --bg: #f8f9fa;
-      --text: #222;
-      --panel-bg: #fff;
-      --panel-border: #ddd;
-      --sidebar-bg: #222;
-      --sidebar-text: #eee;
-    }
-    body.light-mode {
-      --bg: #f8f9fa;
-      --text: #222;
-      --panel-bg: #fff;
-      --panel-border: #ddd;
-      --sidebar-bg: #222;
-      --sidebar-text: #eee;
-    }
-    body.dark-mode {
-      --bg: #181a1b;
-      --text: #eee;
-      --panel-bg: #23272b;
-      --panel-border: #444;
-      --sidebar-bg: #181a1b;
-      --sidebar-text: #eee;
-    }
-    body { background: var(--bg); color: var(--text); }
-    body.light-mode {
-      /* Optionally override light mode styles for body if needed */
-    }
-    body.dark-mode {
-      /* Optionally override dark mode styles for body if needed */
-    }
-    .panel { background: var(--panel-bg); border-color: var(--panel-border); }
-    .sidebar { background: var(--sidebar-bg) !important; color: var(--sidebar-text); }
-    .sidebar a { color: var(--sidebar-text) !important; }
-    .center-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 60vh;
-    }
-    .center-logo img {
-      max-width: 180px;
-      margin-bottom: 24px;
-    }
-    .center-logo h1 {
-      font-size: 2.2em;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .center-logo p {
-      color: #888;
-      font-size: 1.2em;
-    }
-    @media (max-width: 600px) {
-      .center-logo h1 { font-size: 1.3em; }
-    }
-    /* Toggle button */
-    .theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 20px;
-      z-index: 2001;
-      background: var(--panel-bg);
-      color: var(--text);
-      border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 6px 18px;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: background 0.2s, color 0.2s;
-    }
-  </style>
+  <!-- Styles moved to assets/mui.css for global reuse -->
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
-    <span id="theme-icon" class="material-icons">dark_mode</span>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle dark/light mode">
+    <span id="theme-icon" class="material-icons" aria-hidden="true">dark_mode</span>
   </button>
   {% include topbar.html %}
   {% include sidebar.html %}

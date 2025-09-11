@@ -1,0 +1,73 @@
+/*
+  Material UI (MUI)-inspired custom styles for RK Groups
+  Place all reusable CSS classes, variables, and utility styles here.
+*/
+
+:root {
+  --mui-primary: #1976d2;
+  --mui-primary-light: #63a4ff;
+  --mui-primary-dark: #004ba0;
+  --mui-secondary: #9c27b0;
+  --mui-error: #d32f2f;
+  --mui-bg: #f8f9fa;
+  --mui-surface: #fff;
+  --mui-text: #222;
+  --mui-border: #ddd;
+  --mui-radius: 8px;
+  --mui-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.mui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mui-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--mui-radius);
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--mui-shadow);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.mui-btn:hover, .mui-btn:focus {
+  background: var(--mui-primary-dark);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+}
+.mui-btn--secondary {
+  background: var(--mui-secondary);
+}
+.mui-btn--error {
+  background: var(--mui-error);
+}
+
+.mui-card {
+  background: var(--mui-surface);
+  border-radius: var(--mui-radius);
+  box-shadow: var(--mui-shadow);
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--mui-border);
+}
+
+.mui-divider {
+  height: 1px;
+  background: var(--mui-border);
+  margin: 16px 0;
+  border: none;
+}
+
+.mui-spacing-xs { margin: 4px !important; }
+.mui-spacing-sm { margin: 8px !important; }
+.mui-spacing-md { margin: 16px !important; }
+.mui-spacing-lg { margin: 32px !important; }
+
+.mui-text-primary { color: var(--mui-primary) !important; }
+.mui-text-secondary { color: var(--mui-secondary) !important; }
+.mui-text-error { color: var(--mui-error) !important; }
+
+.mui-radius { border-radius: var(--mui-radius) !important; }
+
+.mui-shadow { box-shadow: var(--mui-shadow) !important; }

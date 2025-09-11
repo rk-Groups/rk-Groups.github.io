@@ -1,8 +1,6 @@
-<div class="sidebar navbar-inverse" style="position:fixed;left:0;width:220px;height:100%;padding-top:0;z-index:1000;overflow-y:auto;">
-  <ul class="nav nav-pills nav-stacked" style="margin-bottom:20px;">
+<aside class="mui-sidebar">
+  <ul class="mui-sidebar-list">
     <li><a href="{{ '/' | relative_url }}">Home</a></li>
-   {% comment %}Detect company and branch from page URL. If not a company page,
-     fall back to an empty sidebar or show a simple navigation.{% endcomment %}
     {% assign segments = page.url | split: '/' %}
     {% assign company = segments[2] %}
     {% assign branch = segments[3] %}
@@ -12,7 +10,7 @@
         <li><a href="{{ section.url | relative_url }}">{{ section.title }}</a></li>
         {% if section.children and section.children.size > 0 %}
           {% for child in section.children %}
-            <li style="margin-left:15px;"><a href="{{ child.url | relative_url }}">{{ child.title }}</a></li>
+            <li class="mui-sidebar-child"><a href="{{ child.url | relative_url }}">{{ child.title }}</a></li>
           {% endfor %}
         {% endif %}
       {% endfor %}
@@ -20,13 +18,13 @@
       <li><a href="{{ '/' | relative_url }}">Site Home</a></li>
       <li><a href="{{ '/companies/' | relative_url }}">All Companies (Network)</a></li>
     {% endif %}
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Calculators <span class="caret"></span></a>
-      <ul class="dropdown-menu">
+    <li class="mui-dropdown">
+      <a href="#">Calculators <span class="material-icons" style="font-size:18px;vertical-align:middle;">expand_more</span></a>
+      <ul class="mui-dropdown-menu">
         <li><a href="{{ '/Calc/GST/index.md' | relative_url }}">GST Calculator</a></li>
         <li><a href="{{ '/Calc/LIQ/index.md' | relative_url }}">Liquid Calculator</a></li>
       </ul>
     </li>
   </ul>
-</div>
+</aside>
 <div style="width:220px;display:inline-block;"></div>
