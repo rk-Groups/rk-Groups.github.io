@@ -17,5 +17,5 @@ jobs:
         with:
           use-quiet-mode: 'yes'
           folder-path: '.'
-          file-path: '**/*.md'
+          file-extension: '.md'
           config-file: '.github/linkcheck.config.json'

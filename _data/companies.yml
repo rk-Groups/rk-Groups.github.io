@@ -1,0 +1,40 @@
+# Jekyll data file for company details
+
+rk-electrodes:
+  main:
+    name: "RK Electrodes"
+    gstin: "09AAAFR4114P1Z2"
+    constitution: "Proprietorship"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    proprietor: "Ruhil Jaiswal"
+    contact:
+      email: "electrodes.rkgroup@gmail.com"
+      phone: "+91-7355755506"
+
+
+rk-oxygen:
+  main:
+  lucknow:
+    name: "RK Oxygen"
+    gstin: "09AAAFR4114P1Z3"
+    constitution: "Partnership"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    partners:
+      - "Ruhil Jaiswal"
+    contact:
+      email: "oxygen.rkgroup@gmail.com"
+  gorakhpur:
+    main:
+      name: "RK Oxygen"
+      gstin: "09AAAFR4114P1Z3"
+      constitution: "Partnership"
+      principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+      partners:
+        - "Ruhil Jaiswal"
+      contact:
+        email: "oxygen.rkgroup@gmail.com"
+        phone: ""
+    contact:
+      email: "oxygen.rkgroup@gmail.com"
+      phone: "+91-7355755506"
+# Add more companies/branches below as needed

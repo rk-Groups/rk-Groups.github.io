@@ -1,11 +1,10 @@
 ---
 layout: default
-title: RK Palace
+title: RK Oxygen - Lucknow Branch
 ---
 
-{% assign details = site.data.companies.rk-palace.main %}
+{% assign details = site.data.companies.rk-oxygen.main %}
 
-**Branch:** {{ details.branch }}
 **GSTIN:** {{ details.gstin }}
 **Constitution:** {{ details.constitution }}
 **Principal Place of Business:**
