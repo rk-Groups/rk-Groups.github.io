@@ -1,3 +1,6 @@
+## UI/UX Consistency
+
+- Use Material UI standards across the website: Material Icons, spacing, button style, and component appearance for a consistent, modern look.
 ## Iconography
 
 - Use Material UI icons (Material Icons CDN) for all icons throughout the website for consistency and modern appearance.
