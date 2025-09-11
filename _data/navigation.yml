@@ -1,11 +1,64 @@
 main:
   - title: Home
     url: /
+  - title: Companies
+    dropdown:
+      - title: RK Oxygen
+        url: /companies/rk-oxygen/gorakhpur/
+      - title: RK Electrodes
+        url: /companies/rk-electrodes/
+      - title: RK Palace
+        url: /companies/rk-palace/
+      - title: Sand Creations
+        url: /companies/sand-creations/
+  - title: Calculators
+    dropdown:
+      - title: GST Calculator
+        url: /Calc/GST/index.md
+      - title: Liquid Calculator
+        url: /Calc/LIQ/index.md
   - title: Terms of Service
-    url: /companies/rk-oxygen/gorakhpur/terms.html
+    url: /companies/rk-oxygen/gorakhpur/terms.md
   - title: Refund Policy
-    url: /companies/rk-oxygen/gorakhpur/refund-policy.html
-  - title: GST Calculator
-    url: /Calc/GST/index.html
-  - title: Liquid Calculator
-    url: /Calc/LIQ/index.html
+    url: /companies/rk-oxygen/gorakhpur/refund-policy.md
+
+sidebar:
+  rk-oxygen:
+    - title: Gorakhpur Branch
+      url: /companies/rk-oxygen/gorakhpur/
+      children:
+        - title: Terms of Service
+          url: /companies/rk-oxygen/gorakhpur/terms.md
+        - title: Refund Policy
+          url: /companies/rk-oxygen/gorakhpur/refund-policy.md
+    - title: Lucknow Branch
+      url: /companies/rk-oxygen/lucknow/
+      children:
+        - title: Terms of Service
+          url: /companies/rk-oxygen/lucknow/terms.md
+        - title: Refund Policy
+          url: /companies/rk-oxygen/lucknow/refund-policy.md
+  rk-electrodes:
+    - title: Main Page
+      url: /companies/rk-electrodes/
+      children:
+        - title: Terms of Service
+          url: /companies/rk-electrodes/terms.md
+        - title: Refund Policy
+          url: /companies/rk-electrodes/refund-policy.md
+  rk-palace:
+    - title: Main Page
+      url: /companies/rk-palace/
+      children:
+        - title: Terms of Service
+          url: /companies/rk-palace/terms.md
+        - title: Refund Policy
+          url: /companies/rk-palace/refund-policy.md
+  sand-creations:
+    - title: Main Page
+      url: /companies/sand-creations/
+      children:
+        - title: Terms of Service
+          url: /companies/sand-creations/terms.md
+        - title: Refund Policy
+          url: /companies/sand-creations/refund-policy.md

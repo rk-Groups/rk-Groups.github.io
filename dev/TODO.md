@@ -1,41 +1,35 @@
 # TODO for rk-Groups.github.io
 
-This file tracks key steps, improvements, and maintenance tasks for the static site. Use this as a checklist for onboarding, updates, and future enhancements.
+This file tracks pending and future tasks for the static site. Completed tasks have been moved to `COMPLETED.md` in the `dev/` folder.
 
 ---
 
-## 1. Navigation & UI Consistency
-- [x] Use a shared Bootstrap navigation bar, sidebar, and bottombar via Jekyll includes (`_includes/topbar.html`, etc.).
-- [x] Centralize all navigation links in `_data/navigation.yml` for global updates.
-- [x] All pages use the Jekyll layout system for consistent UI.
-- [x] Navigation and UI are now consistent across all company/branch and calculator pages.
+## Maintenance & Best Practices
+### High Priority
+- [ ] Keep legal/policy pages up to date in each company/branch folder.
+- [ ] Add onboarding notes for new contributors in `dev/`.
+- [ ] Set up automated checks for broken links in the Jekyll build process.
 
-## 2. Company/Branch Structure
-- [x] Organize all company content under `companies/` with a subfolder for each branch (e.g., `companies/rk-oxygen/gorakhpur`).
-- [x] Place legal/policy pages (`terms.html`, `refund-policy.html`) in the correct branch folder.
-- [x] Each branch folder should have its own `index.html` as a landing page.
-- [x] Remove legacy folders (e.g., `rkoxygengkp`).
+### Medium Priority
+- [ ] Periodically review navigation and company structure for consistency.
+- [ ] Use Jekyll data files for company details and navigation where possible.
+- [ ] Remove or update the pre-commit link checker (`check-hrefs.js`) if no longer needed.
+- [ ] Document the process for adding a new company/branch (step-by-step guide).
+- [ ] Add a changelog or release notes file for major updates.
 
-## 3. Dynamic Company Details
-- [x] Store company/branch details in a single `details.js` file per branch.
-- [x] Dynamically render company details (GSTIN, addresses, partners, contact info) on all legal/policy and branch landing pages.
-- [ ] Apply this pattern to all branches and companies as they are added.
-
-## 4. Link Integrity & Pre-commit Checks
-- [x] Use `check-hrefs.js` to validate all internal links before commit (for legacy HTML; not needed for Jekyll-generated links).
-- [ ] Remove or update pre-commit link checker as Jekyll migration completes.
-
-## 5. Documentation
-- [x] Keep `README.md` up to date with navigation, structure, and dynamic details approach.
-- [x] Maintain `STATIC_RULES.md` with rules for static content, navigation, and directory scaffolding.
-- [ ] Add onboarding notes for new contributors.
-
-## 6. Future Enhancements
-- [ ] Add more calculators or tools as needed.
+## Future Enhancements
+### High Priority
 - [ ] Improve accessibility and mobile responsiveness.
 - [ ] Add automated tests for navigation and link integrity.
-- [x] Migrate to Jekyll static site generator for maintainability and scalability.
+
+### Medium Priority
+- [ ] Add more calculators or tools as needed.
+- [ ] Expand company/branch support as needed.
+- [ ] Add a search feature for site-wide content.
+- [ ] Integrate analytics (privacy-respecting) to monitor site usage.
+- [ ] Add dark mode/theme toggle for better user experience.
+- [ ] Create a feedback/contact form (static or using a service like Formspree).
 
 ---
 
-**Last updated:** September 11, 2025
+**Last updated:** September 12, 2025
