@@ -22,9 +22,9 @@ main:
       - title: Liquid Calculator
         url: /Calc/LIQ/index.md
   - title: Terms of Service
-    url: /companies/rk-oxygen/gorakhpur/terms.md
+    url: /companies/rk-oxygen/gorakhpur/terms/
   - title: Refund Policy
-    url: /companies/rk-oxygen/gorakhpur/refund-policy.md
+    url: /companies/rk-oxygen/gorakhpur/refund-policy/
 
 sidebar:
   rk-oxygen:
@@ -32,37 +32,37 @@ sidebar:
       url: /companies/rk-oxygen/gorakhpur/
       children:
         - title: Terms of Service
-          url: /companies/rk-oxygen/gorakhpur/terms.md
+          url: /companies/rk-oxygen/gorakhpur/terms/
         - title: Refund Policy
-          url: /companies/rk-oxygen/gorakhpur/refund-policy.md
+          url: /companies/rk-oxygen/gorakhpur/refund-policy/
     - title: Lucknow Branch
       url: /companies/rk-oxygen/lucknow/
       children:
         - title: Terms of Service
-          url: /companies/rk-oxygen/lucknow/terms.md
+          url: /companies/rk-oxygen/lucknow/terms/
         - title: Refund Policy
-          url: /companies/rk-oxygen/lucknow/refund-policy.md
+          url: /companies/rk-oxygen/lucknow/refund-policy/
   rk-electrodes:
     - title: Main Page
       url: /companies/rk-electrodes/
       children:
         - title: Terms of Service
-          url: /companies/rk-electrodes/terms.md
+          url: /companies/rk-electrodes/terms/
         - title: Refund Policy
-          url: /companies/rk-electrodes/refund-policy.md
+          url: /companies/rk-electrodes/refund-policy/
   rk-palace:
     - title: Main Page
       url: /companies/rk-palace/
       children:
         - title: Terms of Service
-          url: /companies/rk-palace/terms.md
+          url: /companies/rk-palace/terms/
         - title: Refund Policy
-          url: /companies/rk-palace/refund-policy.md
+          url: /companies/rk-palace/refund-policy/
   sand-creations:
     - title: Main Page
       url: /companies/sand-creations/
       children:
         - title: Terms of Service
-          url: /companies/sand-creations/terms.md
+          url: /companies/sand-creations/terms/
         - title: Refund Policy
-          url: /companies/sand-creations/refund-policy.md
+          url: /companies/sand-creations/refund-policy/
