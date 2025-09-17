@@ -1,0 +1,55 @@
+---
+layout: default
+---
+{% assign key = page.company %}
+{% assign company = site.data.companies[key] %}
+{% assign main = company.main %}
+
+<div class="mui-hero mui-hero--bleed">
+  <div class="mui-hero-content">
+    <div class="mui-hero-icon">
+      <span class="material-icons" style="font-size: 4rem;">domain</span>
+    </div>
+    <h1 class="mui-hero-title">{{ main.name | default: key | replace: '-', ' ' | capitalize }}</h1>
+    <p class="mui-hero-subtitle">Explore branches, terms, and policies</p>
+  </div>
+</div>
+
+{% if main %}
+<div class="mui-card">
+  <h3>Company Details</h3>
+  <div class="mui-info-grid">
+    {% if main.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ main.gstin }}</span></div>{% endif %}
+    {% if main.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ main.constitution }}</span></div>{% endif %}
+    {% if main.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ main.principal_place }}</span></div>{% endif %}
+    {% if main.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ main.proprietor }}</span></div>{% endif %}
+    {% if main.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ main.partners | join: ', ' }}</span></div>{% endif %}
+    {% if main.contact and main.contact.email %}<div class="mui-info-item"><strong>Email:</strong><span><a href="mailto:{{ main.contact.email }}">{{ main.contact.email }}</a></span></div>{% endif %}
+    {% if main.contact and main.contact.phone %}<div class="mui-info-item"><strong>Phone:</strong><span><a href="tel:{{ main.contact.phone }}">{{ main.contact.phone }}</a></span></div>{% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div class="mui-card">
+  <h3>Branches</h3>
+  <div class="mui-features-grid">
+    {% for entry in company %}
+      {% assign k = entry[0] %}
+      {% if k != 'main' %}
+        <a href="/companies/{{ key }}/{{ k }}/" class="mui-feature-card" style="text-decoration:none;">
+          <span class="material-icons mui-feature-icon">factory</span>
+          <h3>{{ company[k].name | default: k | capitalize }} Branch</h3>
+          <p>Visit branch page</p>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="mui-card">
+  <h3>Policies</h3>
+  <p>
+    <a href="/companies/{{ key }}/terms/">Terms of Service</a> •
+    <a href="/companies/{{ key }}/refund-policy/">Refund & Cancellation Policy</a>
+  </p>
+</div>

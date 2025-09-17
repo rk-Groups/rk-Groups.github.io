@@ -1,0 +1,10 @@
+---
+layout: default
+---
+{% assign key = page.company %}
+{% assign policy = page.policy %}
+
+<div class="mui-card">
+  <h1 class="mui-card-title">{% if policy == 'terms' %}Terms of Service{% elsif policy == 'refund-policy' %}Refund & Cancellation Policy{% else %}Policy{% endif %}</h1>
+  {{ content }}
+</div>
