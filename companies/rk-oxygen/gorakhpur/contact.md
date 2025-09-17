@@ -6,10 +6,10 @@ title: Contact - RK Oxygen Gorakhpur
 # Contact Us
 
 **Address:** 85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh
-**Phone:** +91-XXXXXXXXXX
-**Email:** your-email@example.com
+**Phone:** +91-7355755506
+**Email:** gkp.rkoxygen@gmail.com
 
-Or use our [contact form](mailto:your-email@example.com).
+Or use our [contact form](mailto:gkp.rkoxygen@gmail.com).
 
 ---
 
