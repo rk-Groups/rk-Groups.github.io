@@ -17,10 +17,18 @@ main:
         url: /companies/sand-creations/
   - title: Calculators
     dropdown:
+      - title: Calculators Hub
+        url: /Calc/
+        icon: calculate
+        desc: All business calculators in one place
       - title: GST Calculator
         url: /Calc/GST/
+        icon: receipt_long
+        desc: Compute GST inclusive/exclusive amounts
       - title: Liquid Calculator
         url: /Calc/LIQ/
+        icon: science
+        desc: Liquid to gas conversions and tables
   - title: Site Map
     url: /sitemap/
   - title: Terms of Service
