@@ -2,9 +2,9 @@
 
 ### Ongoing
 - [x] Keep documentation up to date as features change
-- [ ] Monitor GitHub Actions for build failures or dependency issues
+- [x] Monitor GitHub Actions for build failures or dependency issues
 - [ ] Periodically audit legal/policy pages for compliance
-- [ ] Monitor Lighthouse and axe-core CI results for performance/accessibility regressions
+- [x] Monitor Lighthouse and axe-core CI results for performance/accessibility regressions
 - [x] Review button contrast and accessibility as design evolves
 - [x] Follow proper Git workflow: always pull before committing to avoid conflicts
 - [x] Implement local testing workflow to validate changes before push
@@ -12,7 +12,7 @@
 
 ### Backlog
 - [ ] Add more test coverage for calculators and navigation
-- [ ] Document the process for adding a new company/branch (step-by-step guide)
+- [x] Document the process for adding a new company/branch (step-by-step guide)
 - [ ] Add a changelog or release notes file for major updates
 - [ ] Add onboarding notes for new contributors in the `dev/` folder
 - [ ] Add a search feature for site-wide content
