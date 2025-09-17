@@ -42,10 +42,28 @@
         <i class="material-icons">factory</i>
         Companies
       </a>
-      <a href="/Calc/" class="nav-link">
-        <i class="material-icons">calculate</i>
-        Calculators
-      </a>
+      <div class="mui-dropdown">
+        <a href="/Calc/" class="nav-link">
+          <i class="material-icons">calculate</i>
+          Calculators
+        </a>
+        {% assign calculators = site.data.navigation.main | where: "title", "Calculators" | first %}
+        {% if calculators and calculators.dropdown %}
+        <ul class="mui-dropdown-menu">
+          {% for calc in calculators.dropdown %}
+            <li>
+              <a href="{{ calc.url | relative_url }}" class="dropdown-item">
+                <span class="material-icons">{{ calc.icon | default: 'calculate' }}</span>
+                <span class="dropdown-text">
+                  <strong>{{ calc.title }}</strong>
+                  {% if calc.desc %}<small>{{ calc.desc }}</small>{% endif %}
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
       <a href="/sitemap/" class="nav-link">
         <i class="material-icons">map</i>
         Sitemap
@@ -86,5 +104,25 @@
   .nav-link .material-icons {
     font-size: 1.1rem;
   }
+}
+
+/* Dropdown item layout with icon + text */
+.mui-dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mui-dropdown-menu .dropdown-item .material-icons {
+  font-size: 20px;
+  margin-top: 2px;
+}
+.mui-dropdown-menu .dropdown-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.mui-dropdown-menu .dropdown-text small {
+  color: var(--text);
+  opacity: 0.75;
 }
 </style>
