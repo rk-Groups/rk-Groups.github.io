@@ -205,18 +205,53 @@ body.dark-mode a:focus {
   color: #b3e5fc;
 }
 
+/* Override link colors for buttons */
+body.dark-mode a.mui-btn--primary {
+  color: #ffffff !important;
+}
+body.dark-mode a.mui-btn--primary:hover,
+body.dark-mode a.mui-btn--primary:focus {
+  color: #ffffff !important;
+}
+body.dark-mode a.mui-btn--outline {
+  color: var(--accent-primary) !important;
+}
+body.dark-mode a.mui-btn--outline:hover,
+body.dark-mode a.mui-btn--outline:focus {
+  color: #ffffff !important;
+}
+body.dark-mode .mui-hero a.mui-btn--outline {
+  color: #ffffff !important;
+}
+body.dark-mode .mui-hero a.mui-btn--outline:hover,
+body.dark-mode .mui-hero a.mui-btn--outline:focus {
+  color: #ffffff !important;
+}
+
 /* Disabled state for buttons and links */
 .mui-btn:disabled, .mui-btn[aria-disabled="true"], .mui-btn.mui-disabled {
   background: #bdbdbd !important;
-  color: #fff !important;
+  color: #ffffff !important;
   cursor: not-allowed !important;
   opacity: 0.7;
   box-shadow: none !important;
+  border-color: #bdbdbd !important;
 }
 a.mui-disabled, a[aria-disabled="true"] {
   pointer-events: none;
   color: #bdbdbd !important;
   text-decoration: none;
+}
+
+/* Ensure button text is always visible */
+.mui-btn {
+  text-shadow: none;
+}
+.mui-btn--primary {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.mui-hero .mui-btn {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 /* Alert, Info, Warning, Success */
@@ -454,22 +489,28 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   font-size: 1em;
 }
 .mui-btn--primary {
-  background: var(--primary);
-  color: white;
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: 1px solid var(--accent-primary);
 }
-.mui-btn--primary:hover {
+.mui-btn--primary:hover,
+.mui-btn--primary:focus {
   background: var(--primary-dark);
+  color: #ffffff;
+  border-color: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 .mui-btn--outline {
   background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
+  color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
 }
-.mui-btn--outline:hover {
-  background: var(--primary);
-  color: white;
+.mui-btn--outline:hover,
+.mui-btn--outline:focus {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
 }
 .mui-btn--large {
   padding: 16px 32px;
@@ -550,15 +591,30 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   flex-wrap: wrap;
 }
 
-/* Ensure outline buttons are visible on hero gradient */
+/* Ensure buttons are visible on hero gradient */
+.mui-hero .mui-btn--primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: 1px solid var(--accent-primary);
+  font-weight: 600;
+}
+.mui-hero .mui-btn--primary:hover,
+.mui-hero .mui-btn--primary:focus {
+  background: var(--primary-dark);
+  color: #ffffff;
+  border-color: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+}
 .mui-hero .mui-btn--outline {
-  color: #fff;
-  border-color: #fff;
+  color: #ffffff;
+  border-color: #ffffff;
+  font-weight: 600;
 }
 .mui-hero .mui-btn--outline:hover,
 .mui-hero .mui-btn--outline:focus {
   background: rgba(255,255,255,0.15);
-  color: #fff;
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 /* Features Section */
