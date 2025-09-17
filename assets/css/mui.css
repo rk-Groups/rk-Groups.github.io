@@ -129,6 +129,11 @@ body.dark-mode {
   --card-bg: #23272f;
   --divider: #333a;
   --shadow: 0 2px 8px rgba(0,0,0,0.40);
+  /* Map commonly used MUI-like variables referenced inline */
+  --mui-primary-color: var(--primary);
+  --mui-text-primary: var(--text);
+  --mui-text-secondary: #cfd8dc;
+  --mui-surface-variant: #2b2f36;
 }
 /* Accessibility: Focus outline for all interactive elements */
 a, button, input, select, textarea, [tabindex]:not([tabindex="-1"]) {
@@ -138,6 +143,15 @@ a, button, input, select, textarea, [tabindex]:not([tabindex="-1"]) {
 a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
   box-shadow: 0 0 0 2px #1976d2aa;
   border-color: #1976d2;
+}
+
+/* Content link defaults in dark mode */
+body.dark-mode a {
+  color: var(--primary);
+}
+body.dark-mode a:hover,
+body.dark-mode a:focus {
+  color: #b3e5fc;
 }
 
 /* Disabled state for buttons and links */

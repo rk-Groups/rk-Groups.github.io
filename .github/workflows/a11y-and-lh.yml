@@ -1,0 +1,67 @@
+name: Accessibility & Lighthouse CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Install Jekyll deps
+        run: |
+          bundle install --path vendor/bundle
+
+      - name: Build site
+        run: |
+          bundle exec jekyll build --trace
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node tools
+        run: |
+          npm ci --no-audit --no-fund || npm install
+          npx --yes http-server --version >/dev/null 2>&1 || npm i -D http-server
+          npx --yes lighthouse --version >/dev/null 2>&1 || npm i -D lighthouse @lhci/cli
+          npx --yes axe-core --help >/dev/null 2>&1 || npm i -D @axe-core/cli
+
+      - name: Start local server
+        run: |
+          npx http-server _site -p 3000 &
+          echo "Waiting for server..." && sleep 3
+
+      - name: Run Lighthouse (key pages)
+        run: |
+          npx lhci collect \
+            --config=lighthouserc.json \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run axe-core CLI (contrast + a11y)
+        run: |
+          npx axe http://localhost:3000/ \
+             http://localhost:3000/companies/rk-oxygen/gorakhpur/ \
+             http://localhost:3000/Calc/GST/ \
+             http://localhost:3000/Calc/LIQ/ \
+             http://localhost:3000/sitemap/ \
+             --exit 1 || echo "axe found issues (non-blocking)"
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: .lighthouseci
