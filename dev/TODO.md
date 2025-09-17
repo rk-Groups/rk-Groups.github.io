@@ -8,6 +8,7 @@
 - [x] Review button contrast and accessibility as design evolves
 - [x] Follow proper Git workflow: always pull before committing to avoid conflicts
 - [x] Implement local testing workflow to validate changes before push
+- [x] Close resolved GitHub issues and update issue tracking
 
 ### Backlog
 - [ ] Add more test coverage for calculators and navigation
