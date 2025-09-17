@@ -3,6 +3,7 @@
 
 - Use Material UI standards across the website: Material Icons, spacing, button style, and component appearance for a consistent, modern look.
 - Use Material UI icons (Material Icons CDN) for all icons throughout the website for consistency and modern appearance.
+- Theme Policy: The site is dark-mode only. Do not implement or re-enable any light theme or theme toggles. Ensure `<body>` has `dark-mode` class and never `light-mode`.
 
 ## Best Practices
 

@@ -51,13 +51,13 @@
     }
   </script>
 </head>
-<body>
+<body class="dark-mode">
 
   {% include navigation.html %}
   <div class="mui-container">
     {{ content }}
   </div>
-  {% include theme-toggle-script.html %}
+  <!-- Dark mode is forced site-wide; theme toggle removed by policy. -->
   {% include bottombar.html %}
   {% include analytics.html %}
 </body>
