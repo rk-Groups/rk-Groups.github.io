@@ -54,6 +54,20 @@ Use this as a historical record of progress.
 - Added CI caching to GitHub Actions workflow for faster, more reliable builds.
 - Pinned Ruby version for workflow compatibility.
 
+## Site-wide Dark Theme and Enhanced UX (September 2025)
+
+- **Dark-Only Policy**: Enforced dark-only theme site-wide, documented in `dev/STATIC_RULES.md`
+- **Modern Dark Palette**: Upgraded CSS variables to rich dark palette with improved contrast
+- **Glassy Navigation**: Added modern glass-effect header with backdrop blur
+- **Full-bleed Heroes**: Implemented full-viewport-width hero sections with gradient overlays
+- **Data-Driven Companies**: Built shared layouts (`_layouts/company.html`, `_layouts/company-branch.html`, `_layouts/company-policy.html`) rendering from `_data/companies.yml`
+- **Calculator UI Refresh**: Updated GST and LIQ calculators with heroes and MUI card layouts
+- **Companies Coverage**: Added RK Electrodes, RK Palace, Sand Creations main pages and policies
+- **Multi-Branch Support**: Added RK Oxygen Lucknow branch with complete policies
+- **CI Quality Gates**: Implemented Lighthouse and axe-core accessibility/performance checks
+- **CI Node Tools Fix**: Updated workflow to use `npx --yes` without requiring package.json
+- **Button Contrast Fix**: Enhanced button color contrast and visibility with explicit white text, improved hover states, and text shadows
+
 ## Legal/Policy Page Consistency
 
 - Ensured every company/branch folder has up-to-date `terms.md` and `refund-policy.md`
@@ -68,4 +82,4 @@ Use this as a historical record of progress.
 
 ---
 
-**Last updated:** September 12, 2025
+**Last updated:** September 17, 2025

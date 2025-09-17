@@ -3,7 +3,10 @@
 
 - Use Material UI standards across the website: Material Icons, spacing, button style, and component appearance for a consistent, modern look.
 - Use Material UI icons (Material Icons CDN) for all icons throughout the website for consistency and modern appearance.
-- Theme Policy: The site is dark-mode only. Do not implement or re-enable any light theme or theme toggles. Ensure `<body>` has `dark-mode` class and never `light-mode`.
+- **Theme Policy**: The site is dark-mode only. Do not implement or re-enable any light theme or theme toggles. Ensure `<body>` has `dark-mode` class and never `light-mode`.
+- **Button Contrast**: All buttons must have sufficient color contrast for accessibility. Primary buttons use white text on blue background with text shadows for enhanced readability.
+- **Glass Effects**: Use the `.mui-glass` utility for translucent navigation and headers with backdrop blur.
+- **Full-bleed Heroes**: Hero sections should use `.mui-hero--bleed` for full viewport width with gradient backgrounds.
 
 ## Best Practices
 
@@ -78,9 +81,17 @@ companies/
 
 This ensures clear separation and maintainability for all company and branch content.
 
+## CI/CD and Quality Assurance
+
+- **GitHub Actions**: All workflows use `npx --yes` for Node tools to avoid package.json dependencies
+- **Lighthouse CI**: Performance and accessibility checks run on key pages via `lighthouserc.json`
+- **axe-core**: Automated accessibility testing across all major pages
+- **Link Checking**: Automated Markdown link validation on push/PR
+- **Pre-commit Hooks**: Trailing whitespace, end-of-file, YAML validation, and large file checks
+
 This repository is for a static website only and is designed for deployment via GitHub
 Pages.
 
 ---
 
-**Last updated:** September 12, 2025
+**Last updated:** September 17, 2025

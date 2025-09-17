@@ -4,27 +4,31 @@
 - [ ] Keep documentation up to date as features change
 - [ ] Monitor GitHub Actions for build failures or dependency issues
 - [ ] Periodically audit legal/policy pages for compliance
-- [ ] Review sidebar/topbar alignment after manual edits
-- [ ] Maintain SLSA/build provenance if required by workflow
+- [ ] Monitor Lighthouse and axe-core CI results for performance/accessibility regressions
+- [ ] Review button contrast and accessibility as design evolves
 
 ### Backlog
-- [ ] Improve accessibility for all interactive content
 - [ ] Add more test coverage for calculators and navigation
-- [ ] Explore further CI optimizations (e.g., parallel jobs, artifact caching)
 - [ ] Document the process for adding a new company/branch (step-by-step guide)
 - [ ] Add a changelog or release notes file for major updates
 - [ ] Add onboarding notes for new contributors in the `dev/` folder
 - [ ] Add a search feature for site-wide content
 - [ ] Integrate analytics (privacy-respecting) to monitor site usage
 - [ ] Create a feedback/contact form (static or using a service like Formspree)
+- [ ] Add company logos and branding assets
+- [ ] Implement breadcrumb navigation for deep pages
+- [ ] Add print-friendly styles for calculators
+- [ ] Consider adding keyboard shortcuts for calculator inputs
 
 ## Future Enhancements
 
 - [ ] Expand company/branch support as needed
-- [ ] Add more calculators or tools as needed
-- [ ] Add automated tests for navigation and link integrity
-- [ ] Improve accessibility and mobile responsiveness
+- [ ] Add more calculators or tools as needed (compound interest, tax calculators, etc.)
+- [ ] Add automated visual regression testing
+- [ ] Consider PWA enhancements (offline support, app install prompts)
+- [ ] Add map integration for company locations
+- [ ] Implement structured data for better SEO
 
 ---
 
-**Last updated:** September 12, 2025 (auto-updated)
+**Last updated:** September 17, 2025
