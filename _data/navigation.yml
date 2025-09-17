@@ -35,6 +35,12 @@ sidebar:
           url: /companies/rk-oxygen/gorakhpur/terms/
         - title: Refund Policy
           url: /companies/rk-oxygen/gorakhpur/refund-policy/
+        - title: Privacy Policy
+          url: /companies/rk-oxygen/gorakhpur/privacy/
+        - title: Shipping Policy
+          url: /companies/rk-oxygen/gorakhpur/shipping/
+        - title: Contact
+          url: /companies/rk-oxygen/gorakhpur/contact/
     - title: Lucknow Branch
       url: /companies/rk-oxygen/lucknow/
       children:
