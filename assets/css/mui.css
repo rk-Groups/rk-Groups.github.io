@@ -102,6 +102,11 @@
   color: #888;
   font-size: 0.9em;
 }
+.mui-sitemap-list small {
+  font-size: 0.8em;
+  color: #999;
+  margin-left: 8px;
+}
 /* Material UI Theme Variables */
 body.light-mode {
   --mui-radius: 8px;

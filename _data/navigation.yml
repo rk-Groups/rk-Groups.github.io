@@ -50,27 +50,3 @@ sidebar:
           url: /companies/rk-oxygen/lucknow/terms/
         - title: Refund Policy
           url: /companies/rk-oxygen/lucknow/refund-policy/
-  rk-electrodes:
-    - title: Main Page
-      url: /companies/rk-electrodes/
-      children:
-        - title: Terms of Service
-          url: /companies/rk-electrodes/terms/
-        - title: Refund Policy
-          url: /companies/rk-electrodes/refund-policy/
-  rk-palace:
-    - title: Main Page
-      url: /companies/rk-palace/
-      children:
-        - title: Terms of Service
-          url: /companies/rk-palace/terms/
-        - title: Refund Policy
-          url: /companies/rk-palace/refund-policy/
-  sand-creations:
-    - title: Main Page
-      url: /companies/sand-creations/
-      children:
-        - title: Terms of Service
-          url: /companies/sand-creations/terms/
-        - title: Refund Policy
-          url: /companies/sand-creations/refund-policy/
