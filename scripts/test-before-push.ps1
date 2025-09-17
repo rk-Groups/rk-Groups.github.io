@@ -6,6 +6,7 @@ param(
     [switch]$SkipBuild,
     [switch]$SkipLighthouse,
     [switch]$SkipAxe,
+    [switch]$SkipJekyll,
     [switch]$Verbose
 )
 
@@ -73,10 +74,19 @@ try {
     # 2. Check Dependencies
     Write-Step "Step 2: Checking Dependencies"
 
-    if (-not (Test-Command "bundle")) {
-        throw "Bundler not found. Please install Ruby and Bundler."
+    $JekyllAvailable = $true
+    if (-not $SkipJekyll) {
+        if (-not (Test-Command "bundle")) {
+            Write-Warning "Bundler not found. Jekyll-related tests will be skipped."
+            Write-Host "To install Ruby and Bundler: https://jekyllrb.com/docs/installation/" -ForegroundColor Yellow
+            $JekyllAvailable = $false
+        } else {
+            Write-Success "Ruby/Bundler found"
+        }
+    } else {
+        Write-Warning "Skipping Jekyll dependency check (--SkipJekyll specified)"
+        $JekyllAvailable = $false
     }
-    Write-Success "Ruby/Bundler found"
 
     if (-not (Test-Command "node")) {
         Write-Warning "Node.js not found locally. Some tests will be skipped."
@@ -87,15 +97,19 @@ try {
     }
 
     # 3. Install Jekyll Dependencies
-    Write-Step "Step 3: Installing Jekyll Dependencies"
-    bundle install --path vendor/bundle
-    if ($LASTEXITCODE -ne 0) {
-        throw "Bundle install failed"
+    if ($JekyllAvailable -and -not $SkipBuild) {
+        Write-Step "Step 3: Installing Jekyll Dependencies"
+        bundle install --path vendor/bundle
+        if ($LASTEXITCODE -ne 0) {
+            throw "Bundle install failed"
+        }
+        Write-Success "Jekyll dependencies installed"
+    } else {
+        Write-Warning "Skipping Jekyll dependencies (Jekyll not available or --SkipBuild specified)"
     }
-    Write-Success "Jekyll dependencies installed"
 
     # 4. Jekyll Build Test
-    if (-not $SkipBuild) {
+    if ($JekyllAvailable -and -not $SkipBuild) {
         Write-Step "Step 4: Testing Jekyll Build"
         bundle exec jekyll build --trace
         if ($LASTEXITCODE -ne 0) {
@@ -119,7 +133,11 @@ try {
             }
         }
     } else {
-        Write-Warning "Skipping Jekyll build test"
+        if (-not $JekyllAvailable) {
+            Write-Warning "Skipping Jekyll build test (Jekyll not available)"
+        } else {
+            Write-Warning "Skipping Jekyll build test (--SkipBuild specified)"
+        }
     }
 
     # 5. Link Check (Markdown files)
@@ -263,7 +281,39 @@ try {
         }
     }
 
-    # 8. Pre-commit Checks
+    # 8. Validate GitHub Actions npm config commands
+    Write-Step "Step 8: Validating GitHub Actions Configuration"
+
+    # Check for invalid npm config commands in workflow files
+    $workflowFiles = Get-ChildItem ".github/workflows/*.yml" -ErrorAction SilentlyContinue
+    $npmConfigIssues = 0
+
+    if ($workflowFiles) {
+        foreach ($workflowFile in $workflowFiles) {
+            $content = Get-Content $workflowFile.FullName -Raw
+
+            # Check for npm config set commands
+            $configMatches = [regex]::Matches($content, 'npm config set (\w+)')
+            foreach ($match in $configMatches) {
+                $configOption = $match.Groups[1].Value
+
+                # Test if this is a valid npm config option
+                $testResult = npm config get $configOption 2>&1
+                if ($LASTEXITCODE -ne 0 -or $testResult -match "is not a valid npm option") {
+                    Write-Warning "Invalid npm config option '$configOption' found in $($workflowFile.Name)"
+                    $npmConfigIssues++
+                }
+            }
+        }
+
+        if ($npmConfigIssues -eq 0) {
+            Write-Success "GitHub Actions npm config validation passed"
+        } else {
+            Write-Warning "Found $npmConfigIssues invalid npm config options in workflows"
+        }
+    }
+
+    # 9. Pre-commit Checks
     Write-Step "Step 8: Running Pre-commit Checks"
 
     # Check for trailing whitespace

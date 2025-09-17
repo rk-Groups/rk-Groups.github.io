@@ -48,11 +48,6 @@ jobs:
 
       - name: Run Lighthouse (key pages)
         run: |
-          npm config set fund false
-          npm config set audit false
-          npm config set update-notifier false
-          npm config set warnings false
-          npm config set progress false
           npx --yes @lhci/cli collect \
             --config=lighthouserc.json
         env:
