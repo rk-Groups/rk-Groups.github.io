@@ -54,7 +54,14 @@ jobs:
       - name: Run axe-core CLI (contrast + a11y)
         run: |
           npx axe http://localhost:3000/ \
+             http://localhost:3000/companies/ \
+             http://localhost:3000/companies/rk-oxygen/ \
              http://localhost:3000/companies/rk-oxygen/gorakhpur/ \
+             http://localhost:3000/companies/rk-electrodes/ \
+             http://localhost:3000/companies/rk-palace/ \
+             http://localhost:3000/companies/sand-creations/ \
+             http://localhost:3000/companies/rk-oxygen/terms/ \
+             http://localhost:3000/companies/rk-oxygen/refund-policy/ \
              http://localhost:3000/Calc/GST/ \
              http://localhost:3000/Calc/LIQ/ \
              http://localhost:3000/sitemap/ \
