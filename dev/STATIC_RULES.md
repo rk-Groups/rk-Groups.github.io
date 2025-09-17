@@ -88,9 +88,20 @@ This ensures clear separation and maintainability for all company and branch con
 - **axe-core**: Automated accessibility testing across all major pages
 - **Link Checking**: Automated Markdown link validation on push/PR
 - **Pre-commit Hooks**: Trailing whitespace, end-of-file, YAML validation, and large file checks
+- **NPM Configuration**: Environment variables suppress deprecation warnings in CI workflows
+
+## Development Workflow
+
+- **Local Testing Required**: Use `.\test-and-push.ps1 "commit message"` for all changes
+- **Git Workflow**: Always pull before committing to prevent conflicts
+- **Testing Scripts**:
+  - `scripts/test-before-push.ps1` - Comprehensive local testing that mirrors CI
+  - `test-and-push.ps1` - Convenience wrapper for test-commit-push workflow
+- **Requirements**: Ruby with Bundler (Jekyll), Node.js with npm (performance tools)
+- **Quality Gates**: All changes must pass Jekyll build, basic accessibility, and link validation locally
 
 This repository is for a static website only and is designed for deployment via GitHub
-Pages.
+Pages with comprehensive quality assurance.
 
 ---
 
