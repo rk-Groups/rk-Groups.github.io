@@ -5,16 +5,28 @@ main:
     dropdown:
       - title: All Companies (Network)
         url: /companies/
+        icon: domain
+        desc: Browse the full RK Groups network
       - title: RK Electrodes
         url: /companies/rk-electrodes/
+        icon: build
+        desc: Welding electrodes and supplies
       - title: RK Oxygen (Gorakhpur)
         url: /companies/rk-oxygen/gorakhpur/
+        icon: factory
+        desc: Industrial gases branch – Gorakhpur
       - title: RK Oxygen (Lucknow)
         url: /companies/rk-oxygen/lucknow/
+        icon: factory
+        desc: Industrial gases branch – Lucknow
       - title: RK Palace
         url: /companies/rk-palace/
+        icon: apartment
+        desc: RK Palace property
       - title: Sand Creations
         url: /companies/sand-creations/
+        icon: brush
+        desc: Creative works and crafts
   - title: Calculators
     dropdown:
       - title: Calculators Hub
@@ -29,6 +41,10 @@ main:
         url: /Calc/LIQ/
         icon: science
         desc: Liquid to gas conversions and tables
+      - title: EMI Calculator
+        url: /Calc/EMI/
+        icon: payments
+        desc: Estimate monthly loan installments
   - title: Site Map
     url: /sitemap/
   - title: Terms of Service

@@ -38,10 +38,28 @@
         <i class="material-icons">home</i>
         Home
       </a>
-      <a href="/companies/" class="nav-link">
-        <i class="material-icons">factory</i>
-        Companies
-      </a>
+      <div class="mui-dropdown">
+        <a href="/companies/" class="nav-link">
+          <i class="material-icons">factory</i>
+          Companies
+        </a>
+        {% assign companies = site.data.navigation.main | where: "title", "Companies" | first %}
+        {% if companies and companies.dropdown %}
+        <ul class="mui-dropdown-menu">
+          {% for comp in companies.dropdown %}
+            <li>
+              <a href="{{ comp.url | relative_url }}" class="dropdown-item">
+                <span class="material-icons">{{ comp.icon | default: 'domain' }}</span>
+                <span class="dropdown-text">
+                  <strong>{{ comp.title }}</strong>
+                  {% if comp.desc %}<small>{{ comp.desc }}</small>{% endif %}
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
       <div class="mui-dropdown">
         <a href="/Calc/" class="nav-link">
           <i class="material-icons">calculate</i>

@@ -17,11 +17,11 @@ Welcome to the RK Groups company network. Below you’ll find an overview of all
         <div class="panel-heading"><strong>{{ company_name }}</strong></div>
         <div class="panel-body">
           <a href="/companies/{{ company_key[0] }}/">Main Page</a><br>
-          <a href="/companies/{{ company_key[0] }}/terms.md">Terms of Service</a> | <a href="/companies/{{ company_key[0] }}/refund-policy.md">Refund Policy</a><br>
+          <a href="/companies/{{ company_key[0] }}/terms/">Terms of Service</a> | <a href="/companies/{{ company_key[0] }}/refund-policy/">Refund Policy</a><br>
           {% for branch_key in company %}
             {% if branch_key[0] != 'main' %}
               <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/">{{ company[branch_key[0]].name | default: branch_key[0] | capitalize }} Branch</a><br>
-              <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/terms.md">Terms of Service</a> | <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/refund-policy.md">Refund Policy</a><br>
+              <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/terms/">Terms of Service</a> | <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/refund-policy/">Refund Policy</a><br>
             {% endif %}
           {% endfor %}
         </div>
