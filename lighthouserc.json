@@ -18,8 +18,7 @@
   "http://localhost:3000/companies/rk-oxygen/lucknow/refund-policy/",
         "http://localhost:3000/sitemap/"
       ],
-      "startServerCommand": "npx serve _site -p 3000",
-      "startServerReadyPattern": "Local:"
+      "chromeFlags": "--no-sandbox --headless --disable-gpu"
     },
     "assert": {
       "assertions": {

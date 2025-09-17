@@ -33,27 +33,19 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Node tools
-        run: |
-          npm ci --no-audit --no-fund || npm install
-          npx --yes http-server --version >/dev/null 2>&1 || npm i -D http-server
-          npx --yes lighthouse --version >/dev/null 2>&1 || npm i -D lighthouse @lhci/cli
-          npx --yes axe-core --help >/dev/null 2>&1 || npm i -D @axe-core/cli
-
       - name: Start local server
         run: |
-          npx http-server _site -p 3000 &
+          npx --yes http-server _site -p 3000 &
           echo "Waiting for server..." && sleep 3
 
       - name: Run Lighthouse (key pages)
         run: |
-          npx lhci collect \
-            --config=lighthouserc.json \
-            --chrome-flags="--no-sandbox --headless --disable-gpu"
+          npx --yes @lhci/cli collect \
+            --config=lighthouserc.json
 
       - name: Run axe-core CLI (contrast + a11y)
         run: |
-          npx axe http://localhost:3000/ \
+          npx --yes @axe-core/cli http://localhost:3000/ \
              http://localhost:3000/companies/ \
              http://localhost:3000/companies/rk-oxygen/ \
              http://localhost:3000/companies/rk-oxygen/gorakhpur/ \
