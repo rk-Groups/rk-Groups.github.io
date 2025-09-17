@@ -69,6 +69,8 @@ Use this as a historical record of progress.
 - **Button Contrast Fix**: Enhanced button color contrast and visibility with explicit white text, improved hover states, and text shadows
 - **NPM Warning Suppression**: Enhanced environment variables to CI workflow and local testing to minimize npm deprecation warnings (NODE_NO_WARNINGS, NPM_CONFIG_UPDATE_NOTIFIER, etc.)
 - **Local Testing Infrastructure**: Created comprehensive local testing scripts (`scripts/test-before-push.ps1`, `test-and-push.ps1`) that mirror GitHub Actions workflows for pre-push validation
+- **CI Configuration Fix**: Fixed critical CI failure by removing invalid npm config commands (`npm config set warnings false`) and implementing npm config validation in local testing
+- **Enhanced Monitoring Report**: Upgraded `dev/MONITORING_REPORT.md` with automatic page data collection, direct URLs, and comprehensive performance baselines
 
 ## Legal/Policy Page Consistency
 

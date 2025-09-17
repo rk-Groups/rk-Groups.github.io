@@ -144,6 +144,22 @@ npm WARN deprecated rimraf@3.0.2: Use rm -rf instead
 2. **Keep using npx**: It's the right approach for your use case
 3. **Monitor tool updates**: Major tools will eventually drop deprecated deps
 4. **Warning vs Error**: Deprecation warnings don't break functionality
+5. **⚠️ CRITICAL: Invalid npm config options**: Some npm config options are invalid and will cause CI failures
+   - ❌ `npm config set warnings false` - 'warnings' is NOT a valid npm config option
+   - ✅ Use `NPM_CONFIG_WARNINGS=false` environment variable instead
+   - ✅ Local testing now validates npm config commands to prevent CI failures
+
+## 🔍 **CI Failure Prevention**
+
+**Local validation added to test-before-push.ps1:**
+- Validates all `npm config set` commands found in GitHub Actions workflows
+- Tests if npm config options are valid before pushing
+- Prevents CI failures from invalid npm configuration
+
+**Fixed in commit b25881d:**
+- Removed invalid `npm config set warnings false` from workflows
+- Enhanced local testing to catch npm config validation issues
+- Rely exclusively on environment variables for npm configuration
 
 ## 📋 **Implementation Checklist**
 
