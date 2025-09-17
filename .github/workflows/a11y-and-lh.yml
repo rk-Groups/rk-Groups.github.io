@@ -37,11 +37,19 @@ jobs:
         run: |
           npx --yes http-server _site -p 3000 &
           echo "Waiting for server..." && sleep 3
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
 
       - name: Run Lighthouse (key pages)
         run: |
+          npm config set fund false
+          npm config set audit false
           npx --yes @lhci/cli collect \
             --config=lighthouserc.json
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
 
       - name: Run axe-core CLI (contrast + a11y)
         run: |
@@ -61,6 +69,9 @@ jobs:
              http://localhost:3000/Calc/LIQ/ \
              http://localhost:3000/sitemap/ \
              --exit 1 || echo "axe found issues (non-blocking)"
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4
