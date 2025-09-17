@@ -108,26 +108,7 @@
   margin-left: 8px;
 }
 /* Material UI Theme Variables */
-body.light-mode {
-  --mui-radius: 8px;
-  --text: #222;
-  --panel-bg: #fff;
-  --panel-border: #e0e0e0;
-  --primary: #1976d2;
-  --primary-light: #63a4ff;
-  --primary-dark: #004ba0;
-  --secondary: #9c27b0;
-  --secondary-light: #d05ce3;
-  --secondary-dark: #6a0080;
-  --error: #d32f2f;
-  --warning: #fbc02d;
-  --info: #1976d2;
-  --success: #388e3c;
-  --background: #f5f5f5;
-  --card-bg: #fff;
-  --divider: #e0e0e0;
-  --shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
+/* Light mode removed – site is dark-only by policy */
 
 body.dark-mode {
   --mui-radius: 8px;
@@ -300,8 +281,8 @@ a.mui-disabled, a[aria-disabled="true"] {
   align-items: center;
 }
 .mui-nav > li > a:hover, .mui-nav > li > a:focus {
-  background: #e0e0e0;
-  color: #1976d2;
+  background: #333a;
+  color: var(--primary);
 }
 
 /* MUI Dropdown */
@@ -334,8 +315,8 @@ a.mui-disabled, a[aria-disabled="true"] {
   transition: background 0.2s, color 0.2s;
 }
 .mui-dropdown-menu a:hover, .mui-dropdown-menu a:focus {
-  background: #e0e0e0;
-  color: #1976d2;
+  background: #333a;
+  color: var(--primary);
 }
 
 
@@ -522,6 +503,7 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   color: #666;
   line-height: 1.5;
 }
+body.dark-mode .mui-feature-card p { color: #cfcfcf; }
 
 /* Company Details */
 .mui-branch-switcher {
@@ -558,6 +540,14 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
 }
 .mui-info-item span {
   color: #666;
+}
+body.dark-mode .mui-info-item span { color: #cfcfcf; }
+
+/* Better hover for report issue button in dark mode */
+body.dark-mode .mui-bottombar-report:hover,
+body.dark-mode .mui-bottombar-report:focus {
+  background: #333a;
+  color: var(--warning);
 }
 
 @media (max-width: 768px) {
