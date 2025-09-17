@@ -12,6 +12,15 @@ param(
 $ErrorActionPreference = "Stop"
 $OriginalLocation = Get-Location
 
+# Set enhanced NPM config to suppress deprecation warnings
+$env:NPM_CONFIG_FUND = "false"
+$env:NPM_CONFIG_AUDIT = "false"
+$env:NPM_CONFIG_UPDATE_NOTIFIER = "false"
+$env:NPM_CONFIG_WARNINGS = "false"
+$env:NPM_CONFIG_PROGRESS = "false"
+$env:NODE_NO_WARNINGS = "1"
+$env:SUPPRESS_NO_CONFIG_WARNING = "true"
+
 function Write-Step {
     param([string]$Message, [string]$Color = "Cyan")
     Write-Host "`n=== $Message ===" -ForegroundColor $Color
@@ -156,13 +165,7 @@ try {
 
     # 6. Local Server & Lighthouse Test
     if ($NodeAvailable -and -not $SkipLighthouse) {
-        Write-Step "Step 6: Testing with Lighthouse"
-
-        # Set NPM config to reduce warnings
-        $env:NPM_CONFIG_FUND = "false"
-        $env:NPM_CONFIG_AUDIT = "false"
-
-        # Start local server in background
+        Write-Step "Step 6: Testing with Lighthouse"        # Start local server in background
         Write-Host "Starting local server..."
         $serverJob = Start-Job -ScriptBlock {
             npx --yes http-server $args[0] -p 3000 -s

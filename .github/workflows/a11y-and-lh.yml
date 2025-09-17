@@ -40,16 +40,29 @@ jobs:
         env:
           NPM_CONFIG_FUND: false
           NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_UPDATE_NOTIFIER: false
+          NPM_CONFIG_WARNINGS: false
+          NPM_CONFIG_PROGRESS: false
+          NODE_NO_WARNINGS: 1
+          SUPPRESS_NO_CONFIG_WARNING: true
 
       - name: Run Lighthouse (key pages)
         run: |
           npm config set fund false
           npm config set audit false
+          npm config set update-notifier false
+          npm config set warnings false
+          npm config set progress false
           npx --yes @lhci/cli collect \
             --config=lighthouserc.json
         env:
           NPM_CONFIG_FUND: false
           NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_UPDATE_NOTIFIER: false
+          NPM_CONFIG_WARNINGS: false
+          NPM_CONFIG_PROGRESS: false
+          NODE_NO_WARNINGS: 1
+          SUPPRESS_NO_CONFIG_WARNING: true
 
       - name: Run axe-core CLI (contrast + a11y)
         run: |
@@ -72,6 +85,11 @@ jobs:
         env:
           NPM_CONFIG_FUND: false
           NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_UPDATE_NOTIFIER: false
+          NPM_CONFIG_WARNINGS: false
+          NPM_CONFIG_PROGRESS: false
+          NODE_NO_WARNINGS: 1
+          SUPPRESS_NO_CONFIG_WARNING: true
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4

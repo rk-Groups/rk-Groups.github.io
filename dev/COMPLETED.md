@@ -67,7 +67,7 @@ Use this as a historical record of progress.
 - **CI Quality Gates**: Implemented Lighthouse and axe-core accessibility/performance checks
 - **CI Node Tools Fix**: Updated workflow to use `npx --yes` without requiring package.json
 - **Button Contrast Fix**: Enhanced button color contrast and visibility with explicit white text, improved hover states, and text shadows
-- **NPM Warning Suppression**: Added environment variables to CI workflow to reduce npm deprecation noise
+- **NPM Warning Suppression**: Enhanced environment variables to CI workflow and local testing to minimize npm deprecation warnings (NODE_NO_WARNINGS, NPM_CONFIG_UPDATE_NOTIFIER, etc.)
 - **Local Testing Infrastructure**: Created comprehensive local testing scripts (`scripts/test-before-push.ps1`, `test-and-push.ps1`) that mirror GitHub Actions workflows for pre-push validation
 
 ## Legal/Policy Page Consistency
