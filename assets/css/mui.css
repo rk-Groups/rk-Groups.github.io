@@ -1,3 +1,9 @@
+/* Global reset to avoid horizontal scroll */
+* { box-sizing: border-box; }
+*::before, *::after { box-sizing: inherit; }
+html, body { margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: hidden; }
+img, video, svg { max-width: 100%; height: auto; }
+
 /* Bottombar Report Issue Button */
 .mui-bottombar-report {
   display: inline-flex;
@@ -258,6 +264,7 @@ a.mui-disabled, a[aria-disabled="true"] {
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
+  overflow-x: clip; /* prevent accidental horizontal overflow */
 }
 
 /* Flex and grid utilities */
@@ -277,6 +284,7 @@ a.mui-disabled, a[aria-disabled="true"] {
 .mui-grid {
   display: grid !important;
   gap: 16px;
+  min-width: 0; /* allow shrink inside flex/containers */
 }
 .mui-grid-2 {
   grid-template-columns: repeat(2, 1fr) !important;
@@ -361,6 +369,8 @@ body.dark-mode .mui-menu-btn:focus {
   background: var(--panel-bg);
   color: var(--text);
   min-width: 180px;
+  max-width: 95vw;
+  overflow-x: auto;
   box-shadow: 0 4px 16px rgba(0,0,0,0.10);
   border-radius: 8px;
   margin-top: 4px;
@@ -420,6 +430,7 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   margin: 16px 0;
   box-shadow: var(--shadow);
   border: 1px solid var(--divider);
+  overflow-wrap: anywhere; /* break long strings/urls to prevent overflow */
 }
 .mui-card-title {
   color: var(--text);
@@ -482,6 +493,8 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
 .mui-hero--bleed {
   position: relative;
   background: transparent; /* background handled by pseudo-element */
+  /* Ensure full-bleed pseudo elements don't cause horizontal scroll */
+  overflow: hidden;
 }
 .mui-hero--bleed::before {
   content: "";
