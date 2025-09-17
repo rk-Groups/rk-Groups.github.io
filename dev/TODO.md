@@ -6,6 +6,7 @@
 - [ ] Periodically audit legal/policy pages for compliance
 - [ ] Monitor Lighthouse and axe-core CI results for performance/accessibility regressions
 - [ ] Review button contrast and accessibility as design evolves
+- [ ] Follow proper Git workflow: always pull before committing to avoid conflicts
 
 ### Backlog
 - [ ] Add more test coverage for calculators and navigation
