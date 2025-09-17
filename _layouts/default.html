@@ -1,24 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: site.title }}</title>
+
+  <!-- SEO Meta Tags -->
+  {% include seo-meta.html %}
   {% seo %}
-  <!-- Bootstrap removed: now using MUI-only styles -->
+
+  <!-- Structured Data -->
+  {% include structured-data.html %}
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1976d2">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="RK Groups">
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | relative_url }}">/
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/assets/css/mui.css">
-  <!-- Bootstrap JS and jQuery removed: now using MUI-only styles -->
-  <!-- Styles moved to assets/mui.css for global reuse -->
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
 </head>
 <body>
 
-  {% include topbar.html %}
-  {% include sidebar.html %}
-  <div class="mui-container" style="margin-left:220px; margin-top:56px;">
+  {% include navigation.html %}
+  <div class="mui-container">
     {{ content }}
   </div>
   {% include theme-toggle-script.html %}
   {% include bottombar.html %}
+  {% include analytics.html %}
 </body>
 </html>

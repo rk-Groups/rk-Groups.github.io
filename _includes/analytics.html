@@ -1,0 +1,55 @@
+<!-- Google Analytics (replace GA_MEASUREMENT_ID with your actual ID) -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+-->
+
+<!-- Performance Monitoring -->
+<script>
+  // Core Web Vitals tracking
+  if ('PerformanceObserver' in window) {
+    // Track Largest Contentful Paint
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        console.log('LCP:', entry.startTime);
+        // Send to analytics if needed
+      }
+    }).observe({entryTypes: ['largest-contentful-paint']});
+
+    // Track First Input Delay
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        console.log('FID:', entry.processingStart - entry.startTime);
+        // Send to analytics if needed
+      }
+    }).observe({entryTypes: ['first-input']});
+
+    // Track Cumulative Layout Shift
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (!entry.hadRecentInput) {
+          console.log('CLS:', entry.value);
+          // Send to analytics if needed
+        }
+      }
+    }).observe({entryTypes: ['layout-shift']});
+  }
+
+  // Basic page performance tracking
+  window.addEventListener('load', function() {
+    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+    console.log('Page Load Time:', loadTime + 'ms');
+
+    // Track Service Worker status
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function() {
+        console.log('Service Worker: Active');
+      });
+    }
+  });
+</script>

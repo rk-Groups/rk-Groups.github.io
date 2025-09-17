@@ -1,0 +1,48 @@
+<!-- Structured Data for Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ site.title | default: 'RK Groups' }}",
+  "url": "{{ site.url }}",
+  "description": "{{ site.description | default: 'Multi-company industrial solutions provider offering gases, welding equipment, and business tools' }}",
+  "foundingDate": "2020",
+  "industry": "Industrial Gases and Equipment",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": ["English", "Hindi"]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "85, RK Palace, Gangaprasad Road, Rakabganj",
+    "addressLocality": "Lucknow",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "226018",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "{{ site.url }}"
+  ]
+}
+</script>
+
+<!-- Structured Data for Website -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title | default: 'RK Groups' }}",
+  "url": "{{ site.url }}",
+  "description": "{{ site.description }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.url }}/sitemap/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>

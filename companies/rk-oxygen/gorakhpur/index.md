@@ -1,6 +1,7 @@
 ---
 layout: default
 title: RK Oxygen - Gorakhpur Branch
+description: "RK Oxygen Gorakhpur branch - Industrial gases, oxygen, nitrogen, and welding solutions. GSTIN: 09ABAFR4114P1ZX. Located in GIDA, Gorakhpur, Uttar Pradesh."
 ---
 
 {% assign details = site.data.companies.rk-oxygen.gorakhpur %}

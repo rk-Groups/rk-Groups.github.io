@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Site Map - RK Groups
+description: "Complete sitemap of RK Groups website showing all companies, calculators, policies, and business pages for easy navigation."
 ---
 
 # Site Map

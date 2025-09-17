@@ -1,12 +1,25 @@
-</script>
-<script>
-// Sidebar toggle logic
-function toggleSidebar() {
-  var sidebar = document.querySelector('.mui-sidebar');
-  if (!sidebar) return;
-  sidebar.classList.toggle('mui-sidebar-open');
-}
-</script>
+<!-- Floating Theme Toggle Button -->
+<button id="theme-toggle-btn" onclick="toggleTheme()" class="mui-btn" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background: var(--mui-primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+">
+  <i class="material-icons" id="theme-icon">dark_mode</i>
+</button>
+
 <script>
 // Theme toggle logic with Material icon
 function setTheme(mode) {
@@ -22,11 +35,13 @@ function setTheme(mode) {
     setThemeIcon('light');
   }
 }
+
 function setThemeIcon(mode) {
   var icon = document.getElementById('theme-icon');
   if (!icon) return;
   icon.textContent = (mode === 'dark') ? 'light_mode' : 'dark_mode';
 }
+
 function toggleTheme() {
   const isDark = document.body.classList.contains('dark-mode');
   if (isDark) {
@@ -35,6 +50,20 @@ function toggleTheme() {
     setTheme('dark');
   }
 }
+
+// Add hover effects to theme toggle button
+document.addEventListener('DOMContentLoaded', function() {
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.1)';
+    });
+    themeBtn.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+    });
+  }
+});
+
 // On load, set theme from localStorage or system
 (function() {
   const saved = localStorage.getItem('theme');

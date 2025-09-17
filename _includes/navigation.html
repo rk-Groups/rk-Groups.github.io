@@ -1,0 +1,90 @@
+<!-- Simple Navigation Bar -->
+<nav style="
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--panel-border);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+">
+  <div style="
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  ">
+    <!-- Logo/Brand -->
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <i class="material-icons" style="color: var(--mui-primary-color); font-size: 2rem;">business</i>
+      <a href="/" style="
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--mui-text-primary);
+        text-decoration: none;
+      ">RK Groups</a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div style="
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    ">
+      <a href="/" class="nav-link">
+        <i class="material-icons">home</i>
+        Home
+      </a>
+      <a href="/companies/rk-oxygen/gorakhpur/" class="nav-link">
+        <i class="material-icons">factory</i>
+        Companies
+      </a>
+      <a href="/Calc/GST/" class="nav-link">
+        <i class="material-icons">calculate</i>
+        Calculators
+      </a>
+      <a href="/sitemap/" class="nav-link">
+        <i class="material-icons">map</i>
+        Sitemap
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--mui-text-secondary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: var(--mui-primary-color);
+  background: var(--mui-surface-variant);
+  transform: translateY(-1px);
+}
+
+.nav-link .material-icons {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .nav-link {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-link .material-icons {
+    font-size: 1.1rem;
+  }
+}
+</style>

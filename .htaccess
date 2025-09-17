@@ -1,0 +1,15 @@
+# Security Headers (for GitHub Pages deployment)
+# Add these headers via GitHub Pages or CDN if possible
+
+# Content Security Policy
+# Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:;
+
+# Additional Security Headers
+# X-Frame-Options: DENY
+# X-Content-Type-Options: nosniff
+# Referrer-Policy: strict-origin-when-cross-origin
+# Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Performance Headers
+# Cache-Control: public, max-age=31536000
+# Vary: Accept-Encoding

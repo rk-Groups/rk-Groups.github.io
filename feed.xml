@@ -1,0 +1,40 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <description>{{ site.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ site.baseurl }}/</link>
+    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll v{{ jekyll.version }}</generator>
+
+    <!-- Business Updates/News Items -->
+    <item>
+      <title>RK Groups Website Launch</title>
+      <description>Welcome to the official RK Groups website featuring business tools, calculators, and company information.</description>
+      <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+      <link>{{ site.url }}{{ site.baseurl }}/</link>
+      <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}/</guid>
+    </item>
+
+    <item>
+      <title>Business Calculators Available</title>
+      <description>Access our GST and Liquidity calculators for quick business calculations.</description>
+      <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+      <link>{{ site.url }}{{ site.baseurl }}/Calc/GST/</link>
+      <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}/Calc/GST/</guid>
+    </item>
+
+    <item>
+      <title>RK Oxygen Company Information</title>
+      <description>Learn about our oxygen company operations in Gorakhpur, including services and contact information.</description>
+      <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+      <link>{{ site.url }}{{ site.baseurl }}/companies/rk-oxygen/gorakhpur/</link>
+      <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}/companies/rk-oxygen/gorakhpur/</guid>
+    </item>
+  </channel>
+</rss>

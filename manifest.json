@@ -1,0 +1,36 @@
+{
+  "name": "RK Groups",
+  "short_name": "RK Groups",
+  "description": "Multi-company static site for RK Groups with business tools, calculators, and company information",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["business", "productivity", "tools"],
+  "lang": "en-US",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "GST Calculator",
+      "short_name": "GST Calc",
+      "description": "Calculate GST quickly",
+      "url": "/Calc/GST/",
+      "icons": [{ "src": "/favicon.ico", "sizes": "32x32" }]
+    },
+    {
+      "name": "Liquidity Calculator",
+      "short_name": "LIQ Calc",
+      "description": "Calculate liquidity ratios",
+      "url": "/Calc/LIQ/",
+      "icons": [{ "src": "/favicon.ico", "sizes": "32x32" }]
+    }
+  ]
+}
