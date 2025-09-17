@@ -4,7 +4,7 @@ title: Calculators Hub
 description: "Quick access to GST, Liquid conversion, and EMI calculators."
 ---
 
-<div class="mui-hero" style="margin-top:-24px;">
+<div class="mui-hero mui-hero--bleed">
   <div class="mui-hero-content">
     <div class="mui-hero-icon">
       <span class="material-icons" style="font-size: 4rem;">calculate</span>

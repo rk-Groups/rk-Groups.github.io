@@ -4,7 +4,7 @@ title: RK Groups Home
 description: "RK Groups - Your trusted partner for industrial gases, welding equipment, calculators, and business solutions across Uttar Pradesh, India."
 ---
 
-<div class="mui-hero">
+<div class="mui-hero mui-hero--bleed">
   <div class="mui-hero-content">
     <div class="mui-hero-icon">
       <span class="material-icons" style="font-size: 4rem;">business</span>

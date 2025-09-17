@@ -434,6 +434,20 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   /* Remove negative margins to avoid overlap/overflow */
   margin: 0 0 32px 0;
 }
+.mui-hero--bleed {
+  position: relative;
+  background: transparent; /* background handled by pseudo-element */
+}
+.mui-hero--bleed::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;            /* Full viewport width without container limits */
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  z-index: -1;             /* Sit behind hero content */
+}
 .mui-hero-content {
   max-width: 800px;
   margin: 0 auto;
