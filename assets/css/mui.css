@@ -72,6 +72,36 @@
     gap: 0.2em;
   }
 }
+
+/* Sitemap styling */
+.mui-sitemap-list {
+  list-style: none;
+  padding-left: 0;
+}
+.mui-sitemap-list ul {
+  list-style: none;
+  padding-left: 24px;
+  margin: 8px 0;
+}
+.mui-sitemap-list li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+.mui-sitemap-list a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.mui-sitemap-list a:hover, .mui-sitemap-list a:focus {
+  background: var(--primary);
+  color: #fff;
+}
+.mui-text-muted {
+  color: #888;
+  font-size: 0.9em;
+}
 /* Material UI Theme Variables */
 body.light-mode {
   --mui-radius: 8px;

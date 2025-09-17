@@ -21,6 +21,8 @@ main:
         url: /Calc/GST/index.md
       - title: Liquid Calculator
         url: /Calc/LIQ/index.md
+  - title: Site Map
+    url: /sitemap/
   - title: Terms of Service
     url: /companies/rk-oxygen/gorakhpur/terms/
   - title: Refund Policy
