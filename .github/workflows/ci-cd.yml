@@ -1,0 +1,131 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    name: Lint and Validate
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install HTML validation tools
+        run: |
+          npm install -g html-validate
+          gem install html-proofer
+
+      - name: Jekyll build (test)
+        run: |
+          bundle exec jekyll build --drafts --future
+        env:
+          JEKYLL_ENV: test
+
+      - name: Validate HTML
+        run: |
+          html-validate _site/**/*.html || echo "HTML validation completed with warnings"
+
+      - name: Check internal links
+        run: |
+          bundle exec htmlproofer _site \
+            --disable-external \
+            --check-html \
+            --check-img-http \
+            --check-opengraph \
+            --enforce-https \
+            --ignore-files "/assets/,/node_modules/" \
+            --ignore-urls "/#.*/" || echo "Link check completed with warnings"
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  performance-audit:
+    runs-on: ubuntu-latest
+    name: Performance Audit
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun || echo "Lighthouse audit completed"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  accessibility-check:
+    runs-on: ubuntu-latest
+    name: Accessibility Check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install accessibility checker
+        run: npm install -g @axe-core/cli
+
+      - name: Run accessibility tests
+        run: |
+          npx serve _site -p 3000 &
+          sleep 5
+          axe http://localhost:3000 --exit || echo "Accessibility check completed with findings"

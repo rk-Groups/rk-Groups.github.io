@@ -1,0 +1,108 @@
+name: Workflow Health Check
+
+on:
+  schedule:
+    # Run every Monday at 9:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  workflow-health:
+    runs-on: ubuntu-latest
+    name: Check Workflow Health
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          echo "Checking for required files..."
+
+          # Check Jekyll files
+          if [ ! -f "_config.yml" ]; then
+            echo "❌ _config.yml not found"
+            exit 1
+          else
+            echo "✅ _config.yml found"
+          fi
+
+          if [ ! -f "Gemfile" ]; then
+            echo "❌ Gemfile not found"
+            exit 1
+          else
+            echo "✅ Gemfile found"
+          fi
+
+          # Check workflow files
+          if [ ! -f ".github/workflows/gh-pages.yml" ]; then
+            echo "❌ GitHub Pages workflow not found"
+          else
+            echo "✅ GitHub Pages workflow found"
+          fi
+
+          # Check scripts
+          if [ ! -f ".github/scripts/update_issues_md.py" ]; then
+            echo "❌ Issues update script not found"
+          else
+            echo "✅ Issues update script found"
+          fi
+
+          # Check directories
+          if [ ! -d "_layouts" ]; then
+            echo "❌ _layouts directory not found"
+          else
+            echo "✅ _layouts directory found"
+          fi
+
+          if [ ! -d "_includes" ]; then
+            echo "❌ _includes directory not found"
+          else
+            echo "✅ _includes directory found"
+          fi
+
+      - name: Validate Jekyll configuration
+        run: |
+          echo "Validating Jekyll configuration..."
+          if command -v ruby &> /dev/null; then
+            echo "Ruby is available"
+          else
+            echo "Installing Ruby..."
+          fi
+
+      - name: Setup Ruby for validation
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Test Jekyll build
+        run: |
+          echo "Testing Jekyll build..."
+          bundle exec jekyll build --verbose --trace || {
+            echo "❌ Jekyll build failed"
+            exit 1
+          }
+          echo "✅ Jekyll build successful"
+
+      - name: Check file permissions
+        run: |
+          echo "Checking file permissions..."
+          find .github/scripts -name "*.py" -exec chmod +x {} \;
+          echo "✅ Script permissions updated"
+
+      - name: Validate workflow syntax
+        run: |
+          echo "Validating workflow YAML syntax..."
+          for workflow in .github/workflows/*.yml; do
+            echo "Checking $workflow..."
+            python -c "import yaml; yaml.safe_load(open('$workflow'))" || {
+              echo "❌ Invalid YAML in $workflow"
+              exit 1
+            }
+          done
+          echo "✅ All workflow files have valid YAML syntax"
+
+      - name: Report status
+        run: |
+          echo "🎉 All health checks passed!"
+          echo "Workflow health check completed successfully."

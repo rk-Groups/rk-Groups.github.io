@@ -3,6 +3,34 @@
     { "pattern": "^mailto:" },
     { "pattern": "^tel:" },
     { "pattern": "^#" },
-    { "pattern": "^https://github.com/rk-Groups/rk-Groups.github.io/issues/new" }
+    { "pattern": "^https://github.com/rk-Groups/rk-Groups.github.io/issues/new" },
+    { "pattern": "^javascript:" },
+    { "pattern": "^data:" },
+    { "pattern": "localhost" },
+    { "pattern": "127.0.0.1" }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackHttpStatus": [
+    400,
+    401,
+    403,
+    404,
+    405,
+    500,
+    502,
+    503,
+    504
+  ],
+  "aliveStatusCodes": [
+    200,
+    206,
+    301,
+    302,
+    303,
+    304,
+    307,
+    308
   ]
 }
