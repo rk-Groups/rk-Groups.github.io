@@ -449,6 +449,17 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   flex-wrap: wrap;
 }
 
+/* Ensure outline buttons are visible on hero gradient */
+.mui-hero .mui-btn--outline {
+  color: #fff;
+  border-color: #fff;
+}
+.mui-hero .mui-btn--outline:hover,
+.mui-hero .mui-btn--outline:focus {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
 /* Features Section */
 .mui-features {
   padding: 40px 0;

@@ -18,9 +18,9 @@ main:
   - title: Calculators
     dropdown:
       - title: GST Calculator
-        url: /Calc/GST/index.md
+        url: /Calc/GST/
       - title: Liquid Calculator
-        url: /Calc/LIQ/index.md
+        url: /Calc/LIQ/
   - title: Site Map
     url: /sitemap/
   - title: Terms of Service

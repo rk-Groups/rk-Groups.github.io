@@ -17,7 +17,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
         <span class="material-icons">domain</span>
         Explore Companies
       </a>
-      <a href="/Calc/GST/" class="mui-btn mui-btn--outline mui-btn--large">
+      <a href="/Calc/" class="mui-btn mui-btn--outline mui-btn--large">
         <span class="material-icons">calculate</span>
         Use Calculators
       </a>
