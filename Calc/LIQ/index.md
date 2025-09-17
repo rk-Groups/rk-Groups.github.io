@@ -4,10 +4,16 @@ title: Liquid Oxygen Converter
 ---
 
 
-<div class="jumbotron text-center">
-  <h2>Liquid Gas Universal Converter</h2>
+<div class="mui-hero mui-hero--bleed">
+  <div class="mui-hero-content">
+    <div class="mui-hero-icon">
+      <span class="material-icons" style="font-size: 4rem;">science</span>
+    </div>
+    <h1 class="mui-hero-title">Liquid Gas Universal Converter</h1>
+    <p class="mui-hero-subtitle">Convert between KGS, TON, SM3, and LTR for O₂, N₂, and CO₂</p>
+  </div>
 </div>
-<div class="text-center">
+<div class="mui-card" style="text-align:center;">
   <p>
     <label for="liqType">Select Liquid Type:</label>
     <select id="liqType" onchange="resetFields();">
@@ -33,6 +39,7 @@ title: Liquid Oxygen Converter
     <label>Liters (ltr)</label>
     <input id="LTR" type="number" placeholder="LTR" oninput="fromLTR(this.value)">
   </p>
+
 </div>
 
 <script>
