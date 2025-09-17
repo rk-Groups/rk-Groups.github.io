@@ -212,6 +212,14 @@ a.mui-disabled, a[aria-disabled="true"] {
   }
 }
 
+/* Base container: center content and add horizontal padding */
+.mui-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
 /* Flex and grid utilities */
 .mui-flex {
   display: flex !important;
@@ -423,7 +431,8 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   padding: 60px 20px;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   color: white;
-  margin: -56px -24px 32px -24px;
+  /* Remove negative margins to avoid overlap/overflow */
+  margin: 0 0 32px 0;
 }
 .mui-hero-content {
   max-width: 800px;
