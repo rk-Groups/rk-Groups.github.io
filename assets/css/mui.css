@@ -112,28 +112,73 @@
 
 body.dark-mode {
   --mui-radius: 8px;
-  --text: #f5f5f5;
-  --panel-bg: #23272f;
-  --panel-border: #333a;
-  --primary: #90caf9;
-  --primary-light: #e3f2fd;
-  --primary-dark: #1976d2;
-  --secondary: #ce93d8;
-  --secondary-light: #f3e5f5;
-  --secondary-dark: #9c27b0;
-  --error: #ef9a9a;
+
+  /* Modern Dark Theme Palette */
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #262626;
+  --bg-elevated: #2d2d2d;
+  --bg-glass: rgba(26, 26, 26, 0.8);
+
+  /* Text */
+  --text: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #737373;
+  --text-accent: #60a5fa;
+
+  /* Accents */
+  --accent-primary: #3b82f6;
+  --accent-secondary: #8b5cf6;
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+
+  /* Borders */
+  --border-primary: #404040;
+  --border-secondary: #525252;
+  --border-focus: #60a5fa;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-hero: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+
+  /* Map existing tokens to new palette */
+  --panel-bg: var(--bg-glass);
+  --panel-border: var(--border-primary);
+  --primary: var(--accent-primary);
+  --primary-light: var(--text-accent);
+  --primary-dark: #2563eb; /* darker blue */
+  --secondary: var(--accent-secondary);
+  --secondary-light: #b69cff;
+  --secondary-dark: #6d28d9;
+  --error: var(--accent-danger);
   --warning: #ffe082;
-  --info: #90caf9;
+  --info: var(--text-accent);
   --success: #a5d6a7;
-  --background: #181a20;
-  --card-bg: #23272f;
-  --divider: #333a;
-  --shadow: 0 2px 8px rgba(0,0,0,0.40);
-  /* Map commonly used MUI-like variables referenced inline */
+  --background: var(--bg-primary);
+  --card-bg: var(--bg-tertiary);
+  --divider: var(--border-primary);
+  --shadow: var(--shadow-sm);
+
+  /* MUI-like variable mappings */
   --mui-primary-color: var(--primary);
   --mui-text-primary: var(--text);
-  --mui-text-secondary: #cfd8dc;
-  --mui-surface-variant: #2b2f36;
+  --mui-text-secondary: var(--text-secondary);
+  --mui-surface-variant: var(--bg-elevated);
+}
+
+/* Apply base colors to body in dark mode */
+body.dark-mode {
+  background: var(--background);
+  color: var(--text);
 }
 /* Accessibility: Focus outline for all interactive elements */
 a, button, input, select, textarea, [tabindex]:not([tabindex="-1"]) {
@@ -261,6 +306,11 @@ a.mui-disabled, a[aria-disabled="true"] {
 .mui-menu-btn:hover, .mui-menu-btn:focus {
   background: #e0e0e0;
   color: #1976d2;
+}
+body.dark-mode .mui-menu-btn:hover,
+body.dark-mode .mui-menu-btn:focus {
+  background: #333a;
+  color: var(--primary);
 }
 
 /* MUI Brand */
@@ -424,7 +474,7 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
 .mui-hero {
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  background: var(--gradient-hero);
   color: white;
   /* Remove negative margins to avoid overlap/overflow */
   margin: 0 0 32px 0;
@@ -440,8 +490,28 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;            /* Full viewport width without container limits */
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  background: var(--gradient-hero);
   z-index: -1;             /* Sit behind hero content */
+}
+
+/* Radial accent overlay similar to reference theme */
+.mui-hero--bleed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  background: radial-gradient(circle at 50% 50%, rgba(59,130,246,0.10) 0%, transparent 70%);
+  z-index: -1;
+}
+
+/* Glass header helper */
+.mui-glass {
+  background: var(--bg-glass) !important;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-primary) !important;
 }
 .mui-hero-content {
   max-width: 800px;

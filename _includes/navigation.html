@@ -1,5 +1,5 @@
 <!-- Simple Navigation Bar -->
-<nav style="
+<nav class="mui-glass" style="
   background: var(--panel-bg);
   border-bottom: 1px solid var(--panel-border);
   padding: 1rem 0;
@@ -45,7 +45,7 @@
         </a>
         {% assign companies = site.data.navigation.main | where: "title", "Companies" | first %}
         {% if companies and companies.dropdown %}
-        <ul class="mui-dropdown-menu">
+  <ul class="mui-dropdown-menu" style="background: var(--bg-elevated); border: 1px solid var(--border-primary);">
           {% for comp in companies.dropdown %}
             <li>
               <a href="{{ comp.url | relative_url }}" class="dropdown-item">
@@ -67,7 +67,7 @@
         </a>
         {% assign calculators = site.data.navigation.main | where: "title", "Calculators" | first %}
         {% if calculators and calculators.dropdown %}
-        <ul class="mui-dropdown-menu">
+  <ul class="mui-dropdown-menu" style="background: var(--bg-elevated); border: 1px solid var(--border-primary);">
           {% for calc in calculators.dropdown %}
             <li>
               <a href="{{ calc.url | relative_url }}" class="dropdown-item">
