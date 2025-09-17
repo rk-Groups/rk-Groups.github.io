@@ -449,29 +449,184 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   color: #90caf9;
 }
 
-/* Center Logo */
-.center-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
+/* Modern MUI Cards */
+.mui-card {
+  background: var(--card-bg);
+  border-radius: var(--mui-radius);
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--divider);
 }
-.center-logo img {
-  max-width: 180px;
+.mui-card-title {
+  color: var(--text);
+  margin: 0 0 16px 0;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+/* Modern Button System */
+.mui-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--mui-radius);
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1em;
+}
+.mui-btn--primary {
+  background: var(--primary);
+  color: white;
+}
+.mui-btn--primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+.mui-btn--outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.mui-btn--outline:hover {
+  background: var(--primary);
+  color: white;
+}
+.mui-btn--large {
+  padding: 16px 32px;
+  font-size: 1.1em;
+}
+.mui-btn-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Hero Section */
+.mui-hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  color: white;
+  margin: -56px -24px 32px -24px;
+}
+.mui-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.mui-hero-icon {
   margin-bottom: 24px;
 }
-.center-logo h1 {
-  font-size: 2.2em;
-  font-weight: 600;
+.mui-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+.mui-hero-subtitle {
+  font-size: 1.2em;
+  margin: 0 0 32px 0;
+  opacity: 0.9;
+}
+.mui-hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Features Section */
+.mui-features {
+  padding: 40px 0;
+}
+.mui-features h2 {
+  text-align: center;
+  margin-bottom: 32px;
   color: var(--text);
 }
-.center-logo p {
-  color: #888;
-  font-size: 1.2em;
+.mui-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
-@media (max-width: 600px) {
-  .center-logo h1 { font-size: 1.3em; }
+.mui-feature-card {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--mui-radius);
+  text-align: center;
+  border: 1px solid var(--divider);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mui-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.mui-feature-icon {
+  font-size: 3rem !important;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.mui-feature-card h3 {
+  margin: 0 0 12px 0;
+  color: var(--text);
+}
+.mui-feature-card p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Company Details */
+.mui-branch-switcher {
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--background);
+  border-radius: var(--mui-radius);
+}
+.mui-branch-switcher h3 {
+  margin: 0 0 16px 0;
+  color: var(--text);
+}
+.mui-company-details h3 {
+  margin: 24px 0 16px 0;
+  color: var(--text);
+}
+.mui-info-grid {
+  display: grid;
+  gap: 12px;
+}
+.mui-info-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--divider);
+}
+.mui-info-item:last-child {
+  border-bottom: none;
+}
+.mui-info-item strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.mui-info-item span {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .mui-hero-title {
+    font-size: 2rem;
+  }
+  .mui-hero {
+    padding: 40px 16px;
+  }
+  .mui-info-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
 
 /* Material Icons size fix */
