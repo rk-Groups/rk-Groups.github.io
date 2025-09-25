@@ -10,7 +10,8 @@
     { "pattern": "127.0.0.1" },
     { "pattern": "^https://rk-groups.github.io" },
     { "pattern": "^_site/" },
-    { "pattern": "^/" }
+    { "pattern": "^/" },
+    { "pattern": "\\{\\{.*\\}\\}" }
   ],
   "timeout": "10s",
   "retryOn429": true,

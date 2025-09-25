@@ -27,7 +27,7 @@ description: "Terms of Service for RK Oxygen Gorakhpur branch. Industrial gases 
 <p>Orders will be processed and delivered as per mutually agreed timelines. Delays due to transport or unforeseen issues will be communicated.</p>
 
 <h2>5. Refunds & Cancellations</h2>
-<p>Refunds and cancellations are governed by our <a href="refund-policy.html">Refund & Cancellation Policy</a>.</p>
+<p>Refunds and cancellations are governed by our <a href="refund-policy">Refund & Cancellation Policy</a>.</p>
 
 <h2>6. Limitation of Liability</h2>
 <p>We are not liable for indirect, incidental, or consequential damages beyond our reasonable control.</p>
