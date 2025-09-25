@@ -500,7 +500,11 @@ try {
             $lighthouseUrls = @(
                 "http://localhost:3000/",
                 "http://localhost:3000/companies/",
-                "http://localhost:3000/Calc/GST/"
+                "http://localhost:3000/companies/rk-oxygen/",
+                "http://localhost:3000/companies/rk-electrodes/",
+                "http://localhost:3000/Calc/GST/",
+                "http://localhost:3000/Calc/EMI/",
+                "http://localhost:3000/Calc/LIQ/"
             )
 
             foreach ($url in $lighthouseUrls) {
