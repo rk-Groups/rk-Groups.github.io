@@ -3,6 +3,7 @@ layout: company-policy
 company: sand-creations
 policy: terms
 title: Terms of Service - Sand Creations
+permalink: /companies/sand-creations/terms/
 ---
 
 <p>General terms for Sand Creations.</p>
