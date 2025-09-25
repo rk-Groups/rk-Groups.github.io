@@ -2,6 +2,7 @@
 layout: default
 title: Terms of Service - RK Oxygen Gorakhpur
 description: "Terms of Service for RK Oxygen Gorakhpur branch. Industrial gases supply terms, payment conditions, and service agreements."
+permalink: /companies/rk-oxygen/gorakhpur/terms/
 ---
 
 <h1>Terms of Service</h1>

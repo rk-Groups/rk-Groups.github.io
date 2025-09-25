@@ -549,7 +549,7 @@ try {
 
             foreach ($url in $axeUrls) {
                 Write-Host "Accessibility check: $url"
-                npx --yes @axe-core/cli $url --exit
+                npx --yes @axe-core/cli $url
                 if ($LASTEXITCODE -eq 0) {
                     Write-Success "Accessibility check passed for $url"
                 } else {

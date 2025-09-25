@@ -24,8 +24,8 @@ All navigation and footer links are generated from `_data/navigation.yml` and in
 - [RK Groups Home](index.md)
 
 ## Legal & Policy Pages
-- [Terms of Service](companies/rk-oxygen/gorakhpur/terms.md)
-- [Refund & Cancellation Policy](companies/rk-oxygen/gorakhpur/refund-policy.md)
+- [Terms of Service](https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/terms/)
+- [Refund & Cancellation Policy](https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/refund-policy/)
 
 These pages, as well as the Gorakhpur branch landing page, now display company details (GSTIN, addresses, partners, contact info) directly in Markdown or via Jekyll data files for easy updates.
 

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Refund & Cancellation Policy - RK Oxygen Gorakhpur
+permalink: /companies/rk-oxygen/gorakhpur/refund-policy/
 ---
 
 <h1>Refund & Cancellation Policy</h1>
