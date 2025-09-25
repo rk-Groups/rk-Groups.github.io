@@ -19,7 +19,7 @@ jobs:
       - name: Check for markdown files
         id: check_files
         run: |
-          if find . -name "*.md" -type f | grep -q .; then
+          if find . -name "*.md" -type f -not -path "./_site/*" | grep -q .; then
             echo "markdown_files_exist=true" >> $GITHUB_OUTPUT
           else
             echo "markdown_files_exist=false" >> $GITHUB_OUTPUT
