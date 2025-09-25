@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Map - RK Groups</title>
+  <meta name="description" content="Complete site map for RK Groups. Navigate through our companies, calculators, and services.">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/mui.css">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-elevated: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #b0b0b0;
+      --accent-primary: #2196f3;
+      --accent-success: #4caf50;
+      --accent-danger: #f44336;
+      --border-primary: #333333;
+      --mui-radius: 8px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .mui-hero {
+      background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mui-hero-content {
+      max-width: 800px;
+    }
+    .mui-hero-icon {
+      margin-bottom: 2rem;
+    }
+    .mui-hero-title {
+      font-size: 3rem;
+      font-weight: 300;
+      margin: 0 0 1rem 0;
+    }
+    .mui-hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0;
+    }
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .mui-card {
+      background: var(--bg-elevated);
+      padding: 2rem;
+      border-radius: var(--mui-radius);
+      border: 1px solid var(--border-primary);
+      box-shadow: var(--shadow-md);
+    }
+    .mui-card h2 {
+      margin-top: 0;
+      color: var(--text);
+      border-bottom: 1px solid var(--border-primary);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mui-card h3 {
+      color: var(--accent-primary);
+      margin: 1.5rem 0 1rem 0;
+      font-size: 1.1rem;
+    }
+    .sitemap-section {
+      margin-bottom: 1.5rem;
+    }
+    .sitemap-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sitemap-links li {
+      margin-bottom: 0.5rem;
+      padding: 0.25rem 0;
+    }
+    .sitemap-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .sitemap-links a:hover {
+      background: rgba(33, 150, 243, 0.1);
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    .sitemap-links .material-icons {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .sitemap-links a:hover .material-icons {
+      color: var(--accent-primary);
+    }
+    .company-section {
+      background: var(--bg-elevated);
+      border-radius: var(--mui-radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-primary);
+    }
+    .company-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-primary);
+    }
+    .company-header h4 {
+      margin: 0;
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+    }
+    .branch-links {
+      padding-left: 1rem;
+      border-left: 2px solid var(--accent-primary);
+      margin-left: 0.5rem;
+    }
+    .branch-links li {
+      margin-bottom: 0.25rem;
+    }
+    .stats-section {
+      background: var(--bg-elevated);
+      padding: 2rem;
+      border-radius: var(--mui-radius);
+      border: 1px solid var(--border-primary);
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-item {
+      padding: 1rem;
+      background: var(--bg-primary);
+      border-radius: var(--mui-radius);
+      border: 1px solid var(--border-primary);
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 768px) {
+      .mui-hero-title {
+        font-size: 2rem;
+      }
+      .content-section {
+        padding: 1rem;
+      }
+      .sitemap-grid {
+        grid-template-columns: 1fr;
+      }
+      .mui-card {
+        padding: 1.5rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation would go here in full Jekyll build -->
+
+  <div class="mui-hero">
+    <div class="mui-hero-content">
+      <div class="mui-hero-icon">
+        <span class="material-icons" style="font-size: 4rem;">map</span>
+      </div>
+      <h1 class="mui-hero-title">Site Map</h1>
+      <p class="mui-hero-subtitle">Navigate through our complete website structure</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="sitemap-grid">
+      <!-- Main Pages -->
+      <div class="mui-card">
+        <h2>
+          <span class="material-icons">home</span>
+          Main Pages
+        </h2>
+        <div class="sitemap-section">
+          <ul class="sitemap-links">
+            <li><a href="/"><span class="material-icons">home</span>Home</a></li>
+            <li><a href="/companies/"><span class="material-icons">business</span>Companies</a></li>
+            <li><a href="/Calc/"><span class="material-icons">calculate</span>Calculators</a></li>
+            <li><a href="/contact/"><span class="material-icons">contact_mail</span>Contact</a></li>
+            <li><a href="/search/"><span class="material-icons">search</span>Search</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Legal Pages -->
+      <div class="mui-card">
+        <h2>
+          <span class="material-icons">gavel</span>
+          Legal & Policies
+        </h2>
+        <div class="sitemap-section">
+          <ul class="sitemap-links">
+            <li><a href="/privacy/"><span class="material-icons">privacy_tip</span>Privacy Policy</a></li>
+            <li><a href="/terms/"><span class="material-icons">description</span>Terms of Service</a></li>
+            <li><a href="/sitemap/"><span class="material-icons">map</span>Site Map</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Calculator Suite -->
+      <div class="mui-card">
+        <h2>
+          <span class="material-icons">calculate</span>
+          Calculators
+        </h2>
+        <div class="sitemap-section">
+          <ul class="sitemap-links">
+            <li><a href="/Calc/"><span class="material-icons">apps</span>Calculator Hub</a></li>
+            <li><a href="/Calc/GST/"><span class="material-icons">receipt</span>GST Calculator</a></li>
+            <li><a href="/Calc/EMI/"><span class="material-icons">credit_card</span>EMI Calculator</a></li>
+            <li><a href="/Calc/LIQ/"><span class="material-icons">local_drink</span>Liquid Calculator</a></li>
+            <li><a href="/Calc/CI/"><span class="material-icons">trending_up</span>Compound Interest</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Companies Section -->
+    <div class="mui-card">
+      <h2>
+        <span class="material-icons">business</span>
+        Our Companies
+      </h2>
+
+      <div class="company-section">
+        <div class="company-header">
+          <span class="material-icons" style="color: var(--accent-primary);">factory</span>
+          <h4>RK Oxygen</h4>
+        </div>
+        <ul class="sitemap-links">
+          <li><a href="/companies/rk-oxygen/"><span class="material-icons">business</span>Main Company</a></li>
+          <li><a href="/companies/rk-oxygen/refund-policy/"><span class="material-icons">refund</span>Refund Policy</a></li>
+          <li><a href="/companies/rk-oxygen/terms/"><span class="material-icons">description</span>Terms</a></li>
+        </ul>
+
+        <div class="branch-links">
+          <h5 style="color: var(--text); margin: 1rem 0 0.5rem 0; font-size: 1rem;">Branches:</h5>
+          <ul class="sitemap-links">
+            <li><a href="/companies/rk-oxygen/gorakhpur/"><span class="material-icons">location_on</span>Gorakhpur</a></li>
+            <li><a href="/companies/rk-oxygen/gorakhpur/contact/"><span class="material-icons">contact_mail</span>Contact</a></li>
+            <li><a href="/companies/rk-oxygen/gorakhpur/privacy/"><span class="material-icons">privacy_tip</span>Privacy</a></li>
+            <li><a href="/companies/rk-oxygen/gorakhpur/shipping/"><span class="material-icons">local_shipping</span>Shipping</a></li>
+            <li><a href="/companies/rk-oxygen/gorakhpur/terms/"><span class="material-icons">description</span>Terms</a></li>
+            <li><a href="/companies/rk-oxygen/lucknow/"><span class="material-icons">location_on</span>Lucknow</a></li>
+            <li><a href="/companies/rk-oxygen/lucknow/refund-policy/"><span class="material-icons">refund</span>Refund Policy</a></li>
+            <li><a href="/companies/rk-oxygen/lucknow/terms/"><span class="material-icons">description</span>Terms</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="company-section">
+        <div class="company-header">
+          <span class="material-icons" style="color: var(--accent-primary);">build</span>
+          <h4>RK Electrodes</h4>
+        </div>
+        <ul class="sitemap-links">
+          <li><a href="/companies/rk-electrodes/"><span class="material-icons">business</span>Main Company</a></li>
+          <li><a href="/companies/rk-electrodes/refund-policy/"><span class="material-icons">refund</span>Refund Policy</a></li>
+          <li><a href="/companies/rk-electrodes/terms/"><span class="material-icons">description</span>Terms</a></li>
+        </ul>
+      </div>
+
+      <div class="company-section">
+        <div class="company-header">
+          <span class="material-icons" style="color: var(--accent-primary);">palette</span>
+          <h4>Sand Creations</h4>
+        </div>
+        <ul class="sitemap-links">
+          <li><a href="/companies/sand-creations/"><span class="material-icons">business</span>Main Company</a></li>
+          <li><a href="/companies/sand-creations/refund-policy/"><span class="material-icons">refund</span>Refund Policy</a></li>
+          <li><a href="/companies/sand-creations/terms/"><span class="material-icons">description</span>Terms</a></li>
+        </ul>
+      </div>
+
+      <div class="company-section">
+        <div class="company-header">
+          <span class="material-icons" style="color: var(--accent-primary);">hotel</span>
+          <h4>RK Palace</h4>
+        </div>
+        <ul class="sitemap-links">
+          <li><a href="/companies/rk-palace/"><span class="material-icons">business</span>Main Company</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Site Statistics -->
+    <div class="stats-section">
+      <h3 style="margin: 0 0 1rem 0; color: var(--text);">Site Overview</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Companies</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Branches</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">5</span>
+          <span class="stat-label">Calculators</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">25+</span>
+          <span class="stat-label">Pages</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer would go here in full Jekyll build -->
+  <script>
+    // Simple analytics tracking (sessionStorage only)
+    window.RKAnalytics = {
+      trackPageView: function(page) {
+        const data = {
+          page: page || location.pathname,
+          timestamp: new Date().toISOString(),
+          referrer: document.referrer ? new URL(document.referrer).hostname : 'direct'
+        };
+        console.log('Page View:', data);
+        this.storeEvent('pageview', data);
+      },
+      storeEvent: function(type, data) {
+        try {
+          const events = JSON.parse(sessionStorage.getItem('rk_analytics') || '[]');
+          events.push({type: type, data});
+          if (events.length > 50) events.shift();
+          sessionStorage.setItem('rk_analytics', JSON.stringify(events));
+        } catch (e) {
+          console.warn('Analytics storage failed:', e);
+        }
+      }
+    };
+
+    // Track page view
+    RKAnalytics.trackPageView();
+  </script>
+</body>
+</html>

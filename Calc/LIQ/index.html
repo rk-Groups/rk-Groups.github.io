@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Gas Converter - RK Groups</title>
+  <meta name="description" content="Convert between KGS, TON, SM3, and LTR for Liquid O₂, N₂, and CO₂.">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/mui.css">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-elevated: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #b0b0b0;
+      --accent-primary: #2196f3;
+      --accent-success: #4caf50;
+      --border-primary: #333333;
+      --mui-radius: 8px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .mui-hero {
+      background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mui-hero-content {
+      max-width: 800px;
+    }
+    .mui-hero-icon {
+      margin-bottom: 2rem;
+    }
+    .mui-hero-title {
+      font-size: 3rem;
+      font-weight: 300;
+      margin: 0 0 1rem 0;
+    }
+    .mui-hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0;
+    }
+    .mui-card {
+      background: var(--bg-elevated);
+      padding: 2rem;
+      border-radius: var(--mui-radius);
+      border: 1px solid var(--border-primary);
+      box-shadow: var(--shadow-md);
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+    .mui-card select {
+      padding: 0.75rem;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--mui-radius);
+      background: var(--bg-primary);
+      color: var(--text);
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    .mui-card select:focus {
+      outline: none;
+      border-color: var(--accent-success);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+    .mui-card input {
+      padding: 0.75rem;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--mui-radius);
+      background: var(--bg-primary);
+      color: var(--text);
+      font-size: 1rem;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+    .mui-card input:focus {
+      outline: none;
+      border-color: var(--accent-success);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+    .mui-card label {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .mui-btn {
+      background: var(--accent-success);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--mui-radius);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .mui-btn:hover {
+      background: #388e3c;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    .conversion-table {
+      margin-top: 3rem;
+      overflow-x: auto;
+    }
+    .conversion-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-elevated);
+      border-radius: var(--mui-radius);
+      overflow: hidden;
+    }
+    .conversion-table th,
+    .conversion-table td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-primary);
+    }
+    .conversion-table th {
+      background: var(--bg-primary);
+      font-weight: 500;
+      color: var(--text);
+    }
+    .conversion-table td {
+      color: var(--text-secondary);
+    }
+    .conversion-table tr:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    .usage-guide {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: var(--mui-radius);
+    }
+    .usage-guide h3 {
+      color: var(--accent-success);
+      margin-top: 0;
+    }
+    .example {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: var(--mui-radius);
+      margin: 1rem 0;
+    }
+    @media (max-width: 768px) {
+      .mui-hero-title {
+        font-size: 2rem;
+      }
+      .mui-card {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      .conversion-table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation would go here in full Jekyll build -->
+
+  <div class="mui-hero mui-hero--bleed">
+    <div class="mui-hero-content">
+      <div class="mui-hero-icon">
+        <span class="material-icons" style="font-size: 4rem;">science</span>
+      </div>
+      <h1 class="mui-hero-title">Liquid Gas Universal Converter</h1>
+      <p class="mui-hero-subtitle">Convert between KGS, TON, SM3, and LTR for O₂, N₂, and CO₂</p>
+    </div>
+  </div>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+    <a href="/Calc/" class="mui-btn back-link">
+      <span class="material-icons">arrow_back</span>
+      Back to Calculators
+    </a>
+
+    <div class="mui-card" style="text-align:center;">
+      <p>
+        <label for="liqType">Select Liquid Type:</label>
+        <select id="liqType" onchange="resetFields();">
+          <option value="o2">Liquid O₂</option>
+          <option value="n2">Liquid N₂</option>
+          <option value="co2">Liquid CO₂</option>
+        </select>
+      </p>
+      <p>Type a value in any of the following:</p>
+      <p>
+        <label>Kilogram (KGS)</label>
+        <input id="KGS" type="number" placeholder="KGS" oninput="fromKGS(this.value)">
+      </p>
+      <p>
+        <label>Ton (TON)</label>
+        <input id="TON" type="number" placeholder="TON" oninput="fromTON(this.value)">
+      </p>
+      <p>
+        <label>Standard metric cube (sm3)</label>
+        <input id="SM3" type="number" placeholder="SM3" oninput="fromSM3(this.value)">
+      </p>
+      <p>
+        <label>Liters (ltr)</label>
+        <input id="LTR" type="number" placeholder="LTR" oninput="fromLTR(this.value)">
+      </p>
+    </div>
+
+    <div class="conversion-table">
+      <h2>Liquid Gas Conversion Table</h2>
+      <p>Select your liquid type and use the factors below to convert between units.</p>
+
+      <h3>Conversion Factors</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Liquid Type</th>
+            <th>1 KGS = X SM3</th>
+            <th>1 KGS = X LTR</th>
+            <th>1 SM3 = X KGS</th>
+            <th>1 LTR = X KGS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Liquid O₂</td>
+            <td>0.77</td>
+            <td>0.89</td>
+            <td>1.30</td>
+            <td>1.12</td>
+          </tr>
+          <tr>
+            <td>Liquid N₂</td>
+            <td>0.808</td>
+            <td>0.808</td>
+            <td>1.24</td>
+            <td>1.24</td>
+          </tr>
+          <tr>
+            <td>Liquid CO₂</td>
+            <td>1.53</td>
+            <td>0.769</td>
+            <td>0.65</td>
+            <td>1.30</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="usage-guide">
+        <h3>How to Use</h3>
+        <ul>
+          <li><strong>To convert KGS to SM3:</strong> Multiply KGS by the SM3 factor for your liquid.</li>
+          <li><strong>To convert KGS to LTR:</strong> Multiply KGS by the LTR factor for your liquid.</li>
+          <li><strong>To convert SM3 to KGS:</strong> Multiply SM3 by the KGS per SM3 factor (see table).</li>
+          <li><strong>To convert LTR to KGS:</strong> Multiply LTR by the KGS per LTR factor (see table).</li>
+        </ul>
+
+        <div class="example">
+          <h4>Example</h4>
+          <p>• 100 KGS of Liquid O₂ = 100 × 0.77 = 77 SM3</p>
+          <p>• 100 KGS of Liquid O₂ = 100 × 0.89 = 89 LTR</p>
+        </div>
+
+        <p><em>For an interactive version, use the web calculator above this table.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer would go here in full Jekyll build -->
+  <script>
+    // Conversion factors for each liquid type
+    const factors = {
+      o2: { sm3: 0.77, ltr: 0.89 },
+      n2: { sm3: 0.808, ltr: 0.808 },
+      co2: { sm3: 1.53, ltr: 0.769 },
+    };
+
+    function getSelected() {
+      return document.getElementById('liqType').value;
+    }
+
+    function fromKGS(val) {
+      let v = parseFloat(val);
+      if (isNaN(v)) v = 0;
+      document.getElementById('TON').value = round(v / 1000);
+      const f = factors[getSelected()];
+      document.getElementById('SM3').value = round(v * f.sm3);
+      document.getElementById('LTR').value = round(v * f.ltr);
+    }
+
+    function fromTON(val) {
+      let v = parseFloat(val);
+      if (isNaN(v)) v = 0;
+      fromKGS(v * 1000);
+      document.getElementById('KGS').value = round(v * 1000);
+    }
+
+    function fromSM3(val) {
+      let v = parseFloat(val);
+      if (isNaN(v)) v = 0;
+      const f = factors[getSelected()];
+      let kgs = v / f.sm3;
+      document.getElementById('KGS').value = round(kgs);
+      fromKGS(kgs);
+    }
+
+    function fromLTR(val) {
+      let v = parseFloat(val);
+      if (isNaN(v)) v = 0;
+      const f = factors[getSelected()];
+      let kgs = v / f.ltr;
+      document.getElementById('KGS').value = round(kgs);
+      fromKGS(kgs);
+    }
+
+    function resetFields() {
+      document.getElementById('KGS').value = '';
+      document.getElementById('TON').value = '';
+      document.getElementById('SM3').value = '';
+      document.getElementById('LTR').value = '';
+    }
+
+    function round(x) {
+      return Math.round(x * 100) / 100;
+    }
+
+    // Simple analytics tracking (sessionStorage only)
+    window.RKAnalytics = {
+      trackPageView: function(page) {
+        const data = {
+          page: page || location.pathname,
+          timestamp: new Date().toISOString(),
+          referrer: document.referrer ? new URL(document.referrer).hostname : 'direct'
+        };
+        console.log('Page View:', data);
+        this.storeEvent('pageview', data);
+      },
+      trackCalculator: function(calculator, action, details) {
+        const data = {
+          calculator: calculator,
+          action: action,
+          details: details,
+          timestamp: new Date().toISOString()
+        };
+        console.log('Calculator Action:', data);
+        this.storeEvent('calculator', data);
+      },
+      storeEvent: function(type, data) {
+        try {
+          const events = JSON.parse(sessionStorage.getItem('rk_analytics') || '[]');
+          events.push({type: type, data: data});
+          if (events.length > 50) events.shift();
+          sessionStorage.setItem('rk_analytics', JSON.stringify(events));
+        } catch (e) {
+          console.warn('Analytics storage failed:', e);
+        }
+      }
+    };
+
+    // Track page view
+    RKAnalytics.trackPageView();
+
+    // Track liquid type changes
+    document.getElementById('liqType').addEventListener('change', function() {
+      RKAnalytics.trackCalculator('Liquid', 'type_change', {
+        type: this.value
+      });
+    });
+  </script>
+</body>
+</html>

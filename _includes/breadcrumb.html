@@ -1,0 +1,78 @@
+<!-- Breadcrumb Navigation Component -->
+{% assign url_parts = page.url | split: '/' %}
+{% assign breadcrumb_url = '' %}
+
+<nav class="breadcrumb" style="margin: 1rem 0 2rem 0; padding: 0.75rem 0; color: var(--text-secondary); font-size: 0.9rem;">
+  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+    <!-- Home -->
+    <a href="/" style="color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 0.25rem;">
+      <span class="material-icons" style="font-size: 1rem;">home</span>
+      Home
+    </a>
+    
+    {% for part in url_parts %}
+      {% if part != '' and part != 'index.html' %}
+        {% assign breadcrumb_url = breadcrumb_url | append: '/' | append: part %}
+        <span class="material-icons" style="font-size: 1rem; color: var(--text-muted);">chevron_right</span>
+        
+        {% if forloop.last %}
+          <!-- Current page (no link) -->
+          <span style="color: var(--text); font-weight: 500;">
+            {% if part == 'companies' %}Companies
+            {% elsif part == 'Calc' %}Calculators
+            {% elsif part == 'GST' %}GST Calculator
+            {% elsif part == 'LIQ' %}Liquid Calculator
+            {% elsif part == 'EMI' %}EMI Calculator
+            {% elsif part == 'CI' %}Compound Interest
+            {% elsif part == 'rk-oxygen' %}RK Oxygen
+            {% elsif part == 'rk-electrodes' %}RK Electrodes
+            {% elsif part == 'rk-palace' %}RK Palace
+            {% elsif part == 'sand-creations' %}Sand Creations
+            {% elsif part == 'gorakhpur' %}Gorakhpur
+            {% elsif part == 'lucknow' %}Lucknow
+            {% elsif part == 'contact' %}Contact
+            {% elsif part == 'terms' %}Terms
+            {% elsif part == 'privacy' %}Privacy Policy
+            {% elsif part == 'refund-policy' %}Refund Policy
+            {% elsif part == 'shipping' %}Shipping Policy
+            {% elsif part == 'search' %}Search
+            {% elsif part == 'sitemap' %}Site Map
+            {% else %}{{ part | replace: '-', ' ' | capitalize }}
+            {% endif %}
+          </span>
+        {% else %}
+          <!-- Intermediate pages (with links) -->
+          <a href="{{ breadcrumb_url }}/" style="color: var(--accent-primary); text-decoration: none;">
+            {% if part == 'companies' %}Companies
+            {% elsif part == 'Calc' %}Calculators
+            {% elsif part == 'rk-oxygen' %}RK Oxygen
+            {% elsif part == 'rk-electrodes' %}RK Electrodes
+            {% elsif part == 'rk-palace' %}RK Palace
+            {% elsif part == 'sand-creations' %}Sand Creations
+            {% elsif part == 'gorakhpur' %}Gorakhpur
+            {% elsif part == 'lucknow' %}Lucknow
+            {% else %}{{ part | replace: '-', ' ' | capitalize }}
+            {% endif %}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</nav>
+
+<style>
+.breadcrumb a:hover {
+  color: var(--primary-light) !important;
+  text-decoration: underline !important;
+}
+
+@media (max-width: 600px) {
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  
+  .breadcrumb .material-icons {
+    font-size: 0.9rem !important;
+  }
+}
+</style>

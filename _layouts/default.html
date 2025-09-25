@@ -55,6 +55,7 @@
 
   {% include navigation.html %}
   <div class="mui-container">
+    {% unless page.url == '/' %}{% include breadcrumb.html %}{% endunless %}
     {{ content }}
   </div>
 

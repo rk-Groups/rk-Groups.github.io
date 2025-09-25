@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GST Calculator - RK Groups</title>
+  <meta name="description" content="Calculate GST inclusive/exclusive amounts for 5%, 12%, and 18% tax rates.">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/mui.css">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-elevated: #1a1a1a;
+      --text: #ffffff;
+      --text-secondary: #b0b0b0;
+      --accent-primary: #2196f3;
+      --border-primary: #333333;
+      --mui-radius: 8px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .mui-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mui-hero-content {
+      max-width: 800px;
+    }
+    .mui-hero-icon {
+      margin-bottom: 2rem;
+    }
+    .mui-hero-title {
+      font-size: 3rem;
+      font-weight: 300;
+      margin: 0 0 1rem 0;
+    }
+    .mui-hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0;
+    }
+    .mui-card {
+      background: var(--bg-elevated);
+      padding: 2rem;
+      border-radius: var(--mui-radius);
+      border: 1px solid var(--border-primary);
+      box-shadow: var(--shadow-md);
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+    .mui-grid {
+      display: grid;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .mui-grid label {
+      font-weight: 500;
+      color: var(--text);
+    }
+    .mui-grid input {
+      padding: 0.75rem;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--mui-radius);
+      background: var(--bg-primary);
+      color: var(--text);
+      font-size: 1rem;
+      text-align: center;
+    }
+    .mui-grid input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+    }
+    .mui-btn {
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--mui-radius);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .mui-btn:hover {
+      background: #1976d2;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 768px) {
+      .mui-hero-title {
+        font-size: 2rem;
+      }
+      .mui-card {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      .mui-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem;
+      }
+      .mui-grid input {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation would go here in full Jekyll build -->
+
+  <div class="mui-hero mui-hero--bleed">
+    <div class="mui-hero-content">
+      <div class="mui-hero-icon">
+        <span class="material-icons" style="font-size: 4rem;">receipt_long</span>
+      </div>
+      <h1 class="mui-hero-title">GST Calculator</h1>
+      <p class="mui-hero-subtitle">Calculator for taxes and base rates</p>
+    </div>
+  </div>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+    <a href="/Calc/" class="mui-btn back-link">
+      <span class="material-icons">arrow_back</span>
+      Back to Calculators
+    </a>
+
+    <div class="mui-card">
+      <p style="text-align:center;">Type a value in any of the following:</p>
+      <div class="mui-grid" style="grid-template-columns: repeat(4, 1fr); align-items:center; text-align:center;">
+        <label>Taxable amount</label>
+        <label>Tax Rate</label>
+        <label>Tax Amount</label>
+        <label>Total</label>
+      </div>
+      <div class="mui-grid" style="grid-template-columns: repeat(4, 1fr); gap:12px; align-items:center; text-align:center;">
+        <input id="5_TAXABLE" type="number" placeholder="TAXABLE" oninput="Converter(this.value, 5)">
+        <label>5%</label>
+        <input id="5_TAX" type="number" placeholder="TAX" oninput="Converter(this.value / .05, 5)">
+        <input id="5_TOTAL" type="number" placeholder="TOTAL" oninput="Converter(this.value / 1.05, 5)">
+      </div>
+      <div class="mui-grid" style="grid-template-columns: repeat(4, 1fr); gap:12px; align-items:center; text-align:center;">
+        <input id="12_TAXABLE" type="number" placeholder="TAXABLE" oninput="Converter(this.value, 12)">
+        <label>12%</label>
+        <input id="12_TAX" type="number" placeholder="TAX" oninput="Converter(this.value / .12, 12)">
+        <input id="12_TOTAL" type="number" placeholder="TOTAL" oninput="Converter(this.value / 1.12, 12)">
+      </div>
+      <div class="mui-grid" style="grid-template-columns: repeat(4, 1fr); gap:12px; align-items:center; text-align:center;">
+        <input id="18_TAXABLE" type="number" placeholder="TAXABLE" oninput="Converter(this.value, 18)">
+        <label>18%</label>
+        <input id="18_TAX" type="number" placeholder="TAX" oninput="Converter(this.value / .18, 18)">
+        <input id="18_TOTAL" type="number" placeholder="TOTAL" oninput="Converter(this.value / 1.18, 18)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer would go here in full Jekyll build -->
+  <script>
+    function Converter(val, rate) {
+      // Get all input fields for the selected rate
+      var taxable = document.getElementById(rate + '_TAXABLE');
+      var tax = document.getElementById(rate + '_TAX');
+      var total = document.getElementById(rate + '_TOTAL');
+
+      // Determine which field triggered the event
+      var source = event.target.id;
+
+      // Track calculator usage
+      if (window.RKAnalytics && val && parseFloat(val) > 0) {
+        window.RKAnalytics.trackCalculator('GST', 'calculate', {
+          rate: rate,
+          inputType: source.includes('TAXABLE') ? 'taxable' : source.includes('TAX') ? 'tax' : 'total',
+          amount: parseFloat(val)
+        });
+      }
+
+      if (source === rate + '_TAXABLE') {
+        // User entered taxable amount
+        var t = parseFloat(val) || 0;
+        var taxAmt = +(t * (rate / 100)).toFixed(2);
+        var tot = +(t + taxAmt).toFixed(2);
+        tax.value = taxAmt;
+        total.value = tot;
+      } else if (source === rate + '_TAX') {
+        // User entered tax amount
+        var taxAmt = parseFloat(val) || 0;
+        var t = +(taxAmt / (rate / 100)).toFixed(2);
+        var tot = +(t + taxAmt).toFixed(2);
+        taxable.value = t;
+        total.value = tot;
+      } else if (source === rate + '_TOTAL') {
+        // User entered total amount
+        var tot = parseFloat(val) || 0;
+        var t = +(tot / (1 + rate / 100)).toFixed(2);
+        var taxAmt = +(tot - t).toFixed(2);
+        taxable.value = t;
+        tax.value = taxAmt;
+      }
+    }
+
+    // Simple analytics tracking (sessionStorage only)
+    window.RKAnalytics = {
+      trackPageView: function(page) {
+        const data = {
+          page: page || location.pathname,
+          timestamp: new Date().toISOString(),
+          referrer: document.referrer ? new URL(document.referrer).hostname : 'direct'
+        };
+        console.log('Page View:', data);
+        this.storeEvent('pageview', data);
+      },
+      trackCalculator: function(calculator, action, details) {
+        const data = {
+          calculator: calculator,
+          action: action,
+          details: details,
+          timestamp: new Date().toISOString()
+        };
+        console.log('Calculator Action:', data);
+        this.storeEvent('calculator', data);
+      },
+      storeEvent: function(type, data) {
+        try {
+          const events = JSON.parse(sessionStorage.getItem('rk_analytics') || '[]');
+          events.push({type: type, data: data});
+          if (events.length > 50) events.shift();
+          sessionStorage.setItem('rk_analytics', JSON.stringify(events));
+        } catch (e) {
+          console.warn('Analytics storage failed:', e);
+        }
+      }
+    };
+
+    // Track page view
+    RKAnalytics.trackPageView();
+  </script>
+</body>
+</html>

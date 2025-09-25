@@ -8,6 +8,40 @@ Use this as a historical record of progress.
 
 ## 2025 Milestones
 
+### January 2025 - Major Site Enhancements
+
+**Visual Design & Branding Improvements:**
+- Enhanced homepage with compelling stats section (15+ years experience, 500+ satisfied customers, 98% customer satisfaction)
+- Added customer testimonials carousel with industry-specific feedback
+- Improved call-to-action sections with gradient backgrounds and prominent buttons
+- Implemented Material Design principles throughout with consistent visual hierarchy
+
+**Navigation & User Experience:**
+- Implemented site-wide search functionality with live suggestions and categorized results
+- Added breadcrumb navigation system across all pages for better navigation context
+- Enhanced responsive design for mobile and tablet users
+- Added contact page with Netlify Forms integration and FAQ section
+
+**Calculator Suite Expansion:**
+- Added sophisticated Compound Interest Calculator with yearly breakdown tables
+- Enhanced existing GST Calculator with improved user interface
+- Updated Calculator hub page with better organization and descriptions
+- Integrated analytics tracking for calculator usage patterns
+
+**SEO & Performance Optimization:**
+- Enhanced Open Graph tags and Twitter Cards for better social media sharing
+- Improved structured data markup for search engines
+- Added comprehensive meta descriptions and keywords
+- Optimized page loading performance with efficient CSS/JS
+
+**Interactive Features & Analytics:**
+- Implemented privacy-friendly analytics system using sessionStorage (no cookies)
+- Added contact forms with spam protection and success feedback
+- Integrated form submission tracking and calculator usage analytics
+- Enhanced external link tracking for better user behavior insights
+
+### Previous 2025 Work
+
 - Migrated all content to Jekyll with Markdown and YAML front matter
 - Centralized navigation using `_data/navigation.yml` and Jekyll includes
 - Removed all legacy and duplicate HTML files (site is now fully Jekyll-managed)

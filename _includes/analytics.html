@@ -1,13 +1,99 @@
-<!-- Google Analytics (replace GA_MEASUREMENT_ID with your actual ID) -->
+<!-- Google Analytics 4 (privacy-focused) -->
+<!-- Replace G-XXXXXXXXXX with your actual GA4 measurement ID -->
 <!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'GA_MEASUREMENT_ID');
+  
+  // Privacy-friendly configuration
+  gtag('config', 'G-XXXXXXXXXX', {
+    'anonymize_ip': true,
+    'respect_consent_mode': true,
+    'ads_data_redaction': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
 </script>
 -->
+
+<!-- Privacy-Friendly Local Analytics -->
+<script>
+  // Simple privacy-respecting analytics without cookies
+  window.RKAnalytics = {
+    // Track page views
+    trackPageView: function(page) {
+      const data = {
+        page: page || location.pathname,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent.split('/')[0], // Basic browser info only
+        referrer: document.referrer ? new URL(document.referrer).hostname : 'direct'
+      };
+      console.log('Page View:', data);
+      // Store in sessionStorage for privacy (not persistent)
+      this.storeEvent('pageview', data);
+    },
+    
+    // Track calculator usage
+    trackCalculator: function(calculatorType, action, value) {
+      const data = {
+        calculator: calculatorType,
+        action: action,
+        value: value,
+        timestamp: new Date().toISOString()
+      };
+      console.log('Calculator Usage:', data);
+      this.storeEvent('calculator', data);
+    },
+    
+    // Track form submissions (success only, no personal data)
+    trackFormSubmission: function(formName, success) {
+      const data = {
+        form: formName,
+        success: success,
+        timestamp: new Date().toISOString()
+      };
+      console.log('Form Submission:', data);
+      this.storeEvent('form', data);
+    },
+    
+    // Store events in sessionStorage (privacy-friendly)
+    storeEvent: function(type, data) {
+      try {
+        const events = JSON.parse(sessionStorage.getItem('rk_analytics') || '[]');
+        events.push({type: type, data: data});
+        // Keep only last 50 events per session
+        if (events.length > 50) events.shift();
+        sessionStorage.setItem('rk_analytics', JSON.stringify(events));
+      } catch (e) {
+        console.warn('Analytics storage failed:', e);
+      }
+    },
+    
+    // Get analytics summary (for debugging)
+    getSummary: function() {
+      try {
+        return JSON.parse(sessionStorage.getItem('rk_analytics') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+  };
+  
+  // Auto-track page views
+  RKAnalytics.trackPageView();
+  
+  // Track external link clicks
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && link.hostname !== location.hostname) {
+      RKAnalytics.storeEvent('external_click', {
+        url: link.hostname,
+        text: link.textContent.trim().substring(0, 50)
+      });
+    }
+  });
+</script>
 
 <!-- Performance Monitoring -->
 <script>

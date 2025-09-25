@@ -20,16 +20,37 @@ description: "Quick access to GST, Liquid conversion, and EMI calculators."
       <span class="material-icons mui-feature-icon">receipt_long</span>
       <h3>GST Calculator</h3>
       <p>Compute GST inclusive/exclusive amounts quickly and accurately.</p>
+      <div style="margin-top: 1rem; color: var(--accent-primary); font-weight: 500;">
+        <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">trending_up</span>
+        Tax Calculator
+      </div>
     </a>
     <a href="/Calc/LIQ/" class="mui-feature-card" style="text-decoration:none;">
       <span class="material-icons mui-feature-icon">science</span>
       <h3>Liquid Calculator</h3>
       <p>Convert between liquid and gas (O₂, N₂, CO₂) with handy tables.</p>
+      <div style="margin-top: 1rem; color: var(--accent-success); font-weight: 500;">
+        <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">transform</span>
+        Unit Converter
+      </div>
     </a>
     <a href="/Calc/EMI/" class="mui-feature-card" style="text-decoration:none;">
       <span class="material-icons mui-feature-icon">payments</span>
       <h3>EMI Calculator</h3>
       <p>Estimate monthly installments for loans and purchases.</p>
+      <div style="margin-top: 1rem; color: var(--accent-warning); font-weight: 500;">
+        <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">account_balance</span>
+        Loan Calculator
+      </div>
+    </a>
+    <a href="/Calc/CI/" class="mui-feature-card" style="text-decoration:none;">
+      <span class="material-icons mui-feature-icon">trending_up</span>
+      <h3>Compound Interest</h3>
+      <p>Calculate investment growth and compound interest with detailed yearly breakdown.</p>
+      <div style="margin-top: 1rem; color: var(--accent-secondary); font-weight: 500;">
+        <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">savings</span>
+        Investment Calculator
+      </div>
     </a>
   </div>
 </div>

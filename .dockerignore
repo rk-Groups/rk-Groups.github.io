@@ -1,0 +1,33 @@
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Jekyll build output
+_site/
+
+# Dependency directories
+node_modules/
+.bundle/
+
+# Cache and temp files
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Local environment files
+.env
+.env.local

@@ -10,24 +10,34 @@
 - [x] Implement local testing workflow to validate changes before push
 - [x] Close resolved GitHub issues and update issue tracking
 
+### Recently Completed (January 2025)
+- [x] Add a search feature for site-wide content ✅ (Full search with suggestions)
+- [x] Integrate analytics (privacy-respecting) to monitor site usage ✅ (SessionStorage-based)
+- [x] Create a feedback/contact form ✅ (Netlify Forms with FAQ)
+- [x] Implement breadcrumb navigation for deep pages ✅ (Site-wide system)
+- [x] Add more calculators - compound interest calculator ✅ (Advanced features)
+- [x] Enhanced homepage with stats, testimonials, and CTAs ✅
+- [x] Improved SEO with Open Graph tags and Twitter Cards ✅
+
 ### Backlog
 - [ ] Add more test coverage for calculators and navigation
 - [x] Document the process for adding a new company/branch (step-by-step guide)
 - [ ] Add a changelog or release notes file for major updates
 - [ ] Add onboarding notes for new contributors in the `dev/` folder
-- [ ] Add a search feature for site-wide content
-- [ ] Integrate analytics (privacy-respecting) to monitor site usage
-- [ ] Create a feedback/contact form (static or using a service like Formspree)
 - [ ] Add company logos and branding assets
-- [ ] Implement breadcrumb navigation for deep pages
 - [ ] Add print-friendly styles for calculators
 - [ ] Consider adding keyboard shortcuts for calculator inputs
+- [ ] Set up Ruby/Jekyll locally for full build testing
+- [ ] Add social media sharing buttons to key pages
 
 ## Future Enhancements
 
 - [ ] Expand company/branch support as needed
-- [ ] Add more calculators or tools as needed (compound interest, tax calculators, etc.)
+- [ ] Add more specialized calculators (tax calculators, business metrics, etc.)
 - [ ] Add automated visual regression testing
+- [ ] Consider implementing A/B testing for homepage CTAs
+- [ ] Add multi-language support if needed
+- [ ] Consider adding a blog/news section for company updates
 - [ ] Consider PWA enhancements (offline support, app install prompts)
 - [ ] Add map integration for company locations
 - [ ] Implement structured data for better SEO

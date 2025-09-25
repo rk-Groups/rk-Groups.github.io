@@ -49,6 +49,15 @@ function Converter(val, rate) {
 
   // Determine which field triggered the event
   var source = event.target.id;
+  
+  // Track calculator usage
+  if (window.RKAnalytics && val && parseFloat(val) > 0) {
+    window.RKAnalytics.trackCalculator('GST', 'calculate', {
+      rate: rate,
+      inputType: source.includes('TAXABLE') ? 'taxable' : source.includes('TAX') ? 'tax' : 'total',
+      amount: parseFloat(val)
+    });
+  }
 
   if (source === rate + '_TAXABLE') {
     // User entered taxable amount

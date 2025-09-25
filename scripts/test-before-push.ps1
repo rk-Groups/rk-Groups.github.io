@@ -7,6 +7,7 @@ param(
     [switch]$SkipLighthouse,
     [switch]$SkipAxe,
     [switch]$SkipJekyll,
+    [switch]$SkipLinkTraversal,
     [switch]$Verbose
 )
 
@@ -179,6 +180,138 @@ try {
         }
     } else {
         Write-Warning "No Markdown files found"
+    }
+
+    # 5.5 HTML Link Traversal Test
+    if (-not $SkipLinkTraversal) {
+        Write-Step "Step 5.5: HTML Link Traversal Test"
+        Write-Host "Performing comprehensive link traversal on HTML files..."
+
+        $htmlFiles = Get-ChildItem -Path "." -Filter "*.html" -Recurse | Where-Object {
+            $_.FullName -notmatch "node_modules|vendor|_site"
+        }
+
+        if ($htmlFiles.Count -gt 0) {
+            Write-Success "Found $($htmlFiles.Count) HTML files to analyze"
+
+            # Get repository root (where _config.yml is located)
+            $repoRoot = Split-Path $PSScriptRoot -Parent
+
+            # Define patterns for links that are expected to be handled by Jekyll
+            $jekyllPatterns = @(
+                '^/companies/[^/]+/?$',  # Company main pages
+                '^/companies/[^/]+/terms/?$',  # Company terms pages
+                '^/companies/[^/]+/refund-policy/?$',  # Company refund policy pages
+                '^/Calc/[^/]+/?$',  # Calculator pages
+                '^/companies/rk-oxygen/[^/]+/?$',  # RK Oxygen branch pages
+                '^/companies/rk-oxygen/[^/]+/terms/?$',  # Branch terms
+                '^/companies/rk-oxygen/[^/]+/refund-policy/?$',  # Branch refund policy
+                '^/companies/rk-oxygen/[^/]+/privacy/?$',  # Branch privacy (except Gorakhpur)
+                '^/companies/rk-oxygen/[^/]+/contact/?$',  # Branch contact (except Gorakhpur)
+                '^/companies/rk-oxygen/[^/]+/shipping/?$',  # Branch shipping (except Gorakhpur)
+                '^/search/?$'  # Search page (may not exist yet)
+            )
+
+            foreach ($file in $htmlFiles) {
+                try {
+                    $content = Get-Content $file.FullName -Raw -ErrorAction Stop
+                    if (-not $content) {
+                        if ($Verbose) { Write-Host "Skipping empty file: $($file.Name)" -ForegroundColor Gray }
+                        continue
+                    }
+
+                    # Extract all href attributes from HTML files
+                    try {
+                        $linkMatches = [regex]::Matches($content, 'href="([^"]+)"')
+                    }
+                    catch {
+                        if ($Verbose) { Write-Host "Regex error in $($file.Name): $($_.Exception.Message)" -ForegroundColor Gray }
+                        continue
+                    }
+
+                    foreach ($match in $linkMatches) {
+                        try {
+                            if ($match.Groups.Count -lt 2) { continue }
+                            $link = $match.Groups[1].Value
+                            $totalLinks++
+
+                            # Only check internal links (starting with / and not external URLs)
+                            if ($link -match '^/' -and $link -notmatch '^https?://' -and $link -notmatch '^mailto:' -and $link -notmatch '^tel:') {
+                                # Skip anchor links and query parameters for file existence check
+                                $cleanLink = $link -replace '#.*$' -replace '\?.*$'
+
+                                if ($uniqueLinks.Add($cleanLink)) {
+                                    # Check if this link matches Jekyll patterns (expected to be generated)
+                                    $isJekyllLink = $false
+                                    foreach ($pattern in $jekyllPatterns) {
+                                        if ($cleanLink -match $pattern) {
+                                            $isJekyllLink = $true
+                                            break
+                                        }
+                                    }
+
+                                    if (-not $isJekyllLink) {
+                                        # Convert URL path to file system path
+                                        $relativePath = $cleanLink -replace '^/', '' -replace '/', '\'
+                                        $filePath = Join-Path $repoRoot $relativePath
+
+                                        # Debug output for troubleshooting
+                                        if ($Verbose) {
+                                            Write-Host "Checking: $cleanLink -> $filePath" -ForegroundColor Gray
+                                        }
+
+                                        # Check if it's a directory with index.html or a direct HTML file
+                                        $indexPath = Join-Path $filePath "index.html"
+                                        $htmlPath = "$filePath.html"
+
+                                        $exists = (Test-Path $indexPath) -or (Test-Path $htmlPath)
+
+                                        if ($Verbose -and -not $exists) {
+                                            Write-Host "Not found: $indexPath or $htmlPath" -ForegroundColor Gray
+                                        }
+
+                                        if (-not $exists) {
+                                            # Skip known static assets and template variables
+                                            if ($cleanLink -notmatch '\.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|json|xml)$' -and
+                                                $cleanLink -notmatch '\{\{.*\}\}') {
+                                                $brokenLinks += @{
+                                                    Link = $cleanLink
+                                                    SourceFile = $file.Name
+                                                    SourcePath = $file.FullName
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch {
+                            if ($Verbose) { Write-Host "Error processing link in $($file.Name): $($_.Exception.Message)" -ForegroundColor Gray }
+                            continue
+                        }
+                    }
+                }
+                catch {
+                    Write-Warning "Error processing $($file.Name): $($_.Exception.Message)"
+                }
+            }
+
+            Write-Host "Analyzed $totalLinks total links, $($uniqueLinks.Count) unique internal links"
+
+            if ($brokenLinks.Count -eq 0) {
+                Write-Success "✅ All static internal links are valid! No broken links found."
+            } else {
+                Write-Error "❌ Found $($brokenLinks.Count) broken static internal links:"
+                foreach ($brokenLink in $brokenLinks) {
+                    Write-Host "  - $($brokenLink.Link) (referenced in $($brokenLink.SourceFile))" -ForegroundColor Red
+                }
+                throw "HTML link traversal found $($brokenLinks.Count) broken static links"
+            }
+        } else {
+            Write-Warning "No HTML files found for link traversal"
+        }
+    } else {
+        Write-Warning "Skipping HTML link traversal test (--SkipLinkTraversal specified)"
     }
 
     # 6. Local Server & Lighthouse Test

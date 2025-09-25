@@ -45,8 +45,16 @@ main:
         url: /Calc/EMI/
         icon: payments
         desc: Estimate monthly loan installments
+      - title: Compound Interest Calculator
+        url: /Calc/CI/
+        icon: trending_up
+        desc: Investment growth and compound interest calculation
   - title: Site Map
     url: /sitemap/
+  - title: Contact
+    url: /contact/
+    icon: contact_mail
+    desc: Get in touch with RK Groups
   - title: Terms of Service
     url: /companies/rk-oxygen/gorakhpur/terms/
   - title: Refund Policy
@@ -74,3 +82,7 @@ sidebar:
           url: /companies/rk-oxygen/lucknow/terms/
         - title: Refund Policy
           url: /companies/rk-oxygen/lucknow/refund-policy/
+  - title: Search
+    url: /search/
+    icon: search
+    desc: Search across all RK Groups content
