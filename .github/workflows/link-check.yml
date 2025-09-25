@@ -28,12 +28,11 @@ jobs:
 
       - name: Run markdown-link-check
         if: steps.check_files.outputs.markdown_files_exist == 'true'
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          use-quiet-mode: 'yes'
-          file-path: './markdown_files.txt'
-          config-file: '.github/linkcheck.config.json'
-          check-modified-files-only: 'no'
+        run: |
+          while IFS= read -r file; do
+            echo "Checking $file"
+            npx --yes markdown-link-check "$file" --config .github/linkcheck.config.json --quiet
+          done < markdown_files.txt
 
       - name: Report if no markdown files found
         if: steps.check_files.outputs.markdown_files_exist == 'false'
