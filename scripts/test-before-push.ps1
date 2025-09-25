@@ -207,35 +207,88 @@ try {
         if ($htmlFiles.Count -gt 0) {
             Write-Success "Found $($htmlFiles.Count) HTML files to analyze"
 
+            # Initialize tracking variables
+            $totalLinks = 0
+            $uniqueLinks = [System.Collections.Generic.HashSet[string]]::new()
+            $brokenLinks = @()
+            $jekyllGeneratedLinks = 0
+            $staticAssetLinks = 0
+            $externalLinks = 0
+            $processedFiles = 0
+
             # Get repository root (where _config.yml is located)
             $repoRoot = Split-Path $PSScriptRoot -Parent
 
-            # Define patterns for links that are expected to be handled by Jekyll
+            # Define comprehensive patterns for links that are expected to be handled by Jekyll
+            # Based on actual site structure and navigation.yml
             $jekyllPatterns = @(
-                '^/companies/[^/]+/?$',  # Company main pages
-                '^/companies/[^/]+/terms/?$',  # Company terms pages
-                '^/companies/[^/]+/refund-policy/?$',  # Company refund policy pages
-                '^/Calc/[^/]+/?$',  # Calculator pages
-                '^/companies/rk-oxygen/[^/]+/?$',  # RK Oxygen branch pages
-                '^/companies/rk-oxygen/[^/]+/terms/?$',  # Branch terms
-                '^/companies/rk-oxygen/[^/]+/refund-policy/?$',  # Branch refund policy
-                '^/companies/rk-oxygen/[^/]+/privacy/?$',  # Branch privacy (except Gorakhpur)
-                '^/companies/rk-oxygen/[^/]+/contact/?$',  # Branch contact (except Gorakhpur)
-                '^/companies/rk-oxygen/[^/]+/shipping/?$',  # Branch shipping (except Gorakhpur)
-                '^/search/?$'  # Search page (may not exist yet)
+                # Main pages
+                '^/?$',  # Root
+                '^/companies/?$',  # Companies index
+                '^/Calc/?$',  # Calculators index
+
+                # Top-level pages that exist as directories with index files
+                '^/sitemap/?$',  # Sitemap page
+                '^/terms/?$',  # Terms page
+                '^/privacy/?$',  # Privacy page
+                '^/contact/?$',  # Contact page
+                '^/offline/?$',  # Offline page
+
+                # Company main pages
+                '^/companies/rk-electrodes/?$',
+                '^/companies/rk-oxygen/?$',
+                '^/companies/rk-palace/?$',
+                '^/companies/sand-creations/?$',
+
+                # Company policy pages (terms, refund-policy)
+                '^/companies/[^/]+/terms/?$',
+                '^/companies/[^/]+/refund-policy/?$',
+
+                # RK Oxygen branches
+                '^/companies/rk-oxygen/gorakhpur/?$',
+                '^/companies/rk-oxygen/lucknow/?$',
+
+                # RK Oxygen branch-specific pages
+                '^/companies/rk-oxygen/[^/]+/terms/?$',
+                '^/companies/rk-oxygen/[^/]+/refund-policy/?$',
+                '^/companies/rk-oxygen/[^/]+/privacy/?$',
+                '^/companies/rk-oxygen/[^/]+/contact/?$',
+                '^/companies/rk-oxygen/[^/]+/shipping/?$',
+
+                # Calculator pages
+                '^/Calc/GST/?$',
+                '^/Calc/EMI/?$',
+                '^/Calc/LIQ/?$',
+                '^/Calc/CI/?$',
+
+                # Special pages (may not exist yet)
+                '^/search/?$'
+            )
+
+            # Define patterns for static assets that should exist
+            $staticAssetPatterns = @(
+                '\.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|json|xml|txt|pdf)$',
+                '^/favicon\.ico$',
+                '^/manifest\.json$',
+                '^/robots\.txt$',
+                '^/sitemap\.xml$',
+                '^/feed\.xml$',
+                '^/sw\.js$'
             )
 
             foreach ($file in $htmlFiles) {
                 try {
+                    $processedFiles++
                     $content = Get-Content $file.FullName -Raw -ErrorAction Stop
                     if (-not $content) {
                         if ($Verbose) { Write-Host "Skipping empty file: $($file.Name)" -ForegroundColor Gray }
                         continue
                     }
 
-                    # Extract all href attributes from HTML files
+                    # Extract all href attributes from HTML files using more robust regex
                     try {
-                        $linkMatches = [regex]::Matches($content, 'href="([^"]+)"')
+                        # Match href="..." and href='...' patterns
+                        $linkMatches = [regex]::Matches($content, 'href=["'']([^"'']+)["'']')
                     }
                     catch {
                         if ($Verbose) { Write-Host "Regex error in $($file.Name): $($_.Exception.Message)" -ForegroundColor Gray }
@@ -248,58 +301,139 @@ try {
                             $link = $match.Groups[1].Value
                             $totalLinks++
 
-                            # Only check internal links (starting with / and not external URLs)
-                            if ($link -match '^/' -and $link -notmatch '^https?://' -and $link -notmatch '^mailto:' -and $link -notmatch '^tel:') {
-                                # Skip anchor links and query parameters for file existence check
-                                $cleanLink = $link -replace '#.*$' -replace '\?.*$'
+                            # Categorize links
+                            if ($link -match '^https?://' -or $link -match '^//') {
+                                $externalLinks++
+                                continue  # Skip external links (including protocol-relative)
+                            }
+                            elseif ($link -match '^mailto:|^tel:|^javascript:') {
+                                continue  # Skip non-HTTP protocols
+                            }
+                            elseif ($link -match '^#') {
+                                continue  # Skip anchor-only links
+                            }
+                            elseif (-not ($link -match '^/')) {
+                                continue  # Skip relative links that don't start with /
+                            }
 
-                                if ($uniqueLinks.Add($cleanLink)) {
-                                    # Check if this link matches Jekyll patterns (expected to be generated)
-                                    $isJekyllLink = $false
-                                    foreach ($pattern in $jekyllPatterns) {
-                                        if ($cleanLink -match $pattern) {
-                                            $isJekyllLink = $true
-                                            break
-                                        }
-                                    }
+                            # Clean link for file existence check (remove anchors and query params)
+                            $cleanLink = $link -replace '#.*$' -replace '\?.*$'
 
-                                    if (-not $isJekyllLink) {
-                                        # Convert URL path to file system path
-                                        $relativePath = $cleanLink -replace '^/', '' -replace '/', '\'
-                                        $filePath = Join-Path $repoRoot $relativePath
+                            # Skip if we've already processed this unique link
+                            if (-not $uniqueLinks.Add($cleanLink)) {
+                                continue
+                            }
 
-                                        # Debug output for troubleshooting
-                                        if ($Verbose) {
-                                            Write-Host "Checking: $cleanLink -> $filePath" -ForegroundColor Gray
-                                        }
-
-                                        # Check if it's a directory with index.html or a direct HTML file
-                                        $indexPath = Join-Path $filePath "index.html"
-                                        $htmlPath = "$filePath.html"
-
-                                        $exists = (Test-Path $indexPath) -or (Test-Path $htmlPath)
-
-                                        if ($Verbose -and -not $exists) {
-                                            Write-Host "Not found: $indexPath or $htmlPath" -ForegroundColor Gray
-                                        }
-
-                                        if (-not $exists) {
-                                            # Skip known static assets and template variables
-                                            if ($cleanLink -notmatch '\.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|json|xml)$' -and
-                                                $cleanLink -notmatch '\{\{.*\}\}') {
-                                                $brokenLinks += @{
-                                                    Link = $cleanLink
-                                                    SourceFile = $file.Name
-                                                    SourcePath = $file.FullName
-                                                }
-                                            }
-                                        }
-                                    }
+                            # Check if this link matches Jekyll patterns (expected to be generated)
+                            $isJekyllLink = $false
+                            foreach ($pattern in $jekyllPatterns) {
+                                if ($cleanLink -match $pattern) {
+                                    $isJekyllLink = $true
+                                    $jekyllGeneratedLinks++
+                                    break
                                 }
                             }
+
+                            if ($isJekyllLink) {
+                                if ($Verbose) { Write-Host "Jekyll link: $cleanLink" -ForegroundColor Cyan }
+                                continue
+                            }
+
+                            # Check if this is a static asset
+                            $isStaticAsset = $false
+                            foreach ($pattern in $staticAssetPatterns) {
+                                if ($cleanLink -match $pattern) {
+                                    $isStaticAsset = $true
+                                    $staticAssetLinks++
+                                    break
+                                }
+                            }
+
+                            if ($isStaticAsset) {
+                                # Verify static asset exists
+                                $assetPath = Join-Path $repoRoot ($cleanLink -replace '^/')
+                                if (-not (Test-Path $assetPath)) {
+                                    $brokenLinks += @{
+                                        Link = $cleanLink
+                                        SourceFile = $file.Name
+                                        SourcePath = $file.FullName
+                                        Type = "Missing Static Asset"
+                                    }
+                                } elseif ($Verbose) {
+                                    Write-Host "Static asset OK: $cleanLink" -ForegroundColor Green
+                                }
+                                continue
+                            }
+
+                            # Skip template variables and dynamic content
+                            if ($cleanLink -match '\{\{.*\}\}' -or $cleanLink -match '\{\%.*\%\}') {
+                                continue
+                            }
+
+                            # For remaining links, check file existence
+                            $relativePath = $cleanLink -replace '^/', '' -replace '/', '\'
+                            $filePath = Join-Path $repoRoot $relativePath
+
+                            if ($Verbose) {
+                                Write-Host "Checking: $cleanLink -> $filePath" -ForegroundColor Gray
+                            }
+
+                            # Check multiple possible file locations
+                            $exists = $false
+                            $checkedPaths = @()
+
+                            # 1. Check if it's a directory with index.html
+                            $indexPath = Join-Path $filePath "index.html"
+                            $checkedPaths += $indexPath
+                            if (Test-Path $indexPath) {
+                                $exists = $true
+                            }
+
+                            # 2. Check if it's a directory with index.md
+                            if (-not $exists) {
+                                $indexMdPath = Join-Path $filePath "index.md"
+                                $checkedPaths += $indexMdPath
+                                if (Test-Path $indexMdPath) {
+                                    $exists = $true
+                                }
+                            }
+
+                            # 3. Check if it's a direct HTML file
+                            if (-not $exists) {
+                                $htmlPath = "$filePath.html"
+                                $checkedPaths += $htmlPath
+                                if (Test-Path $htmlPath) {
+                                    $exists = $true
+                                }
+                            }
+
+                            # 4. Check if it's a direct Markdown file
+                            if (-not $exists) {
+                                $mdPath = "$filePath.md"
+                                $checkedPaths += $mdPath
+                                if (Test-Path $mdPath) {
+                                    $exists = $true
+                                }
+                            }
+
+                            if (-not $exists) {
+                                if ($Verbose) {
+                                    Write-Host "Not found at any of: $($checkedPaths -join ', ')" -ForegroundColor Gray
+                                }
+                                $brokenLinks += @{
+                                    Link = $cleanLink
+                                    SourceFile = $file.Name
+                                    SourcePath = $file.FullName
+                                    Type = "Missing Page/File"
+                                    CheckedPaths = $checkedPaths
+                                }
+                            } elseif ($Verbose) {
+                                Write-Host "Found: $cleanLink" -ForegroundColor Green
+                            }
+
                         }
                         catch {
-                            if ($Verbose) { Write-Host "Error processing link in $($file.Name): $($_.Exception.Message)" -ForegroundColor Gray }
+                            if ($Verbose) { Write-Host "Error processing link '$link' in $($file.Name): $($_.Exception.Message)" -ForegroundColor Gray }
                             continue
                         }
                     }
@@ -309,14 +443,24 @@ try {
                 }
             }
 
-            Write-Host "Analyzed $totalLinks total links, $($uniqueLinks.Count) unique internal links"
+            # Generate comprehensive report
+            Write-Host "`n📊 Link Analysis Summary:" -ForegroundColor Cyan
+            Write-Host "  Files processed: $processedFiles" -ForegroundColor White
+            Write-Host "  Total links found: $totalLinks" -ForegroundColor White
+            Write-Host "  Unique internal links: $($uniqueLinks.Count)" -ForegroundColor White
+            Write-Host "  External links: $externalLinks" -ForegroundColor White
+            Write-Host "  Jekyll-generated links: $jekyllGeneratedLinks" -ForegroundColor White
+            Write-Host "  Static asset links: $staticAssetLinks" -ForegroundColor White
 
             if ($brokenLinks.Count -eq 0) {
                 Write-Success "✅ All static internal links are valid! No broken links found."
             } else {
                 Write-Error "❌ Found $($brokenLinks.Count) broken static internal links:"
                 foreach ($brokenLink in $brokenLinks) {
-                    Write-Host "  - $($brokenLink.Link) (referenced in $($brokenLink.SourceFile))" -ForegroundColor Red
+                    Write-Host "  - $($brokenLink.Link) (in $($brokenLink.SourceFile)) - $($brokenLink.Type)" -ForegroundColor Red
+                    if ($Verbose -and $brokenLink.ContainsKey('CheckedPaths')) {
+                        Write-Host "    Checked: $($brokenLink.CheckedPaths -join ', ')" -ForegroundColor Gray
+                    }
                 }
                 throw "HTML link traversal found $($brokenLinks.Count) broken static links"
             }
