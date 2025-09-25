@@ -7,7 +7,9 @@
     { "pattern": "^javascript:" },
     { "pattern": "^data:" },
     { "pattern": "localhost" },
-    { "pattern": "127.0.0.1" }
+    { "pattern": "127.0.0.1" },
+    { "pattern": "^https://rk-groups.github.io" },
+    { "pattern": "^_site/" }
   ],
   "timeout": "10s",
   "retryOn429": true,
