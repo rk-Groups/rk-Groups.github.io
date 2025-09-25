@@ -19,7 +19,8 @@ jobs:
       - name: Check for markdown files
         id: check_files
         run: |
-          if find . -name "*.md" -type f -not -path "./_site/*" -not -path "./node_modules/*" | grep -q .; then
+          find . -name "*.md" -type f -not -path "./_site/*" -not -path "./node_modules/*" > markdown_files.txt
+          if [ -s markdown_files.txt ]; then
             echo "markdown_files_exist=true" >> $GITHUB_OUTPUT
           else
             echo "markdown_files_exist=false" >> $GITHUB_OUTPUT
@@ -30,8 +31,7 @@ jobs:
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
-          folder-path: '.'
-          file-path: './*.md ./Calc/**/*.md ./companies/**/*.md ./dev/**/*.md'
+          file-path: './markdown_files.txt'
           config-file: '.github/linkcheck.config.json'
           check-modified-files-only: 'no'
 
