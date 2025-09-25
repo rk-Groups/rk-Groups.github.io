@@ -18,6 +18,7 @@
 
   <!-- Structured Data -->
   {% include structured-data.html %}
+  {% include breadcrumb-structured-data.html %}
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -54,8 +55,8 @@
 <body class="dark-mode">
 
   {% include navigation.html %}
+  {% include breadcrumb-nav.html %}
   <div class="mui-container">
-    {% unless page.url == '/' %}{% include breadcrumb.html %}{% endunless %}
     {{ content }}
   </div>
 

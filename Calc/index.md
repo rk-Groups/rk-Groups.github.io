@@ -2,6 +2,11 @@
 layout: default
 title: Calculators Hub
 description: "Quick access to GST, Liquid conversion, and EMI calculators."
+breadcrumbs:
+  - name: Home
+    url: /
+  - name: Calculators
+    url: /Calc/
 ---
 
 <div class="mui-hero mui-hero--bleed">

@@ -5,6 +5,7 @@
   "@type": "Organization",
   "name": "{{ site.title | default: 'RK Groups' }}",
   "url": "{{ site.url }}",
+  "logo": "{{ site.url }}/favicon.ico",
   "description": "{{ site.description | default: 'Multi-company industrial solutions provider offering gases, welding equipment, and business tools' }}",
   "foundingDate": "2020",
   "industry": "Industrial Gases and Equipment",
@@ -21,6 +22,36 @@
     "addressRegion": "Uttar Pradesh",
     "postalCode": "226018",
     "addressCountry": "IN"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "RK Groups Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Industrial Gases",
+          "description": "Supply of oxygen, nitrogen, and other industrial gases"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Welding Equipment",
+          "description": "Professional welding electrodes and equipment"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Business Calculators",
+          "description": "GST, EMI, and financial calculation tools"
+        }
+      }
+    ]
   },
   "sameAs": [
     "{{ site.url }}"
@@ -40,9 +71,94 @@
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "{{ site.url }}/sitemap/?q={search_term_string}"
+      "urlTemplate": "{{ site.url }}/search/?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "RK Groups"
   }
+}
+</script>
+
+<!-- Calculator Tools Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Business Calculators",
+  "description": "Collection of financial and business calculation tools",
+  "numberOfItems": 4,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "WebApplication",
+        "name": "GST Calculator",
+        "url": "{{ site.url }}/Calc/GST/",
+        "description": "Calculate GST tax amounts and taxable values",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "WebApplication",
+        "name": "EMI Calculator",
+        "url": "{{ site.url }}/Calc/EMI/",
+        "description": "Calculate monthly EMI for loans",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "WebApplication",
+        "name": "Liquid Gas Converter",
+        "url": "{{ site.url }}/Calc/LIQ/",
+        "description": "Convert between different liquid gas measurements",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "WebApplication",
+        "name": "Compound Interest Calculator",
+        "url": "{{ site.url }}/Calc/",
+        "description": "Calculate compound interest and investment growth",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    }
+  ]
 }
 </script>

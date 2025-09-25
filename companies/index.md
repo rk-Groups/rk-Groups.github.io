@@ -1,6 +1,11 @@
 ---
 layout: default
 title: Our Companies Network
+breadcrumbs:
+  - name: Home
+    url: /
+  - name: Companies
+    url: /companies/
 ---
 
 <div class="mui-hero mui-hero--bleed">

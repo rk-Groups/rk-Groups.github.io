@@ -1,6 +1,13 @@
 ---
 layout: default
 title: Liquid Oxygen Converter
+breadcrumbs:
+  - name: Home
+    url: /
+  - name: Calculators
+    url: /Calc/
+  - name: Liquid Gas Converter
+    url: /Calc/LIQ/
 ---
 
 
@@ -39,7 +46,10 @@ title: Liquid Oxygen Converter
     <label>Liters (ltr)</label>
     <input id="LTR" type="number" placeholder="LTR" oninput="fromLTR(this.value)">
   </p>
-
+  <div id="liq-loading" class="liq-loading" style="display: none;">
+    <div class="liq-loading-spinner"></div>
+    <span>Converting...</span>
+  </div>
 </div>
 
 <script>
@@ -53,36 +63,53 @@ function getSelected() {
   return document.getElementById('liqType').value;
 }
 function fromKGS(val) {
-  let v = parseFloat(val);
-  if (isNaN(v)) v = 0;
-  document.getElementById('TON').value = round(v / 1000);
-  const f = factors[getSelected()];
-  document.getElementById('SM3').value = round(v * f.sm3);
-  document.getElementById('LTR').value = round(v * f.ltr);
+  showLIQLoading();
+  setTimeout(() => {
+    let v = parseFloat(val);
+    if (isNaN(v)) v = 0;
+    document.getElementById('TON').value = round(v / 1000);
+    const f = factors[getSelected()];
+    document.getElementById('SM3').value = round(v * f.sm3);
+    document.getElementById('LTR').value = round(v * f.ltr);
+    hideLIQLoading();
+  }, 100);
 }
 function fromTON(val) {
-  let v = parseFloat(val);
-  if (isNaN(v)) v = 0;
-  fromKGS(v * 1000);
-  document.getElementById('KGS').value = round(v * 1000);
+  showLIQLoading();
+  setTimeout(() => {
+    let v = parseFloat(val);
+    if (isNaN(v)) v = 0;
+    fromKGS(v * 1000);
+    document.getElementById('KGS').value = round(v * 1000);
+    hideLIQLoading();
+  }, 100);
 }
 function fromSM3(val) {
-  let v = parseFloat(val);
-  if (isNaN(v)) v = 0;
-  const f = factors[getSelected()];
-  let kgs = v / f.sm3;
-  document.getElementById('KGS').value = round(kgs);
-  fromKGS(kgs);
+  showLIQLoading();
+  setTimeout(() => {
+    let v = parseFloat(val);
+    if (isNaN(v)) v = 0;
+    const f = factors[getSelected()];
+    let kgs = v / f.sm3;
+    document.getElementById('KGS').value = round(kgs);
+    fromKGS(kgs);
+    hideLIQLoading();
+  }, 100);
 }
 function fromLTR(val) {
-  let v = parseFloat(val);
-  if (isNaN(v)) v = 0;
-  const f = factors[getSelected()];
-  let kgs = v / f.ltr;
-  document.getElementById('KGS').value = round(kgs);
-  fromKGS(kgs);
+  showLIQLoading();
+  setTimeout(() => {
+    let v = parseFloat(val);
+    if (isNaN(v)) v = 0;
+    const f = factors[getSelected()];
+    let kgs = v / f.ltr;
+    document.getElementById('KGS').value = round(kgs);
+    fromKGS(kgs);
+    hideLIQLoading();
+  }, 100);
 }
 function resetFields() {
+  hideLIQLoading();
   document.getElementById('KGS').value = '';
   document.getElementById('TON').value = '';
   document.getElementById('SM3').value = '';
@@ -90,6 +117,18 @@ function resetFields() {
 }
 function round(x) {
   return Math.round(x * 100) / 100;
+}
+function showLIQLoading() {
+  const loadingEl = document.getElementById('liq-loading');
+  if (loadingEl) {
+    loadingEl.style.display = 'flex';
+  }
+}
+function hideLIQLoading() {
+  const loadingEl = document.getElementById('liq-loading');
+  if (loadingEl) {
+    loadingEl.style.display = 'none';
+  }
 }
 </script>
 
