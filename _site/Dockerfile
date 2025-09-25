@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     npm
 
 # Set working directory
-WORKDIR /site
+WORKDIR /srv/jekyll
 
 # Install Jekyll and Bundler
 RUN gem install jekyll bundler

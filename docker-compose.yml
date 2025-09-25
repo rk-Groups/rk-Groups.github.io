@@ -1,30 +1,15 @@
 services:
   jekyll:
-    build: .
-    ports:
-      - "4000:4000"
-      - "35729:35729"  # LiveReload port
-    volumes:
-      - .:/site
-      - bundle_cache:/usr/local/bundle
-    environment:
-      - JEKYLL_ENV=development
-    command: bundle exec jekyll serve --host 0.0.0.0 --livereload --drafts --incremental
-    
-  # Alternative: Use official Jekyll image
-  jekyll-official:
     image: jekyll/jekyll:4
     ports:
       - "4000:4000"
-      - "35729:35729"
+      - "35729:35729"  # LiveReload port
     volumes:
       - .:/srv/jekyll
       - bundle_cache:/usr/local/bundle
     environment:
       - JEKYLL_ENV=development
-    command: jekyll serve --livereload --drafts --incremental
-    profiles:
-      - official
+    command: jekyll serve --host 0.0.0.0 --livereload --drafts --incremental
 
 volumes:
   bundle_cache:

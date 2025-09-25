@@ -81,11 +81,20 @@ companies/[company-name]/[branch-name]/
 - **Legal compliance**: Every company/branch must have terms.md, refund-policy.md accessible from navigation
 
 ## Development Environment Setup
-1. **Primary testing**: Use `./test-and-push.ps1 "commit message"` for full workflow
-2. **Quick testing**: Use `.\scripts\test-before-push.ps1 -SkipLighthouse -SkipAxe`
-3. **PowerShell environment**: All scripts designed for PowerShell (pwsh.exe)
-4. **Check documentation**: Reference `dev/STATIC_RULES.md` for UI consistency
-5. **Current tasks**: Check `dev/TODO.md` for ongoing work and backlog items
+1. **Docker (Recommended)**: Use `./dev-server.ps1` for instant Jekyll development with Docker
+2. **Primary testing**: Use `./test-and-push.ps1 "commit message"` for full workflow
+3. **Quick testing**: Use `.\scripts\test-before-push.ps1 -SkipLighthouse -SkipAxe`
+4. **PowerShell environment**: All scripts designed for PowerShell (pwsh.exe)
+5. **Check documentation**: Reference `dev/STATIC_RULES.md` for UI consistency
+6. **Current tasks**: Check `dev/TODO.md` for ongoing work and backlog items
+
+### Docker Development Setup
+- **Start server**: `./dev-server.ps1` (runs on http://localhost:4000)
+- **Stop server**: `./dev-server.ps1 -Stop`
+- **Rebuild image**: `./dev-server.ps1 -Build`
+- **View logs**: `./dev-server.ps1 -Logs`
+- **Features**: Live reload, volume mounting, draft posts, incremental builds
+- **Alternative**: `docker-compose up jekyll` for direct Docker Compose usage
 
 ## Key File Patterns & Examples
 

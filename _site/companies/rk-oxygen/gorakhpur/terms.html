@@ -4,9 +4,11 @@
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Material Icons with font-display optimization -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -266,17 +268,331 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="RK Groups">
 
+  <!-- Cache optimization meta tags -->
+  <meta http-equiv="Cache-Control" content="max-age=31536000">
+  <meta name="cache-control" content="public, max-age=31536000">
+
   <!-- RSS Feed -->
   <link rel="alternate" type="application/rss+xml" title="RK Groups" href="/feed.xml">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/assets/css/mui.css">
+  <!-- Critical CSS - inlined for fast initial render -->
+  <style>
+    /* Critical CSS - Above-the-fold styles for fast initial render */
+
+    /* Global reset */
+    * { box-sizing: border-box; }
+    *::before, *::after { box-sizing: inherit; }
+    html, body { margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: hidden; }
+
+    /* Dark mode CSS variables - critical for theme */
+    body.dark-mode {
+      --mui-radius: 8px;
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #262626;
+      --bg-elevated: #2d2d2d;
+      --bg-glass: rgba(26, 26, 26, 0.8);
+      --text: #ffffff;
+      --text-primary: #ffffff;
+      --text-secondary: #b3b3b3;
+      --text-muted: #737373;
+      --text-accent: #60a5fa;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
+      --accent-success: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --border-primary: #404040;
+      --border-secondary: #525252;
+      --border-focus: #60a5fa;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+      --gradient-hero: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+      --panel-bg: var(--bg-glass);
+      --panel-border: var(--border-primary);
+      --primary: var(--accent-primary);
+      --primary-light: var(--text-accent);
+      --primary-dark: #2563eb;
+      --secondary: var(--accent-secondary);
+      --card-bg: var(--bg-tertiary);
+      --divider: var(--border-primary);
+      --shadow: var(--shadow-sm);
+    }
+
+    /* Apply base colors */
+    body.dark-mode {
+      background: var(--bg-primary);
+      color: var(--text);
+    }
+
+    /* Hero section - critical above-the-fold content */
+    .mui-hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--gradient-hero);
+      color: white;
+      margin: 0 0 32px 0;
+    }
+    .mui-hero--bleed {
+      position: relative;
+      background: transparent;
+      overflow: hidden;
+    }
+    .mui-hero--bleed::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      background: var(--gradient-hero);
+      z-index: -1;
+    }
+    .mui-hero--bleed::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      background: radial-gradient(circle at 50% 50%, rgba(59,130,246,0.10) 0%, transparent 70%);
+      z-index: -1;
+    }
+    .mui-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .mui-hero-icon {
+      margin-bottom: 24px;
+    }
+    .mui-hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+    }
+    .mui-hero-subtitle {
+      font-size: 1.2em;
+      margin: 0 0 32px 0;
+      opacity: 0.9;
+    }
+    .mui-hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Cards - critical for content display */
+    .mui-card {
+      background: var(--card-bg);
+      border-radius: var(--mui-radius);
+      padding: 24px;
+      margin: 16px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--divider);
+      overflow-wrap: anywhere;
+    }
+    .mui-card-title {
+      color: var(--text);
+      margin: 0 0 16px 0;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+
+    /* Buttons - critical for interactions */
+    .mui-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--mui-radius);
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1em;
+    }
+    .mui-btn--primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border: 1px solid var(--accent-primary);
+    }
+    .mui-btn--primary:hover,
+    .mui-btn--primary:focus {
+      background: var(--primary-dark);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    .mui-btn--outline {
+      background: transparent;
+      color: var(--accent-primary);
+      border: 2px solid var(--accent-primary);
+    }
+    .mui-btn--outline:hover,
+    .mui-btn--outline:focus {
+      background: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    /* Hero button overrides */
+    .mui-hero .mui-btn--primary {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border: 1px solid var(--accent-primary);
+      font-weight: 600;
+    }
+    .mui-hero .mui-btn--primary:hover,
+    .mui-hero .mui-btn--primary:focus {
+      background: var(--primary-dark);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+    }
+    .mui-hero .mui-btn--outline {
+      color: #ffffff;
+      border-color: #ffffff;
+      font-weight: 600;
+    }
+    .mui-hero .mui-btn--outline:hover,
+    .mui-hero .mui-btn--outline:focus {
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    /* Links */
+    body.dark-mode a {
+      color: var(--primary);
+    }
+    body.dark-mode a:hover,
+    body.dark-mode a:focus {
+      color: #b3e5fc;
+    }
+
+    /* Navigation - critical for site usability */
+    .mui-glass {
+      background: var(--bg-glass) !important;
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-primary) !important;
+    }
+
+    /* Bottombar - critical for footer */
+    .mui-bottombar {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: var(--panel-bg);
+      color: var(--text);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.10);
+      border-top: 1px solid var(--panel-border);
+      z-index: 2002;
+      font-size: 1em;
+    }
+    .mui-bottombar-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      text-align: center;
+    }
+    .mui-bottombar-links {
+      margin-left: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    .mui-bottombar-links a {
+      color: var(--text);
+      margin: 0 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .mui-bottombar-links a:hover, .mui-bottombar-links a:focus {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    .mui-divider {
+      color: var(--divider);
+      margin: 0 2px;
+      user-select: none;
+    }
+
+    /* Report issue button */
+    .mui-bottombar-report {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 0.9em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+    .mui-bottombar-report:hover, .mui-bottombar-report:focus {
+      background: #fffde7;
+      color: #d32f2f;
+      box-shadow: 0 4px 16px rgba(251, 192, 45, 0.15);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile responsive - critical for mobile users */
+    @media (max-width: 600px) {
+      .mui-bottombar-content {
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 4px;
+      }
+      .mui-bottombar-links {
+        margin-left: 0;
+        gap: 0.2em;
+      }
+      .mui-bottombar-report {
+        margin-left: 0;
+        margin-top: 8px;
+        padding: 6px 12px;
+        font-size: 0.85em;
+      }
+      .mui-hero {
+        padding: 40px 20px;
+      }
+      .mui-hero-title {
+        font-size: 2rem;
+      }
+      .mui-hero-subtitle {
+        font-size: 1.1em;
+      }
+      .mui-hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/assets/css/mui.min.css" as="style">
+
+  <!-- Non-critical CSS - loaded with low priority -->
+  <link rel="preload" href="/assets/css/mui.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/assets/css/mui.min.css"></noscript>
 
   <!-- Service Worker Registration -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/sw.min.js')
           .then(function(registration) {
             console.log('SW registered: ', registration);
           })
@@ -983,7 +1299,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Orders will be processed and delivered as per mutually agreed timelines. Delays due to transport or unforeseen issues will be communicated.</p>
 
 <h2>5. Refunds &amp; Cancellations</h2>
-<p>Refunds and cancellations are governed by our <a href="refund-policy.html">Refund &amp; Cancellation Policy</a>.</p>
+<p>Refunds and cancellations are governed by our <a href="refund-policy">Refund &amp; Cancellation Policy</a>.</p>
 
 <h2>6. Limitation of Liability</h2>
 <p>We are not liable for indirect, incidental, or consequential damages beyond our reasonable control.</p>
@@ -1009,7 +1325,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <span class="mui-divider">|</span>
   <a href="/Calc/">Calculators Hub</a>
       <span class="mui-divider">|</span>
-      <a href="https://github.com/rk-Groups/rk-Groups.github.io/issues/new" target="_blank" class="mui-bottombar-report">
+      <a href="#" class="mui-bottombar-report" role="button" aria-label="Report an issue on GitHub">
         <span class="material-icons" aria-label="Report Issue">flag</span> Report Issue
       </a>
     </span>
@@ -1160,5 +1476,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 </script>
 
+
+  <!-- Report Issue Enhancement -->
+  
+  <script src="/report-issue.js"></script>
+  
 </body>
 </html>
