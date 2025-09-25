@@ -2,14 +2,13 @@ const CACHE_NAME = 'rk-groups-v2.0.0';
 const STATIC_CACHE = 'rk-groups-static-v2.0.0';
 const DYNAMIC_CACHE = 'rk-groups-dynamic-v2.0.0';
 
-// Static assets that rarely change
+// Static assets that rarely change (only local resources)
 const STATIC_ASSETS = [
   '/assets/css/mui.min.css',
   '/sw.min.js',
   '/favicon.ico',
   '/manifest.json',
-  '/offline/',
-  'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap'
+  '/offline/'
 ];
 
 // Dynamic content that should be network-first
@@ -23,14 +22,23 @@ const DYNAMIC_ROUTES = [
   '/contact/'
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets with error handling
 self.addEventListener('install', function(event) {
   console.log('[SW] Installing service worker');
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then(function(cache) {
         console.log('[SW] Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        // Use individual cache.add() calls instead of addAll() for better error handling
+        return Promise.allSettled(
+          STATIC_ASSETS.map(url => {
+            return cache.add(url).catch(error => {
+              console.warn('[SW] Failed to cache:', url, error);
+              // Don't fail the entire installation if one asset fails
+              return Promise.resolve();
+            });
+          })
+        );
       })
       .then(() => self.skipWaiting())
   );
@@ -62,8 +70,8 @@ self.addEventListener('fetch', function(event) {
   // Skip non-GET requests
   if (request.method !== 'GET') return;
 
-  // Skip external requests (except Google Fonts)
-  if (url.origin !== location.origin && !url.origin.includes('fonts.googleapis.com')) return;
+  // Skip external requests (fonts, external APIs, etc.)
+  if (url.origin !== location.origin) return;
 
   // Handle different caching strategies based on content type
   if (isStaticAsset(request)) {
@@ -167,7 +175,16 @@ function isStaticAsset(request) {
   return url.includes('.css') ||
          url.includes('.js') ||
          url.includes('.ico') ||
-         url.includes('fonts.googleapis.com');
+         url.includes('.png') ||
+         url.includes('.jpg') ||
+         url.includes('.jpeg') ||
+         url.includes('.gif') ||
+         url.includes('.svg') ||
+         url.includes('.woff') ||
+         url.includes('.woff2') ||
+         url.includes('.ttf') ||
+         url.includes('.eot') ||
+         url.includes('manifest.json');
 }
 
 function isDynamicRoute(request) {
