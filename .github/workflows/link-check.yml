@@ -19,7 +19,7 @@ jobs:
       - name: Check for markdown files
         id: check_files
         run: |
-          if find . -name "*.md" -type f -not -path "./_site/*" | grep -q .; then
+          if find . -name "*.md" -type f -not -path "./_site/*" -not -path "./node_modules/*" | grep -q .; then
             echo "markdown_files_exist=true" >> $GITHUB_OUTPUT
           else
             echo "markdown_files_exist=false" >> $GITHUB_OUTPUT
@@ -34,7 +34,6 @@ jobs:
           file-extension: '.md'
           config-file: '.github/linkcheck.config.json'
           check-modified-files-only: 'no'
-          file-path: './*.md ./dev/*.md ./companies/**/*.md ./Calc/**/*.md'
 
       - name: Report if no markdown files found
         if: steps.check_files.outputs.markdown_files_exist == 'false'
