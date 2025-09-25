@@ -236,6 +236,32 @@ body.dark-mode .mui-hero a.mui-btn--outline:focus {
   color: #ffffff !important;
 }
 
+/* Override outline button colors for better contrast on homepage */
+body.dark-mode .mui-feature-card .mui-btn--outline {
+  color: #93c5fd !important;
+}
+body.dark-mode .mui-feature-card .mui-btn--outline:hover,
+body.dark-mode .mui-feature-card .mui-btn--outline:focus {
+  color: #ffffff !important;
+  background: rgba(147, 197, 253, 0.1) !important;
+}
+
+/* Fix contrast for call-to-action button */
+.mui-card .mui-btn[href="/companies/"] {
+  color: #1e40af !important;
+}
+
+/* Specific fixes for homepage buttons */
+body.dark-mode a[href$="rk-oxygen/"] {
+  color: #93c5fd !important;
+}
+body.dark-mode .mui-btn--outline[href$="rk-electrodes/"] {
+  color: #93c5fd !important;
+}
+body.dark-mode .mui-btn--outline[href$="Calc/"] {
+  color: #93c5fd !important;
+}
+
 /* Disabled state for buttons and links */
 .mui-btn:disabled, .mui-btn[aria-disabled="true"], .mui-btn.mui-disabled {
   background: #bdbdbd !important;
