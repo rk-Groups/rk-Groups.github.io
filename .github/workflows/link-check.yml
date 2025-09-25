@@ -31,7 +31,7 @@ jobs:
         with:
           use-quiet-mode: 'yes'
           folder-path: '.'
-          file-extension: '.md'
+          file-path: './*.md ./Calc/**/*.md ./companies/**/*.md ./dev/**/*.md'
           config-file: '.github/linkcheck.config.json'
           check-modified-files-only: 'no'
 
