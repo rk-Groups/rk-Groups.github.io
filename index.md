@@ -110,7 +110,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
     Explore our companies, use our business tools, or get in touch to discuss your requirements.
   </p>
   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="/companies/" class="mui-btn" style="background: white; color: var(--accent-primary); border: 2px solid white;">
+    <a href="/companies/" class="mui-btn" style="background: white; color: #1e40af; border: 2px solid white;">
       <span class="material-icons">business</span>
       Browse Companies
     </a>
