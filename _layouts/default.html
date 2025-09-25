@@ -380,5 +380,12 @@
 
   {% include bottombar.html %}
   {% include analytics.html %}
+
+  <!-- Report Issue Enhancement -->
+  {% if jekyll.environment == "production" %}
+  <script src="{{ '/report-issue.min.js' | relative_url }}"></script>
+  {% else %}
+  <script src="{{ '/report-issue.js' | relative_url }}"></script>
+  {% endif %}
 </body>
 </html>
