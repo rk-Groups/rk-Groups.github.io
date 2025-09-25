@@ -32,7 +32,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
       <span class="material-icons mui-feature-icon">factory</span>
       <h3>Industrial Gases</h3>
       <p>High-quality oxygen, nitrogen, and specialty gases for industrial applications across Uttar Pradesh</p>
-      <a href="/companies/rk-oxygen/" class="mui-btn mui-btn--outline" style="margin-top: 1rem;">
+      <a href="/companies/rk-oxygen/" class="mui-btn mui-btn--outline" style="margin-top: 1rem; color: #93c5fd !important;">
         <span class="material-icons">arrow_forward</span>
         Learn More
       </a>
@@ -41,7 +41,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
       <span class="material-icons mui-feature-icon">build</span>
       <h3>Welding Solutions</h3>
       <p>Premium welding electrodes and equipment for all your welding and fabrication needs</p>
-      <a href="/companies/rk-electrodes/" class="mui-btn mui-btn--outline" style="margin-top: 1rem;">
+      <a href="/companies/rk-electrodes/" class="mui-btn mui-btn--outline" style="margin-top: 1rem; color: #93c5fd !important;">
         <span class="material-icons">arrow_forward</span>
         Learn More
       </a>
@@ -50,7 +50,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
       <span class="material-icons mui-feature-icon">calculate</span>
       <h3>Business Tools</h3>
       <p>GST calculator, liquid conversion tools, EMI calculator, and other business utilities</p>
-      <a href="/Calc/" class="mui-btn mui-btn--outline" style="margin-top: 1rem;">
+      <a href="/Calc/" class="mui-btn mui-btn--outline" style="margin-top: 1rem; color: #93c5fd !important;">
         <span class="material-icons">arrow_forward</span>
         Try Tools
       </a>
@@ -110,7 +110,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
     Explore our companies, use our business tools, or get in touch to discuss your requirements.
   </p>
   <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-    <a href="/companies/" class="mui-btn" style="background: white; color: #1e40af; border: 2px solid white;">
+    <a href="/companies/" class="mui-btn" style="background: white; color: #1e40af !important; border: 2px solid white;">
       <span class="material-icons">business</span>
       Browse Companies
     </a>
