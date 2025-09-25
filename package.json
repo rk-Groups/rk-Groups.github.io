@@ -1,0 +1,15 @@
+{
+  "name": "rk-groups-jekyll",
+  "version": "1.0.0",
+  "description": "RK Groups Jekyll site with performance optimizations",
+  "scripts": {
+    "minify": "npm run minify-css && npm run minify-js",
+    "minify-css": "npx clean-css-cli assets/css/mui.css -o assets/css/mui.min.css --format breakWith=lf",
+    "minify-js": "npx terser sw.js -o sw.min.js --compress --mangle && npx terser site-links.js -o site-links.min.js --compress --mangle && npx terser check-hrefs.js -o check-hrefs.min.js --compress --mangle && npx terser companies/rk-oxygen/gorakhpur/details.js -o companies/rk-oxygen/gorakhpur/details.min.js --compress --mangle",
+    "build": "npm run minify && echo 'Assets minified successfully'"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.31.0"
+  }
+}

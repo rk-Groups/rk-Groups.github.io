@@ -109,6 +109,19 @@ try {
         Write-Warning "Skipping Jekyll dependencies (Jekyll not available or --SkipBuild specified)"
     }
 
+    # 3.5. Asset Minification
+    Write-Step "Step 3.5: Minifying Assets"
+    if (Test-Command "npm") {
+        try {
+            npm run minify
+            Write-Success "Asset minification completed"
+        } catch {
+            Write-Warning "Asset minification failed, but continuing: $($_.Exception.Message)"
+        }
+    } else {
+        Write-Warning "npm not found, skipping asset minification"
+    }
+
     # 4. Jekyll Build Test
     if ($JekyllAvailable -and -not $SkipBuild) {
         Write-Step "Step 4: Testing Jekyll Build"

@@ -51,6 +51,10 @@ main:
         desc: Investment growth and compound interest calculation
   - title: Site Map
     url: /sitemap/
+  - title: Search
+    url: /search/
+    icon: search
+    desc: Search across all RK Groups content
   - title: Contact
     url: /contact/
     icon: contact_mail
@@ -82,7 +86,3 @@ sidebar:
           url: /companies/rk-oxygen/lucknow/terms/
         - title: Refund Policy
           url: /companies/rk-oxygen/lucknow/refund-policy/
-  - title: Search
-    url: /search/
-    icon: search
-    desc: Search across all RK Groups content
