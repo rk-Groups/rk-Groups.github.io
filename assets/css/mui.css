@@ -262,6 +262,17 @@ body.dark-mode .mui-btn--outline[href$="Calc/"] {
   color: #93c5fd !important;
 }
 
+/* More specific rules for homepage feature cards */
+body.dark-mode .mui-feature-card:nth-child(1) .mui-btn--outline {
+  color: #93c5fd !important;
+}
+body.dark-mode .mui-feature-card:nth-child(2) .mui-btn--outline {
+  color: #93c5fd !important;
+}
+body.dark-mode .mui-feature-card:nth-child(3) .mui-btn--outline {
+  color: #93c5fd !important;
+}
+
 /* Disabled state for buttons and links */
 .mui-btn:disabled, .mui-btn[aria-disabled="true"], .mui-btn.mui-disabled {
   background: #bdbdbd !important;
