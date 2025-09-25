@@ -206,11 +206,11 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:foc
 
 /* Content link defaults in dark mode */
 body.dark-mode a {
-  color: var(--primary);
+  color: #60a5fa;
 }
 body.dark-mode a:hover,
 body.dark-mode a:focus {
-  color: #b3e5fc;
+  color: #93c5fd;
 }
 
 /* Override link colors for buttons */

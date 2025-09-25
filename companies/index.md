@@ -19,7 +19,8 @@ breadcrumbs:
 
 </div>
 
-<div class="mui-features">
+<h2 id="companies-section" class="mui-section-title">Company Overview</h2>
+<div class="mui-features" role="region" aria-labelledby="companies-section">
   <div class="mui-features-grid">
     {% for company_key in site.data.companies %}
       {% assign company = site.data.companies[company_key[0]] %}
