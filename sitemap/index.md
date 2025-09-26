@@ -1,184 +1,384 @@
 ---
 layout: default
-title: Site Map - RK Groups
-description: Complete site map of RK Groups website. Find all pages, companies, calculators, and resources organized by category.
+title: Site Tree - RK Groups Network
+description: Interactive neural network-style site tree showing the complete RK Groups website structure and page connections.
 ---
+
+<style>
+/* Neural Network Site Tree Styles */
+.neural-network {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.neural-layers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 600px;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.neural-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.layer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background: var(--bg-elevated);
+  border-radius: var(--mui-radius);
+  border: 1px solid var(--border-primary);
+}
+
+.neural-node {
+  width: 120px;
+  min-height: 60px;
+  padding: 0.75rem;
+  background: var(--bg-elevated);
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--mui-radius);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.neural-node:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-secondary);
+}
+
+.neural-node.primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+.neural-node.secondary {
+  border-color: var(--text-secondary);
+}
+
+.neural-node.leaf {
+  width: 100px;
+  min-height: 50px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border-color: var(--border-primary);
+}
+
+.neural-node a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+}
+
+.neural-node a:hover {
+  text-decoration: underline;
+}
+
+.neural-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connection-line {
+  position: absolute;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2px;
+  opacity: 0.6;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .neural-layers {
+    flex-direction: column;
+    gap: 2rem;
+    min-height: auto;
+  }
+
+  .neural-layer {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .neural-connections {
+    display: none; /* Hide connections on mobile for clarity */
+  }
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.primary { background: var(--accent-primary); }
+.legend-dot.secondary { background: var(--text-secondary); }
+.legend-dot.leaf { background: var(--border-primary); }
+</style>
 
 <div class="mui-hero">
   <div class="mui-hero-content">
     <div class="mui-hero-icon">
-      <span class="material-icons" style="font-size: 4rem;">map</span>
+      <span class="material-icons" style="font-size: 4rem;">hub</span>
     </div>
-    <h1 class="mui-hero-title">Site Map</h1>
-    <p class="mui-hero-subtitle">Navigate through all RK Groups pages and resources</p>
+    <h1 class="mui-hero-title">RK Groups Network</h1>
+    <p class="mui-hero-subtitle">Interactive site tree showing our interconnected business ecosystem</p>
   </div>
 </div>
 
 <div class="content-section">
   <div class="mui-card">
-    <div class="sitemap-grid">
-      <!-- Main Pages -->
-      <div class="sitemap-section">
-        <h2>
-          <span class="material-icons">home</span>
-          Main Pages
-        </h2>
-        <ul class="sitemap-list">
-          <li><a href="/">Home</a></li>
-          <li><a href="/companies/">Companies Network</a></li>
-          <li><a href="/Calc/">Calculators Hub</a></li>
-          <li><a href="/search/">Search</a></li>
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="/sitemap/">Site Map</a></li>
-        </ul>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot primary"></div>
+        <span>Main Hubs</span>
       </div>
+      <div class="legend-item">
+        <div class="legend-dot secondary"></div>
+        <span>Company Branches</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot leaf"></div>
+        <span>Service Pages</span>
+      </div>
+    </div>
 
-      <!-- Companies -->
-      <div class="sitemap-section">
-        <h2>
-          <span class="material-icons">business</span>
-          Companies
-        </h2>
-        <ul class="sitemap-list">
-          <li>
-            <a href="/companies/rk-electrodes/">RK Electrodes</a>
-            <ul class="sitemap-sublist">
-              <li><a href="/companies/rk-electrodes/terms/">Terms of Service</a></li>
-              <li><a href="/companies/rk-electrodes/refund-policy/">Refund Policy</a></li>
-            </ul>
-          </li>
-          <li>
-            <strong>RK Oxygen</strong>
-            <ul class="sitemap-sublist">
-              <li><a href="/companies/rk-oxygen/gorakhpur/">Gorakhpur Branch</a></li>
-              <li><a href="/companies/rk-oxygen/gorakhpur/terms/">Terms of Service</a></li>
-              <li><a href="/companies/rk-oxygen/gorakhpur/refund-policy/">Refund Policy</a></li>
-              <li><a href="/companies/rk-oxygen/gorakhpur/privacy/">Privacy Policy</a></li>
-              <li><a href="/companies/rk-oxygen/gorakhpur/shipping/">Shipping Policy</a></li>
-              <li><a href="/companies/rk-oxygen/gorakhpur/contact/">Contact</a></li>
-              <li><a href="/companies/rk-oxygen/lucknow/">Lucknow Branch</a></li>
-              <li><a href="/companies/rk-oxygen/lucknow/terms/">Terms of Service</a></li>
-              <li><a href="/companies/rk-oxygen/lucknow/refund-policy/">Refund Policy</a></li>
-            </ul>
-          </li>
-          <li><a href="/companies/rk-palace/">RK Palace</a></li>
-          <li>
-            <a href="/companies/sand-creations/">Sand Creations</a>
-            <ul class="sitemap-sublist">
-              <li><a href="/companies/sand-creations/terms/">Terms of Service</a></li>
-              <li><a href="/companies/sand-creations/refund-policy/">Refund Policy</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <div class="neural-network">
+      <div class="neural-layers">
+        <!-- Input Layer -->
+        <div class="neural-layer">
+          <div class="layer-title">Entry Points</div>
+          <div class="neural-node primary">
+            <a href="/">
+              <span class="material-icons" style="font-size: 1.5rem;">home</span><br>
+              Home
+            </a>
+          </div>
+          <div class="neural-node primary">
+            <a href="/companies/">
+              <span class="material-icons" style="font-size: 1.5rem;">business</span><br>
+              Companies
+            </a>
+          </div>
+          <div class="neural-node primary">
+            <a href="/Calc/">
+              <span class="material-icons" style="font-size: 1.5rem;">calculate</span><br>
+              Calculators
+            </a>
+          </div>
+        </div>
 
-      <!-- Calculators -->
-      <div class="sitemap-section">
-        <h2>
-          <span class="material-icons">calculate</span>
-          Calculators
-        </h2>
-        <ul class="sitemap-list">
-          <li><a href="/Calc/GST/">GST Calculator</a></li>
-          <li><a href="/Calc/LIQ/">Liquid Calculator</a></li>
-          <li><a href="/Calc/EMI/">EMI Calculator</a></li>
-          <li><a href="/Calc/CI/">Compound Interest Calculator</a></li>
-        </ul>
-      </div>
+        <!-- Hidden Layer 1: Company Categories -->
+        <div class="neural-layer">
+          <div class="layer-title">Business Divisions</div>
+          <div class="neural-node secondary">
+            <a href="/companies/rk-electrodes/">
+              <span class="material-icons" style="font-size: 1.2rem;">build</span><br>
+              RK Electrodes
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/companies/rk-oxygen/">
+              <span class="material-icons" style="font-size: 1.2rem;">factory</span><br>
+              RK Oxygen
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/companies/rk-palace/">
+              <span class="material-icons" style="font-size: 1.2rem;">apartment</span><br>
+              RK Palace
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/companies/sand-creations/">
+              <span class="material-icons" style="font-size: 1.2rem;">brush</span><br>
+              Sand Creations
+            </a>
+          </div>
+        </div>
 
-      <!-- Legal & Info -->
-      <div class="sitemap-section">
-        <h2>
-          <span class="material-icons">gavel</span>
-          Legal & Information
-        </h2>
-        <ul class="sitemap-list">
-          <li><a href="/terms/">Terms of Service</a></li>
-          <li><a href="/privacy/">Privacy Policy</a></li>
-          <li><a href="/companies/rk-oxygen/gorakhpur/terms/">Terms of Service (RK Oxygen)</a></li>
-          <li><a href="/companies/rk-oxygen/gorakhpur/refund-policy/">Refund Policy (RK Oxygen)</a></li>
-          <li><a href="/sitemap.xml">XML Sitemap</a></li>
-          <li><a href="/feed.xml">RSS Feed</a></li>
-        </ul>
+        <!-- Hidden Layer 2: Branches & Calculators -->
+        <div class="neural-layer">
+          <div class="layer-title">Branches & Tools</div>
+          <!-- RK Oxygen Branches -->
+          <div class="neural-node secondary">
+            <a href="/companies/rk-oxygen/gorakhpur/">
+              <span class="material-icons" style="font-size: 1.2rem;">location_city</span><br>
+              Gorakhpur
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/companies/rk-oxygen/lucknow/">
+              <span class="material-icons" style="font-size: 1.2rem;">location_city</span><br>
+              Lucknow
+            </a>
+          </div>
+          <!-- Calculators -->
+          <div class="neural-node secondary">
+            <a href="/Calc/GST/">
+              <span class="material-icons" style="font-size: 1.2rem;">receipt_long</span><br>
+              GST Calc
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/Calc/EMI/">
+              <span class="material-icons" style="font-size: 1.2rem;">payments</span><br>
+              EMI Calc
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/Calc/LIQ/">
+              <span class="material-icons" style="font-size: 1.2rem;">science</span><br>
+              Liquid Calc
+            </a>
+          </div>
+          <div class="neural-node secondary">
+            <a href="/Calc/CI/">
+              <span class="material-icons" style="font-size: 1.2rem;">trending_up</span><br>
+              CI Calc
+            </a>
+          </div>
+        </div>
+
+        <!-- Output Layer: Service Pages -->
+        <div class="neural-layer">
+          <div class="layer-title">Services & Legal</div>
+          <div class="neural-node leaf">
+            <a href="/contact/">
+              <span class="material-icons" style="font-size: 1rem;">contact_mail</span><br>
+              Contact
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/search/">
+              <span class="material-icons" style="font-size: 1rem;">search</span><br>
+              Search
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/companies/rk-oxygen/gorakhpur/terms/">
+              <span class="material-icons" style="font-size: 1rem;">gavel</span><br>
+              Terms
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/companies/rk-oxygen/gorakhpur/privacy/">
+              <span class="material-icons" style="font-size: 1rem;">privacy_tip</span><br>
+              Privacy
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/companies/rk-oxygen/gorakhpur/refund-policy/">
+              <span class="material-icons" style="font-size: 1rem;">refund</span><br>
+              Refunds
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/companies/rk-oxygen/gorakhpur/shipping/">
+              <span class="material-icons" style="font-size: 1rem;">local_shipping</span><br>
+              Shipping
+            </a>
+          </div>
+          <div class="neural-node leaf">
+            <a href="/sitemap.xml">
+              <span class="material-icons" style="font-size: 1rem;">rss_feed</span><br>
+              XML Map
+            </a>
+          </div>
+        </div>
+
+        <!-- Neural Connections (Visual Lines) -->
+        <div class="neural-connections">
+          <!-- Input to Business Divisions connections -->
+          <div class="connection-line" style="top: 20%; left: 16%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 35%; left: 16%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 50%; left: 16%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 65%; left: 16%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+
+          <!-- Business Divisions to Branches/Tools connections -->
+          <div class="connection-line" style="top: 25%; left: 38%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 40%; left: 38%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 55%; left: 38%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 70%; left: 38%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+
+          <!-- Branches/Tools to Services connections -->
+          <div class="connection-line" style="top: 15%; left: 60%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 30%; left: 60%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 45%; left: 60%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 60%; left: 60%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+          <div class="connection-line" style="top: 75%; left: 60%; width: 18%; height: 2px; transform: rotate(0deg);"></div>
+        </div>
       </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: var(--bg-elevated); border-radius: var(--mui-radius);">
+      <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Network Statistics</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--accent-primary);">4</div>
+          <div style="color: var(--text-secondary);">Companies</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--accent-primary);">6</div>
+          <div style="color: var(--text-secondary);">Branches</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--accent-primary);">4</div>
+          <div style="color: var(--text-secondary);">Calculators</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--accent-primary);">15+</div>
+          <div style="color: var(--text-secondary);">Pages</div>
+        </div>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        Explore our interconnected business network - from industrial supplies to financial tools
+      </p>
     </div>
   </div>
 </div>
-
-<style>
-.sitemap-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.sitemap-section {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--mui-radius);
-  padding: 1.5rem;
-}
-
-.sitemap-section h2 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 0 1rem 0;
-  color: var(--text-primary);
-  font-size: 1.25rem;
-  border-bottom: 1px solid var(--border-primary);
-  padding-bottom: 0.5rem;
-}
-
-.sitemap-section .material-icons {
-  color: var(--accent-primary);
-}
-
-.sitemap-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sitemap-list li {
-  margin-bottom: 0.5rem;
-}
-
-.sitemap-list a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.sitemap-list a:hover {
-  color: var(--accent-primary);
-}
-
-.sitemap-sublist {
-  margin-left: 1rem;
-  margin-top: 0.5rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--border-primary);
-}
-
-.sitemap-sublist li {
-  margin-bottom: 0.25rem;
-  font-size: 0.9rem;
-}
-
-.sitemap-sublist a {
-  color: var(--text-tertiary);
-}
-
-@media (max-width: 768px) {
-  .sitemap-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .sitemap-section {
-    padding: 1rem;
-  }
-}
-</style>
