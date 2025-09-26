@@ -1,11 +1,11 @@
 [submodule "Calc/LIQ"]
 	path = Calc/LIQ
-	url = ./temp-calculators/calculator-liquid
+	url = https://github.com/Jaiswal-ruhil/calculator-liquid.git
 
 [submodule "Calc/EMI"]
 	path = Calc/EMI
-	url = ./temp-calculators/calculator-emi
+	url = https://github.com/Jaiswal-ruhil/calculator-emi.git
 
 [submodule "Calc/CI"]
 	path = Calc/CI
-	url = ./temp-calculators/calculator-ci
+	url = https://github.com/Jaiswal-ruhil/calculator-ci.git
