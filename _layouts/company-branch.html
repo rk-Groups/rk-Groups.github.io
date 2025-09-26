@@ -5,23 +5,39 @@ layout: default
 {% assign branch = page.branch %}
 {% assign details = site.data.companies[key][branch] %}
 
-<div class="mui-card">
-  <h1 class="mui-card-title">🏭 {{ site.data.companies[key].main.name | default: key | replace: '-', ' ' | capitalize }} — {{ details.name | default: branch | capitalize }} Branch</h1>
+<div class="mui-hero mui-hero--bleed">
+  <div class="mui-hero-content">
+    <div class="mui-hero-icon">
+      <span class="material-icons" style="font-size: 4rem;">factory</span>
+    </div>
+    <h1 class="mui-hero-title">{{ site.data.companies[key].main.name | default: key | replace: '-', ' ' | capitalize }} — {{ details.name | default: branch | capitalize }} Branch</h1>
+    <p class="mui-hero-subtitle">Industrial solutions and services at your location</p>
+  </div>
+</div>
 
-  <div class="mui-branch-switcher">
-    <h3>Switch Branch</h3>
-    <div class="mui-btn-group">
-      {% for entry in site.data.companies[key] %}
-        {% assign k = entry[0] %}
-        {% if k != 'main' %}
-          <a class="mui-btn {% if k == branch %}mui-btn--primary{% else %}mui-btn--outline{% endif %}" href="/companies/{{ key }}/{{ k }}/">{{ site.data.companies[key][k].name | default: k | capitalize }}</a>
-        {% endif %}
-      {% endfor %}
+<!-- Branch Switcher -->
+<div class="mui-card">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Switch Branch</h2>
+    <div class="mui-branch-switcher">
+      <div class="mui-btn-group">
+        {% for entry in site.data.companies[key] %}
+          {% assign k = entry[0] %}
+          {% if k != 'main' %}
+            <a class="mui-btn {% if k == branch %}mui-btn--primary{% else %}mui-btn--outline{% endif %}" href="/companies/{{ key }}/{{ k }}/">
+              {{ site.data.companies[key][k].name | default: k | capitalize }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="mui-company-details">
-    <h3>Company Information</h3>
+<!-- Branch Details -->
+<div class="mui-card">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Branch Information</h2>
     <div class="mui-info-grid">
       {% if details.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ details.gstin }}</span></div>{% endif %}
       {% if details.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ details.constitution }}</span></div>{% endif %}
@@ -31,6 +47,53 @@ layout: default
       {% if details.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ details.partners | join: ', ' }}</span></div>{% endif %}
       {% if details.contact and details.contact.email %}<div class="mui-info-item"><strong>Contact Email:</strong><span><a href="mailto:{{ details.contact.email }}">{{ details.contact.email }}</a></span></div>{% endif %}
       {% if details.contact and details.contact.phone %}<div class="mui-info-item"><strong>Contact Phone:</strong><span><a href="tel:{{ details.contact.phone }}">{{ details.contact.phone }}</a></span></div>{% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Branch Policies -->
+<div class="mui-card">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Branch Policies</h2>
+    <div class="mui-card-links">
+      <a href="/companies/{{ key }}/{{ branch }}/terms/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">description</span>
+        Terms of Service
+      </a>
+      <a href="/companies/{{ key }}/{{ branch }}/refund-policy/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">refund</span>
+        Refund & Cancellation Policy
+      </a>
+      <a href="/companies/{{ key }}/{{ branch }}/privacy/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">privacy_tip</span>
+        Privacy Policy
+      </a>
+      <a href="/companies/{{ key }}/{{ branch }}/shipping/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">local_shipping</span>
+        Shipping Policy
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="mui-cta-section">
+  <div class="mui-container">
+    <h2>Get in Touch</h2>
+    <p>Contact this branch for inquiries, orders, or support</p>
+    <div class="mui-cta-actions">
+      {% if details.contact and details.contact.phone %}
+        <a href="tel:{{ details.contact.phone }}" class="mui-btn mui-btn--primary mui-btn--large">
+          <span class="material-icons">phone</span>
+          Call Now
+        </a>
+      {% endif %}
+      {% if details.contact and details.contact.email %}
+        <a href="mailto:{{ details.contact.email }}" class="mui-btn mui-btn--outline mui-btn--large">
+          <span class="material-icons">email</span>
+          Send Email
+        </a>
+      {% endif %}
     </div>
   </div>
 </div>

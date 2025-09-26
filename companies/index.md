@@ -16,38 +16,57 @@ breadcrumbs:
     <h1 class="mui-hero-title">Our Companies Network</h1>
     <p class="mui-hero-subtitle">Explore all companies and their branches across RK Groups</p>
   </div>
-
 </div>
 
-<h2 id="companies-section" class="mui-section-title">Company Overview</h2>
-<div class="mui-features" role="region" aria-labelledby="companies-section">
-  <div class="mui-features-grid">
-    {% for company_key in site.data.companies %}
-      {% assign company = site.data.companies[company_key[0]] %}
-      {% assign company_name = company.main.name | default: company_key[0] | replace: '-', ' ' | capitalize %}
-      <div class="mui-feature-card">
-        <span class="material-icons mui-feature-icon">domain</span>
-        <h3>{{ company_name }}</h3>
-        <p class="mui-text-muted">Quick links</p>
-        <p>
-          <a href="/companies/{{ company_key[0] }}/">Main Page</a>
-          &nbsp;•&nbsp;
-          <a href="/companies/{{ company_key[0] }}/terms/">Terms</a>
-          &nbsp;•&nbsp;
-          <a href="/companies/{{ company_key[0] }}/refund-policy/">Refund Policy</a>
-        </p>
-        {% for branch_key in company %}
-          {% if branch_key[0] != 'main' %}
-            <p>
-              <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/">{{ company[branch_key[0]].name | default: branch_key[0] | capitalize }} Branch</a>
-              &nbsp;•&nbsp;
-              <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/terms/">Terms</a>
-              &nbsp;•&nbsp;
-              <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/refund-policy/">Refund Policy</a>
-            </p>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endfor %}
+<!-- Companies Section -->
+<div class="mui-features">
+  <div class="mui-container">
+    <h2 id="companies-section" class="mui-section-title">Company Overview</h2>
+    <div class="mui-features-grid" role="region" aria-labelledby="companies-section">
+      {% for company_key in site.data.companies %}
+        {% assign company = site.data.companies[company_key[0]] %}
+        {% assign company_name = company.main.name | default: company_key[0] | replace: '-', ' ' | capitalize %}
+        <div class="mui-feature-card">
+          <span class="material-icons mui-feature-icon">domain</span>
+          <h3>{{ company_name }}</h3>
+          <p class="mui-text-muted">Quick links</p>
+          <div class="mui-card-links">
+            <a href="/companies/{{ company_key[0] }}/" class="mui-btn mui-btn--outline mui-btn--small">
+              <span class="material-icons">business</span>
+              Main Page
+            </a>
+            <a href="/companies/{{ company_key[0] }}/terms/" class="mui-btn mui-btn--outline mui-btn--small">
+              <span class="material-icons">description</span>
+              Terms
+            </a>
+            <a href="/companies/{{ company_key[0] }}/refund-policy/" class="mui-btn mui-btn--outline mui-btn--small">
+              <span class="material-icons">refund</span>
+              Refund Policy
+            </a>
+          </div>
+          {% for branch_key in company %}
+            {% if branch_key[0] != 'main' %}
+              <div class="mui-branch-links">
+                <h4>{{ company[branch_key[0]].name | default: branch_key[0] | capitalize }} Branch</h4>
+                <div class="mui-card-links">
+                  <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/" class="mui-btn mui-btn--outline mui-btn--small">
+                    <span class="material-icons">factory</span>
+                    Branch Page
+                  </a>
+                  <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/terms/" class="mui-btn mui-btn--outline mui-btn--small">
+                    <span class="material-icons">description</span>
+                    Terms
+                  </a>
+                  <a href="/companies/{{ company_key[0] }}/{{ branch_key[0] }}/refund-policy/" class="mui-btn mui-btn--outline mui-btn--small">
+                    <span class="material-icons">refund</span>
+                    Refund Policy
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>

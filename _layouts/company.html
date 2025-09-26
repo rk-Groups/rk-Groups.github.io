@@ -15,41 +15,60 @@ layout: default
   </div>
 </div>
 
-{% if main %}
+<!-- Company Details Section -->
 <div class="mui-card">
-  <h3>Company Details</h3>
-  <div class="mui-info-grid">
-    {% if main.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ main.gstin }}</span></div>{% endif %}
-    {% if main.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ main.constitution }}</span></div>{% endif %}
-    {% if main.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ main.principal_place }}</span></div>{% endif %}
-    {% if main.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ main.proprietor }}</span></div>{% endif %}
-    {% if main.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ main.partners | join: ', ' }}</span></div>{% endif %}
-    {% if main.contact and main.contact.email %}<div class="mui-info-item"><strong>Email:</strong><span><a href="mailto:{{ main.contact.email }}">{{ main.contact.email }}</a></span></div>{% endif %}
-    {% if main.contact and main.contact.phone %}<div class="mui-info-item"><strong>Phone:</strong><span><a href="tel:{{ main.contact.phone }}">{{ main.contact.phone }}</a></span></div>{% endif %}
-  </div>
-</div>
-{% endif %}
-
-<div class="mui-card">
-  <h3>Branches</h3>
-  <div class="mui-features-grid">
-    {% for entry in company %}
-      {% assign k = entry[0] %}
-      {% if k != 'main' %}
-        <a href="/companies/{{ key }}/{{ k }}/" class="mui-feature-card" style="text-decoration:none;">
-          <span class="material-icons mui-feature-icon">factory</span>
-          <h3>{{ company[k].name | default: k | capitalize }} Branch</h3>
-          <p>Visit branch page</p>
-        </a>
-      {% endif %}
-    {% endfor %}
+  <div class="mui-container">
+    <h2 class="mui-section-title">Company Details</h2>
+    {% if main %}
+      <div class="mui-info-grid">
+        {% if main.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ main.gstin }}</span></div>{% endif %}
+        {% if main.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ main.constitution }}</span></div>{% endif %}
+        {% if main.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ main.principal_place }}</span></div>{% endif %}
+        {% if main.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ main.proprietor }}</span></div>{% endif %}
+        {% if main.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ main.partners | join: ', ' }}</span></div>{% endif %}
+        {% if main.contact and main.contact.email %}<div class="mui-info-item"><strong>Email:</strong><span><a href="mailto:{{ main.contact.email }}">{{ main.contact.email }}</a></span></div>{% endif %}
+        {% if main.contact and main.contact.phone %}<div class="mui-info-item"><strong>Phone:</strong><span><a href="tel:{{ main.contact.phone }}">{{ main.contact.phone }}</a></span></div>{% endif %}
+      </div>
+    {% endif %}
   </div>
 </div>
 
+<!-- Branches Section -->
+<div class="mui-features">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Branches</h2>
+    <div class="mui-features-grid">
+      {% for entry in company %}
+        {% assign k = entry[0] %}
+        {% if k != 'main' %}
+          <a href="/companies/{{ key }}/{{ k }}/" class="mui-feature-card" style="text-decoration:none;">
+            <span class="material-icons mui-feature-icon">factory</span>
+            <h3>{{ company[k].name | default: k | capitalize }} Branch</h3>
+            <p>Visit branch page for details and contact information</p>
+            <div class="mui-btn mui-btn--outline">
+              <span class="material-icons">arrow_forward</span>
+              View Branch
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Policies Section -->
 <div class="mui-card">
-  <h3>Policies</h3>
-  <p>
-    <a href="/companies/{{ key }}/terms/">Terms of Service</a> •
-    <a href="/companies/{{ key }}/refund-policy/">Refund & Cancellation Policy</a>
-  </p>
+  <div class="mui-container">
+    <h2 class="mui-section-title">Policies</h2>
+    <div class="mui-card-links">
+      <a href="/companies/{{ key }}/terms/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">description</span>
+        Terms of Service
+      </a>
+      <a href="/companies/{{ key }}/refund-policy/" class="mui-btn mui-btn--outline">
+        <span class="material-icons">refund</span>
+        Refund & Cancellation Policy
+      </a>
+    </div>
+  </div>
 </div>

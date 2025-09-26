@@ -4,7 +4,58 @@ layout: default
 {% assign key = page.company %}
 {% assign policy = page.policy %}
 
+<div class="mui-hero mui-hero--bleed">
+  <div class="mui-hero-content">
+    <div class="mui-hero-icon">
+      <span class="material-icons" style="font-size: 4rem;">
+        {% if policy == 'terms' %}description{% elsif policy == 'refund-policy' %}refund{% elsif policy == 'privacy' %}privacy_tip{% elsif policy == 'shipping' %}local_shipping{% else %}policy{% endif %}
+      </span>
+    </div>
+    <h1 class="mui-hero-title">
+      {% if policy == 'terms' %}Terms of Service{% elsif policy == 'refund-policy' %}Refund & Cancellation Policy{% elsif policy == 'privacy' %}Privacy Policy{% elsif policy == 'shipping' %}Shipping Policy{% else %}Policy{% endif %}
+    </h1>
+    <p class="mui-hero-subtitle">Important information about our {{ policy | replace: '-', ' ' }} for {{ site.data.companies[key].main.name | default: key | replace: '-', ' ' | capitalize }}</p>
+  </div>
+</div>
+
+<!-- Policy Content -->
 <div class="mui-card">
-  <h1 class="mui-card-title">{% if policy == 'terms' %}Terms of Service{% elsif policy == 'refund-policy' %}Refund & Cancellation Policy{% else %}Policy{% endif %}</h1>
-  {{ content }}
+  <div class="mui-container">
+    <div class="mui-policy-content">
+      {{ content }}
+    </div>
+  </div>
+</div>
+
+<!-- Related Links -->
+<div class="mui-card">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Related Policies</h2>
+    <div class="mui-card-links">
+      {% if policy != 'terms' %}
+        <a href="/companies/{{ key }}/terms/" class="mui-btn mui-btn--outline">
+          <span class="material-icons">description</span>
+          Terms of Service
+        </a>
+      {% endif %}
+      {% if policy != 'refund-policy' %}
+        <a href="/companies/{{ key }}/refund-policy/" class="mui-btn mui-btn--outline">
+          <span class="material-icons">refund</span>
+          Refund & Cancellation Policy
+        </a>
+      {% endif %}
+      {% if policy != 'privacy' %}
+        <a href="/companies/{{ key }}/privacy/" class="mui-btn mui-btn--outline">
+          <span class="material-icons">privacy_tip</span>
+          Privacy Policy
+        </a>
+      {% endif %}
+      {% if policy != 'shipping' %}
+        <a href="/companies/{{ key }}/shipping/" class="mui-btn mui-btn--outline">
+          <span class="material-icons">local_shipping</span>
+          Shipping Policy
+        </a>
+      {% endif %}
+    </div>
+  </div>
 </div>
