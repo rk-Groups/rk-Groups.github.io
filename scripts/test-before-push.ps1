@@ -509,8 +509,8 @@ try {
                 "http://localhost:3000/companies/rk-oxygen/terms/",
                 "http://localhost:3000/companies/rk-electrodes/terms/",
                 "http://localhost:3000/companies/sand-creations/terms/",
-                "http://localhost:3000/companies/rk-oxygen/gorakhpur/privacy/",
-                "http://localhost:3000/companies/rk-oxygen/gorakhpur/shipping/",
+                "http://localhost:3000/companies/rk-oxygen/gorakhpur/privacy",
+                "http://localhost:3000/companies/rk-oxygen/gorakhpur/shipping",
                 "http://localhost:3000/Calc/GST/",
                 "http://localhost:3000/Calc/EMI/",
                 "http://localhost:3000/Calc/LIQ/"
