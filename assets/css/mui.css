@@ -1108,18 +1108,22 @@ body.dark-mode .mui-bottombar-report:focus {
 }
 
 /* Homepage button contrast fixes for accessibility */
-body.dark-mode a[href$="rk-oxygen/"] {
+body.dark-mode .mui-feature-card .mui-btn--outline[href="/companies/rk-oxygen/"] {
   color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 
-body.dark-mode .mui-btn--outline[href$="rk-electrodes/"] {
+body.dark-mode .mui-feature-card .mui-btn--outline[href="/companies/rk-electrodes/"] {
   color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 
-body.dark-mode .mui-feature-card:nth-child(3) .mui-btn--outline[href$="Calc/"] {
+body.dark-mode .mui-feature-card .mui-btn--outline[href="/Calc/"] {
   color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 
-body.dark-mode .mui-card:nth-child(5) .mui-btn[href$="/companies/"] {
+body.dark-mode .mui-card .mui-btn[href="/companies/"] {
   color: #000000 !important;
+  background-color: #ffffff !important;
 }
