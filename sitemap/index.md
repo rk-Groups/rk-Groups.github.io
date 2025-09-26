@@ -29,6 +29,7 @@ description: Complete site map of RK Groups website. Find all pages, companies, 
           <li><a href="/Calc/">Calculators Hub</a></li>
           <li><a href="/search/">Search</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a href="/sitemap/">Site Map</a></li>
         </ul>
       </div>
 
@@ -94,6 +95,8 @@ description: Complete site map of RK Groups website. Find all pages, companies, 
         <ul class="sitemap-list">
           <li><a href="/terms/">Terms of Service</a></li>
           <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/companies/rk-oxygen/gorakhpur/terms/">Terms of Service (RK Oxygen)</a></li>
+          <li><a href="/companies/rk-oxygen/gorakhpur/refund-policy/">Refund Policy (RK Oxygen)</a></li>
           <li><a href="/sitemap.xml">XML Sitemap</a></li>
           <li><a href="/feed.xml">RSS Feed</a></li>
         </ul>
