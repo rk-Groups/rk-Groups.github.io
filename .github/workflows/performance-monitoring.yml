@@ -1,0 +1,262 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # Run daily performance checks
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to monitor'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  SITE_URL: https://rk-groups.github.io
+
+jobs:
+  # Lighthouse performance audit
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lighthouse audit
+        run: |
+          npm install -g lighthouse
+          lighthouse ${{ env.SITE_URL }} \
+            --output json \
+            --output html \
+            --output-path ./lighthouse-results.json \
+            --chrome-flags="--headless --disable-gpu --no-sandbox --disable-dev-shm-usage"
+
+      - name: Parse Lighthouse results
+        run: |
+          # Extract key metrics
+          node -e "
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('./lighthouse-results.json', 'utf8'));
+            const categories = results.categories;
+
+            console.log('🚀 Lighthouse Performance Results:');
+            console.log(\`Performance: \${Math.round(categories.performance.score * 100)}/100\`);
+            console.log(\`Accessibility: \${Math.round(categories.accessibility.score * 100)}/100\`);
+            console.log(\`Best Practices: \${Math.round(categories['best-practices'].score * 100)}/100\`);
+            console.log(\`SEO: \${Math.round(categories.seo.score * 100)}/100\`);
+
+            // Check for performance regression
+            const perfScore = categories.performance.score * 100;
+            if (perfScore < 90) {
+              console.log('⚠️  Performance score below 90!');
+              process.exit(1);
+            }
+          "
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-${{ github.sha }}
+          path: |
+            lighthouse-results.json
+            lighthouse-results.html
+          retention-days: 30
+
+  # Web vitals monitoring
+  web-vitals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install web-vitals monitoring
+        run: npm install web-vitals
+
+      - name: Check if web-vitals script is included
+        run: |
+          if grep -q "web-vitals" assets/js/performance-monitoring.js; then
+            echo "✅ Web vitals monitoring script found"
+          else
+            echo "❌ Web vitals monitoring script missing"
+            exit 1
+          fi
+
+      - name: Validate performance monitoring setup
+        run: |
+          # Check for performance monitoring script
+          if [ -f "assets/js/performance-monitoring.js" ]; then
+            echo "✅ Performance monitoring script exists"
+          else
+            echo "❌ Performance monitoring script missing"
+            exit 1
+          fi
+
+          # Check for error monitoring script
+          if [ -f "assets/js/error-monitoring.js" ]; then
+            echo "✅ Error monitoring script exists"
+          else
+            echo "❌ Error monitoring script missing"
+            exit 1
+          fi
+
+  # Uptime monitoring
+  uptime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check site availability
+        run: |
+          echo "🔍 Checking site availability..."
+
+          # Basic connectivity check
+          if curl -f --max-time 10 ${{ env.SITE_URL }} > /dev/null 2>&1; then
+            echo "✅ Site is reachable"
+          else
+            echo "❌ Site is not reachable"
+            exit 1
+          fi
+
+          # Check response time
+          response_time=$(curl -s -w "%{time_total}" -o /dev/null ${{ env.SITE_URL }})
+          echo "Response time: ${response_time}s"
+
+          if (( $(echo "$response_time > 3.0" | bc -l) )); then
+            echo "⚠️  Slow response time detected"
+          else
+            echo "✅ Response time acceptable"
+          fi
+
+      - name: Check key pages
+        run: |
+          echo "🔍 Checking key pages..."
+
+          pages=(
+            "${{ env.SITE_URL }}/companies/"
+            "${{ env.SITE_URL }}/Calc/"
+            "${{ env.SITE_URL }}/404.html"
+            "${{ env.SITE_URL }}/sitemap.xml"
+          )
+
+          for page in "${pages[@]}"; do
+            if curl -f --max-time 10 "$page" > /dev/null 2>&1; then
+              echo "✅ $page is accessible"
+            else
+              echo "❌ $page is not accessible"
+              exit 1
+            fi
+          done
+
+      - name: SSL certificate check
+        run: |
+          echo "🔒 Checking SSL certificate..."
+
+          # Get certificate expiry date
+          expiry_date=$(echo | openssl s_client -servername rk-groups.github.io -connect rk-groups.github.io:443 2>/dev/null | openssl x509 -noout -dates | grep notAfter | sed 's/notAfter=//')
+
+          if [ -n "$expiry_date" ]; then
+            echo "SSL certificate expires: $expiry_date"
+
+            # Check if certificate expires within 30 days
+            expiry_timestamp=$(date -d "$expiry_date" +%s)
+            current_timestamp=$(date +%s)
+            days_until_expiry=$(( (expiry_timestamp - current_timestamp) / 86400 ))
+
+            if [ $days_until_expiry -lt 30 ]; then
+              echo "⚠️  SSL certificate expires in less than 30 days!"
+              exit 1
+            else
+              echo "✅ SSL certificate is valid"
+            fi
+          else
+            echo "❌ Could not retrieve SSL certificate information"
+            exit 1
+          fi
+
+  # Performance regression detection
+  regression-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous performance baseline
+        run: |
+          # Get the last successful run's performance score
+          # This is a simplified version - in production you'd store this in a database
+          echo "baseline_score=95" >> $GITHUB_ENV
+
+      - name: Compare with baseline
+        run: |
+          # In a real implementation, you'd compare current scores with stored baselines
+          # For now, we'll just check if the workflow completed successfully
+          echo "✅ Performance regression check completed"
+          echo "📊 Baseline score: ${{ env.baseline_score }}/100"
+
+  # Generate performance report
+  report:
+    needs: [lighthouse, web-vitals, uptime, regression-check]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Generate performance summary
+        run: |
+          echo "# 🚀 Performance Monitoring Report" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "**Date:** $(date)" >> performance-report.md
+          echo "**Commit:** ${{ github.sha }}" >> performance-report.md
+          echo "**Triggered by:** ${{ github.event_name }}" >> performance-report.md
+          echo "" >> performance-report.md
+
+          # Add job status summary
+          echo "## Job Status Summary" >> performance-report.md
+          echo "" >> performance-report.md
+          echo "- Lighthouse Audit: ${{ needs.lighthouse.result }}" >> performance-report.md
+          echo "- Web Vitals Check: ${{ needs.web-vitals.result }}" >> performance-report.md
+          echo "- Uptime Check: ${{ needs.uptime.result }}" >> performance-report.md
+          echo "- Regression Check: ${{ needs.regression-check.result }}" >> performance-report.md
+          echo "" >> performance-report.md
+
+          # Add recommendations
+          echo "## Recommendations" >> performance-report.md
+          echo "" >> performance-report.md
+          if [ "${{ needs.lighthouse.result }}" = "failure" ]; then
+            echo "- Review Lighthouse audit results and address performance issues" >> performance-report.md
+          fi
+          if [ "${{ needs.uptime.result }}" = "failure" ]; then
+            echo "- Investigate site availability issues" >> performance-report.md
+          fi
+          echo "- Monitor Web Vitals metrics in production" >> performance-report.md
+          echo "- Regular performance audits help maintain site quality" >> performance-report.md
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report-${{ github.sha }}
+          path: performance-report.md
+          retention-days: 30

@@ -1,18 +1,27 @@
-# Docker files
-Dockerfile
-docker-compose.yml
+# Git
+.git
+.gitignore
+.github
 
-# Jekyll build output
+# Development files
+dev/
+scripts/
+*.ps1
+LOCAL_TESTING_SETUP.md
+README.md
+
+# Build artifacts
 _site/
-
-# Dependency directories
-node_modules/
-.bundle/
-
-# Cache and temp files
 .jekyll-cache/
 .sass-cache/
 .jekyll-metadata
+.bundle/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # OS generated files
 .DS_Store
@@ -23,10 +32,27 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 
-# Editor files
+# IDE files
+.vscode/
+.idea/
 *.swp
 *.swo
 *~
+
+# Testing files
+lighthouserc.json
+check-hrefs.js
+site-links.js
+
+# Docker files (not needed in build context)
+docker-compose.yml
+Dockerfile*
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
 
 # Local environment files
 .env

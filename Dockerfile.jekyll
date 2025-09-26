@@ -1,0 +1,89 @@
+# Multi-stage Docker build for Jekyll site
+# Stage 1: Builder stage for dependencies and build
+FROM ruby:3.1-slim as builder
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependency files
+COPY Gemfile* ./
+COPY package*.json ./
+
+# Install Ruby dependencies
+RUN bundle install --jobs 4 --retry 3
+
+# Install Node.js dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+# Build arguments
+ARG JEKYLL_ENV=production
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+
+# Set environment variables
+ENV JEKYLL_ENV=${JEKYLL_ENV}
+
+# Build the Jekyll site
+RUN npm run build && \
+    bundle exec jekyll build --baseurl "" --trace
+
+# Labels for container metadata
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.title="RK Groups Jekyll Site" \
+      org.opencontainers.image.description="Multi-company static site for RK Groups" \
+      org.opencontainers.image.source="https://github.com/rk-Groups/rk-Groups.github.io" \
+      org.opencontainers.image.vendor="RK Groups"
+
+# Stage 2: Runtime stage with nginx
+FROM nginx:alpine
+
+# Install security updates
+RUN apk update && apk upgrade && \
+    apk add --no-cache curl && \
+    rm -rf /var/cache/apk/*
+
+# Copy built site from builder stage
+COPY --from=builder /app/_site /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx-site.conf /etc/nginx/conf.d/default.conf
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S jekyll && \
+    adduser -S -D -H -u 1001 -h /usr/share/nginx/html -s /sbin/nologin -G jekyll -g jekyll jekyll
+
+# Set proper permissions
+RUN chown -R jekyll:jekyll /usr/share/nginx/html && \
+    chown -R jekyll:jekyll /var/cache/nginx && \
+    chown -R jekyll:jekyll /var/log/nginx && \
+    chown -R jekyll:jekyll /etc/nginx/conf.d && \
+    touch /var/run/nginx.pid && \
+    chown -R jekyll:jekyll /var/run/nginx.pid
+
+# Switch to non-root user
+USER jekyll
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1
+
+# Expose port
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

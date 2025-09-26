@@ -1,0 +1,274 @@
+name: Security & Compliance Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run weekly security scans
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  packages: read
+  id-token: write
+
+jobs:
+  # Generate Software Bill of Materials (SBOM)
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm ci
+
+      - name: Generate Ruby SBOM
+        run: |
+          # Generate SBOM for Ruby dependencies
+          bundle exec ruby -e "
+            require 'bundler'
+            require 'json'
+
+            gems = Bundler.load.specs.map do |spec|
+              {
+                name: spec.name,
+                version: spec.version.to_s,
+                purl: \"pkg:gem/#{spec.name}@#{spec.version}\"
+              }
+            end
+
+            sbom = {
+              spdxVersion: 'SPDX-2.3',
+              dataLicense: 'CC0-1.0',
+              SPDXID: 'SPDXRef-DOCUMENT',
+              name: 'RK Groups Jekyll Site - Ruby Dependencies',
+              creationInfo: {
+                created: Time.now.iso8601,
+                creators: ['Tool: bundler-sbom-generator']
+              },
+              packages: gems.map.with_index do |gem, i|
+                {
+                  SPDXID: \"SPDXRef-Package-Ruby-#{i}\",
+                  name: gem[:name],
+                  versionInfo: gem[:version],
+                  downloadLocation: 'NOASSERTION',
+                  filesAnalyzed: false,
+                  externalRefs: [{
+                    referenceCategory: 'PACKAGE-MANAGER',
+                    referenceType: 'purl',
+                    referenceLocator: gem[:purl]
+                  }]
+                }
+              end
+            }
+
+            File.write('ruby-sbom.json', JSON.pretty_generate(sbom))
+          "
+
+      - name: Generate Node.js SBOM
+        run: |
+          # Generate SBOM for Node.js dependencies
+          npm ls --json --depth=0 > npm-dependencies.json
+
+          # Convert to SPDX format
+          node -e "
+            const deps = require('./npm-dependencies.json');
+            const sbom = {
+              spdxVersion: 'SPDX-2.3',
+              dataLicense: 'CC0-1.0',
+              SPDXID: 'SPDXRef-DOCUMENT',
+              name: 'RK Groups Jekyll Site - Node.js Dependencies',
+              creationInfo: {
+                created: new Date().toISOString(),
+                creators: ['Tool: npm-sbom-generator']
+              },
+              packages: Object.entries(deps.dependencies || {}).map(([name, info], i) => ({
+                SPDXID: \`SPDXRef-Package-Node-\${i}\`,
+                name: name,
+                versionInfo: info.version,
+                downloadLocation: 'NOASSERTION',
+                filesAnalyzed: false,
+                externalRefs: [{
+                  referenceCategory: 'PACKAGE-MANAGER',
+                  referenceType: 'purl',
+                  referenceLocator: \`pkg:npm/\${name}@\${info.version}\`
+                }]
+              }))
+            };
+
+            require('fs').writeFileSync('nodejs-sbom.json', JSON.stringify(sbom, null, 2));
+          "
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: |
+            ruby-sbom.json
+            nodejs-sbom.json
+          retention-days: 90
+
+  # Comprehensive security scanning
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm ci
+
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-fs-results.sarif'
+          ignore-unfixed: true
+
+      - name: Run npm audit
+        run: |
+          npm audit --audit-level moderate --json > npm-audit.json || true
+          # Convert npm audit to SARIF if vulnerabilities found
+          if [ -s npm-audit.json ]; then
+            echo "📊 NPM audit completed - check results"
+          fi
+
+      - name: Run bundle audit
+        run: |
+          gem install bundler-audit
+          bundle audit check --format json > bundle-audit.json || true
+
+      - name: Upload security scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-fs-results.sarif'
+
+      - name: Upload security artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-scan-${{ github.sha }}
+          path: |
+            npm-audit.json
+            bundle-audit.json
+          retention-days: 30
+
+  # Dependency vulnerability check
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install OWASP Dependency Check
+        run: |
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip
+          unzip dependency-check-8.4.0-release.zip
+          chmod +x dependency-check/bin/dependency-check.sh
+
+      - name: Run OWASP Dependency Check
+        run: |
+          ./dependency-check/bin/dependency-check.sh \
+            --project "RK Groups Jekyll Site" \
+            --scan . \
+            --out owasp-report.html \
+            --format HTML \
+            --nvdValidForHours 24
+
+      - name: Upload OWASP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-report-${{ github.sha }}
+          path: owasp-report.html
+          retention-days: 30
+
+  # Compliance check
+  compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for security headers in _headers file
+        run: |
+          if [ -f "_headers" ]; then
+            echo "✅ Security headers file found"
+            grep -q "X-Frame-Options" _headers && echo "✅ X-Frame-Options configured" || echo "❌ X-Frame-Options missing"
+            grep -q "X-Content-Type-Options" _headers && echo "✅ X-Content-Type-Options configured" || echo "❌ X-Content-Type-Options missing"
+            grep -q "Content-Security-Policy" _headers && echo "✅ CSP configured" || echo "❌ CSP missing"
+          else
+            echo "❌ Security headers file (_headers) not found"
+          fi
+
+      - name: Check for robots.txt
+        run: |
+          if [ -f "robots.txt" ]; then
+            echo "✅ robots.txt found"
+          else
+            echo "❌ robots.txt missing"
+          fi
+
+      - name: Check for sitemap
+        run: |
+          if [ -f "sitemap.xml" ] || [ -f "sitemap.md" ]; then
+            echo "✅ Sitemap found"
+          else
+            echo "❌ Sitemap missing"
+          fi
+
+      - name: Validate Jekyll configuration
+        run: |
+          if [ -f "_config.yml" ]; then
+            echo "✅ Jekyll config found"
+            # Check for basic security settings
+            grep -q "safe:" _config.yml && echo "✅ Jekyll safe mode configured" || echo "ℹ️  Consider enabling Jekyll safe mode"
+          else
+            echo "❌ Jekyll config missing"
+          fi

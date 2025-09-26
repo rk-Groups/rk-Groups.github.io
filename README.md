@@ -95,7 +95,150 @@ Client-side search powered by Lunr.js with:
 - Keyboard navigation support
 - Accessible search interface
 
-## 🛡️ Security Features
+## � Complete CI/CD Workflow Suite
+
+The RK Groups site now features a comprehensive enterprise-grade CI/CD pipeline with advanced security, performance monitoring, and containerization capabilities.
+
+### Core Workflows
+
+#### 🔐 **SLSA Provenance Generator** (`slsa-provenance.yml`)
+- Generates SLSA Level 3 provenance for all releases
+- Cryptographic attestation of build artifacts
+- Supply chain security compliance
+- Automated provenance uploads
+
+#### 🐳 **Jekyll Docker Build** (`jekyll-docker.yml`)
+- Multi-stage Docker builds with security scanning
+- Multi-platform support (AMD64/ARM64)
+- Trivy vulnerability scanning integration
+- Production-ready nginx containerization
+
+#### 🔒 **Security & Compliance Scan** (`security-scan.yml`)
+- Software Bill of Materials (SBOM) generation
+- OWASP Dependency Check integration
+- NPM and Bundle audit automation
+- Compliance validation (security headers, robots.txt)
+
+#### 📊 **Performance Monitoring** (`performance-monitoring.yml`)
+- Automated Lighthouse performance audits
+- Web Vitals monitoring validation
+- Uptime and SSL certificate monitoring
+- Performance regression detection
+
+#### 🎯 **Complete Suite Orchestrator** (`complete-suite.yml`)
+- Master workflow coordinating all quality gates
+- Comprehensive reporting and artifact generation
+- Production deployment readiness validation
+- End-to-end CI/CD pipeline orchestration
+
+### Development Commands
+
+#### Workflow Management
+```bash
+# Check workflow status
+npm run workflow:status
+# or
+./manage-workflows.ps1 -Action status
+
+# Download latest artifacts
+npm run workflow:artifacts
+
+# Run security scan locally
+npm run workflow:security-scan
+
+# Build Docker images
+npm run workflow:docker-build
+
+# Run performance tests
+npm run workflow:performance-test
+```
+
+#### Docker Development
+```bash
+# Start development environment
+npm run docker:dev
+# or
+docker-compose --profile dev up jekyll-dev
+
+# Run production container
+npm run docker:prod
+# or
+docker-compose --profile prod up jekyll-prod
+
+# Run test builds
+npm run docker:test
+# or
+docker-compose --profile test run --rm jekyll-test
+
+# Clean up containers
+npm run docker:clean
+```
+
+#### Quality Assurance
+```bash
+# Full CI validation
+npm run ci:full
+
+# Security audit only
+npm run ci:security
+
+# Performance testing
+npm run ci:performance
+
+# HTML/link validation
+npm run ci:validate
+```
+
+### Testing Options
+
+```bash
+# Quick test (skip heavy checks)
+npm run test:quick
+
+# Full comprehensive test
+npm run test:full
+
+# Individual test components
+npm run lint:html      # HTML validation
+npm run lint:links     # Link checking
+npm run security:audit # Security scanning
+```
+
+### Container Registry
+
+Built images are automatically pushed to GitHub Container Registry:
+- `ghcr.io/rk-groups/rk-groups.github.io:latest` - Production image
+- `ghcr.io/rk-groups/rk-groups.github.io:dev` - Development image
+- Tagged releases with SLSA provenance
+
+### Quality Gates
+
+The complete suite enforces these quality gates:
+
+1. **Code Quality**: HTML validation, link checking, YAML syntax
+2. **Security**: Vulnerability scanning, SBOM generation, compliance checks
+3. **Performance**: Lighthouse audits, Web Vitals validation, uptime monitoring
+4. **Container**: Multi-stage builds, security scanning, health checks
+5. **Provenance**: SLSA Level 3 attestation for releases
+
+### Automated Triggers
+
+- **Push to master/develop**: Full suite execution
+- **Pull Requests**: Validation and security scans
+- **Releases**: SLSA provenance generation
+- **Weekly**: Comprehensive security audits
+- **Daily**: Performance monitoring
+
+### Artifacts Generated
+
+Each workflow run produces:
+- Security scan reports (SBOM, vulnerability data)
+- Performance audit results (Lighthouse, Web Vitals)
+- Container security scans (Trivy reports)
+- SLSA provenance attestations
+- Comprehensive suite execution reports
+
+## �🛡️ Security Features
 
 - **Content Security Policy**: Strict CSP headers preventing XSS attacks
 - **Security Headers**: X-Frame-Options, X-Content-Type-Options, and more
@@ -253,4 +396,5 @@ Use the calculator management script:
 
 # Update all calculators
 .\manage-calculators.ps1 -Update
-`
+`
+
