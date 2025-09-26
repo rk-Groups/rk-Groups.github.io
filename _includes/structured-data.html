@@ -162,3 +162,135 @@
   ]
 }
 </script>
+
+<!-- Enhanced WebSite Schema with Search -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title | default: 'RK Groups' }}",
+  "url": "{{ site.url }}",
+  "description": "{{ site.description | default: 'Multi-company industrial solutions provider offering gases, welding equipment, and business tools' }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title | default: 'RK Groups' }}",
+    "url": "{{ site.url }}"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ site.url }}/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  },
+  "sameAs": [
+    "https://github.com/rk-Groups"
+  ]
+}
+</script>
+
+<!-- Local Business Schema for better local SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "RK Oxygen",
+  "image": "{{ site.url }}/favicon.ico",
+  "description": "Industrial gases supplier providing oxygen, nitrogen, and welding equipment in Uttar Pradesh",
+  "url": "{{ site.url }}/companies/rk-oxygen/",
+  "telephone": "+91-7355755506",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "85, RK Palace, Gangaprasad Road, Rakabganj",
+    "addressLocality": "Lucknow",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "226018",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 26.8467,
+    "longitude": 80.9462
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Lucknow"
+    },
+    {
+      "@type": "City",
+      "name": "Gorakhpur"
+    },
+    {
+      "@type": "State",
+      "name": "Uttar Pradesh"
+    }
+  ],
+  "priceRange": "$$",
+  "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+  "currenciesAccepted": "INR"
+}
+</script>
+
+<!-- Software Application Schema for Calculators -->
+{% if page.url contains '/Calc/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{ page.title | default: 'Business Calculator' }}",
+  "description": "{{ page.description | default: 'Professional business calculation tool for GST, loans, and financial planning' }}",
+  "url": "{{ page.url | absolute_url }}",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "featureList": [
+    "Real-time calculations",
+    "Mobile responsive",
+    "No installation required",
+    "Free to use"
+  ]
+}
+</script>
+{% endif %}
+
+<!-- FAQ Schema for Common Questions -->
+{% if page.url == '/companies/rk-oxygen/terms/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What services does RK Oxygen provide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RK Oxygen provides industrial gases (oxygen, nitrogen, argon, acetylene), welding equipment, cylinder rental services, technical support, and delivery services across Uttar Pradesh."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I place an order for industrial gases?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Orders can be placed through our website, phone (+91-7355755506), or by visiting our offices in Lucknow or Gorakhpur. All orders are subject to availability and confirmation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are your delivery areas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We provide delivery services across Uttar Pradesh with primary locations in Lucknow and Gorakhpur. Delivery schedules are estimates and additional charges may apply for expedited service."
+      }
+    }
+  ]
+}
+</script>
+{% endif %}

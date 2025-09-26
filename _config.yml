@@ -8,6 +8,9 @@ theme: null
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-archives
 
 # SEO Configuration
 description: "Multi-company static site for RK Groups with business tools, calculators, and company information."
@@ -45,3 +48,62 @@ sitemap:
     - /README.md
     - /.git/
     - /node_modules/
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Pagination
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive
+    tag: archive
+  permalinks:
+    category: '/category/:name/'
+    tag: '/tag/:name/'
+
+# Include/Exclude
+include:
+  - _pages
+exclude:
+  - vendor/
+  - .bundle/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - "*.gemspec"
+
+# Development settings
+host: 127.0.0.1
+port: 4000
+livereload: true
+
+# Compression
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  startings: [html, head, body]
+
+# Asset optimization
+sass:
+  style: compressed

@@ -1,0 +1,48 @@
+---
+# Responsive Image Include
+# Usage: {% include image.html src="image.jpg" alt="Alt text" class="custom-class" lazy=true %}
+---
+
+{% assign src = include.src %}
+{% assign alt = include.alt | default: "" %}
+{% assign class = include.class | default: "" %}
+{% assign lazy = include.lazy | default: true %}
+{% assign width = include.width | default: "800" %}
+{% assign height = include.height | default: "600" %}
+
+{% if lazy %}
+<picture class="responsive-image {{ class }}">
+  <!-- WebP format for modern browsers -->
+  <source
+    srcset="{{ src | replace: '.jpg', '.webp' | replace: '.png', '.webp' | relative_url }}"
+    type="image/webp"
+    media="(min-width: 768px)">
+
+  <!-- Fallback for older browsers -->
+  <img
+    src="{{ src | relative_url }}"
+    alt="{{ alt }}"
+    width="{{ width }}"
+    height="{{ height }}"
+    loading="lazy"
+    decoding="async"
+    class="responsive-image__img">
+</picture>
+{% else %}
+<picture class="responsive-image {{ class }}">
+  <!-- WebP format for modern browsers -->
+  <source
+    srcset="{{ src | replace: '.jpg', '.webp' | replace: '.png', '.webp' | relative_url }}"
+    type="image/webp">
+
+  <!-- Fallback for older browsers -->
+  <img
+    src="{{ src | relative_url }}"
+    alt="{{ alt }}"
+    width="{{ width }}"
+    height="{{ height }}"
+    loading="eager"
+    decoding="async"
+    class="responsive-image__img">
+</picture>
+{% endif %}
