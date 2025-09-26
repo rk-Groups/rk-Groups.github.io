@@ -1127,3 +1127,44 @@ body.dark-mode .mui-card .mui-btn[href="/companies/"] {
   color: #000000 !important;
   background-color: #ffffff !important;
 }
+
+/* Exact selectors from axe-core accessibility violations */
+body.dark-mode a[href$="rk-oxygen/"] {
+  color: #ffffff !important;
+}
+
+body.dark-mode .mui-btn--outline.mui-btn[href$="rk-electrodes/"] {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.dark-mode .mui-feature-card:nth-child(3) > .mui-btn--outline.mui-btn[href$="Calc/"] {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.dark-mode .mui-card:nth-child(5) > div > .mui-btn[href$="companies/"] {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* More specific selectors for axe-core violations with nth-child */
+body.dark-mode .mui-feature-card:nth-child(1) > .mui-btn--outline.mui-btn[href$="rk-oxygen/"] {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.dark-mode .mui-feature-card:nth-child(2) > .mui-btn--outline.mui-btn[href$="rk-electrodes/"] {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.dark-mode .mui-feature-card:nth-child(3) > .mui-btn--outline.mui-btn[href$="Calc/"] {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+body.dark-mode .mui-card:nth-child(5) > div > .mui-btn[href$="companies/"] {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
