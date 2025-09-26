@@ -113,7 +113,7 @@ breadcrumbs:
             <div class="mui-company-branches">
               <h4>
                 <span class="material-icons">location_on</span>
-                {{ branch_count }} Location{{ branch_count > 1 ? 's' : '' }}
+                {{ branch_count }} Location{% if branch_count > 1 %}s{% endif %}
               </h4>
               <div class="mui-branches-list">
                 {% for branch_key in company %}
