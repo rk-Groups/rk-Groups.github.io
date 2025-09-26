@@ -162,6 +162,7 @@ vendor/cache/
 
 # Development files
 dev/
+!dev/issues.md
 README.md
 
 # Documentation files (generated)
