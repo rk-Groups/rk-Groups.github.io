@@ -1493,9 +1493,108 @@ body.dark-mode .mui-card:nth-child(5) > div > .mui-btn[href$="companies/"] {
   margin-bottom: 1.5rem;
 }
 
+/* ===== POLICY PAGE STYLES ===== */
+
+.mui-policy-content {
+  max-width: none;
+  line-height: 1.6;
+}
+
+.mui-policy-content h2 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.mui-policy-content h3 {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.mui-policy-content h4 {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem 0;
+}
+
+.mui-policy-content p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.mui-policy-content ul,
+.mui-policy-content ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.mui-policy-content li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.mui-policy-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.mui-policy-content em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.mui-policy-content blockquote {
+  border-left: 4px solid var(--accent-primary);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  padding: 1rem;
+  border-radius: var(--mui-radius);
+}
+
+.mui-policy-content hr {
+  border: none;
+  border-top: 1px solid var(--border-primary);
+  margin: 2rem 0;
+}
+
+.mui-policy-content .contact-info {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.mui-policy-content .contact-info p {
+  margin-bottom: 0.5rem;
+}
+
+.mui-policy-content .contact-info strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--accent-primary);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .mui-policy-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .mui-policy-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .mui-policy-content .contact-info {
+    padding: 1rem;
   }
 }
