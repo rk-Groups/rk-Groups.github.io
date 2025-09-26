@@ -158,6 +158,7 @@ vendor/cache/
 
 # CI/CD
 .github/workflows/*.log
+.lighthouseci/
 
 # Development files
 dev/
