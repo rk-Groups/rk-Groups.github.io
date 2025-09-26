@@ -1106,3 +1106,20 @@ body.dark-mode .mui-bottombar-report:focus {
     font-size: 1rem;
   }
 }
+
+/* Homepage button contrast fixes for accessibility */
+body.dark-mode a[href$="rk-oxygen/"] {
+  color: #ffffff !important;
+}
+
+body.dark-mode .mui-btn--outline[href$="rk-electrodes/"] {
+  color: #ffffff !important;
+}
+
+body.dark-mode .mui-feature-card:nth-child(3) .mui-btn--outline[href$="Calc/"] {
+  color: #ffffff !important;
+}
+
+body.dark-mode .mui-card:nth-child(5) .mui-btn[href$="/companies/"] {
+  color: #000000 !important;
+}
