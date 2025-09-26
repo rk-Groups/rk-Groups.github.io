@@ -158,3 +158,11 @@ vendor/cache/
 
 # CI/CD
 .github/workflows/*.log
+
+# Development files
+dev/
+README.md
+
+# Documentation files (generated)
+*.md
+!_*.md
