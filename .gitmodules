@@ -9,3 +9,6 @@
 [submodule "Calc/CI"]
 	path = Calc/CI
 	url = https://github.com/Jaiswal-ruhil/calculator-ci.git
+[submodule "Calc/GST"]
+	path = Calc/GST
+	url = https://github.com/Jaiswal-ruhil/calculator-gst.git
