@@ -217,3 +217,40 @@ MIT License - see LICENSE file for details.
 - [Refund & Cancellation Policy](https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/refund-policy/)
 
 All company pages display relevant business information directly from Jekyll data files for easy maintenance.
+
+## 🧮 Calculator Submodules
+
+This project uses git submodules for calculator components:
+
+- **GST Calculator**: Calc/GST/ - Tax calculations
+- **Liquid Calculator**: Calc/LIQ/ - Gas conversion calculations
+- **EMI Calculator**: Calc/EMI/ - Loan calculations
+- **CI Calculator**: Calc/CI/ - Compound interest calculations
+
+### Working with Submodules
+
+`ash
+# Initialize submodules (first time)
+npm run submodules:init
+
+# Update submodules to latest
+npm run submodules:update
+
+# Check submodule status
+npm run submodules:status
+
+# Update specific calculator
+cd Calc/GST && git pull origin main
+`
+
+### Managing Calculators
+
+Use the calculator management script:
+
+`ash
+# Add new calculator submodule
+.\manage-calculators.ps1 -AddGST
+
+# Update all calculators
+.\manage-calculators.ps1 -Update
+`

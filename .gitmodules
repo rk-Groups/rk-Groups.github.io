@@ -1,0 +1,11 @@
+[submodule "Calc/LIQ"]
+	path = Calc/LIQ
+	url = ./temp-calculators/calculator-liquid
+
+[submodule "Calc/EMI"]
+	path = Calc/EMI
+	url = ./temp-calculators/calculator-emi
+
+[submodule "Calc/CI"]
+	path = Calc/CI
+	url = ./temp-calculators/calculator-ci

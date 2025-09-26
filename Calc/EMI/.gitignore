@@ -1,0 +1,15 @@
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+*.min.js
+*.min.css
+
+# OS generated files
+.DS_Store
+Thumbs.db
