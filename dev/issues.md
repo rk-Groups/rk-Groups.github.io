@@ -1,38 +1,31 @@
 # Open Issues for rk-Groups/rk-Groups.github.io
 
-*Last updated: 2025-09-27 12:00:00 UTC*
+*Last updated: 2025-09-27 11:12:28 UTC*
 
-Total open issues: 0
+Total open issues: 4
 
-## ✅ All Issues Resolved!
+## Issues List
 
-All reported issues have been successfully resolved and tested. The website is now fully functional.
+### [https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/refund-policy/](https://github.com/rk-Groups/rk-Groups.github.io/issues/7)
+- **Issue #**: 7
+- **Created by**: @Jaiswal-ruhil
+- **Date**: 2025-09-25
+- **Description**: Page is broken 404
 
-## Recently Resolved Issues
+### [https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/terms/#](https://github.com/rk-Groups/rk-Groups.github.io/issues/6)
+- **Issue #**: 6
+- **Created by**: @Jaiswal-ruhil
+- **Date**: 2025-09-25
+- **Description**: Page is broken 404
 
-### ✅ [Issue #7] - Fixed broken refund-policy page
-- **Status**: ✅ **RESOLVED** 
-- **URL**: https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/refund-policy/
-- **Solution**: Page was being generated correctly with proper permalinks
-- **Resolution Date**: 2025-09-27
+### [The report issue and the bottombar are not being shown in all pages](https://github.com/rk-Groups/rk-Groups.github.io/issues/5)
+- **Issue #**: 5
+- **Created by**: @Jaiswal-ruhil
+- **Date**: 2025-09-25
 
-### ✅ [Issue #6] - Fixed broken terms page
-- **Status**: ✅ **RESOLVED**
-- **URL**: https://rk-groups.github.io/companies/rk-oxygen/gorakhpur/terms/
-- **Solution**: Page was being generated correctly with proper permalinks
-- **Resolution Date**: 2025-09-27
-
-### ✅ [Issue #5] - Fixed missing bottombar and report button
-- **Status**: ✅ **RESOLVED**
-- **Solution**: Fixed duplicate body tag in default.html layout causing rendering issues
-- **Resolution Date**: 2025-09-27
-
-### ✅ [Issue #3] - Fixed README URLs
-- **Status**: ✅ **RESOLVED**
-- **Solution**: Updated README.md links from .md files to live website URLs
-- **Resolution Date**: 2025-09-27
-
----
-
-**Summary**: All 4 open issues have been successfully resolved and tested. The Jekyll development environment is now fully operational and all website features are working correctly.
+### [Readme urls](https://github.com/rk-Groups/rk-Groups.github.io/issues/3)
+- **Issue #**: 3
+- **Created by**: @Jaiswal-ruhil
+- **Date**: 2025-09-25
+- **Description**: The Readme file has urls linked to md files make them link to websites
 
