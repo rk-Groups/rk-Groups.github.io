@@ -16,6 +16,14 @@ rk-electrodes:
 rk-oxygen:
   main:
     name: "RK Oxygen"
+    gstin: "09AAAFR4114P1Z3"
+    constitution: "Partnership"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    partners:
+      - "Ruhil Jaiswal"
+    contact:
+      email: "oxygen.rkgroup@gmail.com"
+      phone: "+91-7355755506"
   lucknow:
     name: "Lucknow"
     gstin: "09AAAFR4114P1Z3"

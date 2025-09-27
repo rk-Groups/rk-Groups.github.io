@@ -8,67 +8,328 @@ layout: default
 <div class="mui-hero mui-hero--bleed">
   <div class="mui-hero-content">
     <div class="mui-hero-icon">
-      <span class="material-icons" style="font-size: 4rem;">domain</span>
+      {% if key == 'rk-oxygen' %}
+        <div style="background: linear-gradient(135deg, #2196F3, #1976D2); color: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);">
+          <span class="material-icons" style="font-size: 4rem;">local_gas_station</span>
+        </div>
+      {% elsif key == 'rk-electrodes' %}
+        <div style="background: linear-gradient(135deg, #FF9800, #F57C00); color: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);">
+          <span class="material-icons" style="font-size: 4rem;">build_circle</span>
+        </div>
+      {% elsif key == 'rk-palace' %}
+        <div style="background: linear-gradient(135deg, #4CAF50, #388E3C); color: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);">
+          <span class="material-icons" style="font-size: 4rem;">apartment</span>
+        </div>
+      {% elsif key == 'sand-creations' %}
+        <div style="background: linear-gradient(135deg, #9C27B0, #7B1FA2); color: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);">
+          <span class="material-icons" style="font-size: 4rem;">palette</span>
+        </div>
+      {% else %}
+        <div style="background: linear-gradient(135deg, #607D8B, #455A64); color: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(96, 125, 139, 0.4);">
+          <span class="material-icons" style="font-size: 4rem;">domain</span>
+        </div>
+      {% endif %}
     </div>
     <h1 class="mui-hero-title">{{ main.name | default: key | replace: '-', ' ' | capitalize }}</h1>
-    <p class="mui-hero-subtitle">Explore branches, terms, and policies</p>
-  </div>
-</div>
-
-<!-- Company Details Section -->
-<div class="mui-card">
-  <div class="mui-container">
-    <h2 class="mui-section-title">Company Details</h2>
-    {% if main %}
-      <div class="mui-info-grid">
-        {% if main.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ main.gstin }}</span></div>{% endif %}
-        {% if main.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ main.constitution }}</span></div>{% endif %}
-        {% if main.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ main.principal_place }}</span></div>{% endif %}
-        {% if main.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ main.proprietor }}</span></div>{% endif %}
-        {% if main.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ main.partners | join: ', ' }}</span></div>{% endif %}
-        {% if main.contact and main.contact.email %}<div class="mui-info-item"><strong>Email:</strong><span><a href="mailto:{{ main.contact.email }}">{{ main.contact.email }}</a></span></div>{% endif %}
-        {% if main.contact and main.contact.phone %}<div class="mui-info-item"><strong>Phone:</strong><span><a href="tel:{{ main.contact.phone }}">{{ main.contact.phone }}</a></span></div>{% endif %}
+    {% if key == 'rk-oxygen' %}
+      <p class="mui-hero-subtitle">Industrial & Medical Gases • Cylinder Services • Emergency Supply</p>
+    {% elsif key == 'rk-electrodes' %}
+      <p class="mui-hero-subtitle">Welding Solutions • Equipment Supply • Technical Support</p>
+    {% elsif key == 'rk-palace' %}
+      <p class="mui-hero-subtitle">Real Estate • Property Development • Investment Solutions</p>
+    {% elsif key == 'sand-creations' %}
+      <p class="mui-hero-subtitle">Creative Design • Digital Art • Custom Solutions</p>
+    {% else %}
+      <p class="mui-hero-subtitle">Professional services and business solutions</p>
+    {% endif %}
+    
+    {% if main.contact and main.contact.phone %}
+      <div class="mui-hero-badges" style="margin-top: 1.5rem;">
+        <a href="tel:{{ main.contact.phone }}" class="mui-badge" style="text-decoration: none; color: inherit;">
+          <span class="material-icons">phone</span>
+          {{ main.contact.phone }}
+        </a>
+        {% if main.contact.email %}
+          <a href="mailto:{{ main.contact.email }}" class="mui-badge" style="text-decoration: none; color: inherit;">
+            <span class="material-icons">email</span>
+            Contact Us
+          </a>
+        {% endif %}
+        {% if main.gstin %}
+          <span class="mui-badge">
+            <span class="material-icons">verified</span>
+            GSTIN Verified
+          </span>
+        {% endif %}
       </div>
     {% endif %}
   </div>
 </div>
 
-<!-- Branches Section -->
-<div class="mui-features">
+<!-- Enhanced Company Details Section -->
+<div class="mui-card" style="margin: 2rem 0; background: var(--bg-elevated); border-radius: var(--mui-radius); box-shadow: var(--shadow-md);">
+  <div class="mui-container" style="padding: 2rem;">
+    <div class="mui-section-header" style="text-align: center; margin-bottom: 2rem;">
+      <h2 class="mui-section-title">Company Information</h2>
+      <p class="mui-section-subtitle">Official business details and registration information</p>
+    </div>
+    {% if main %}
+      <div class="mui-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% if main.gstin %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">verified_user</span>
+              <strong style="color: var(--text-primary);">GSTIN</strong>
+            </div>
+            <span style="color: var(--text-secondary); font-family: monospace; font-size: 1.1rem;">{{ main.gstin }}</span>
+          </div>
+        {% endif %}
+        {% if main.constitution %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">business_center</span>
+              <strong style="color: var(--text-primary);">Constitution</strong>
+            </div>
+            <span style="color: var(--text-secondary);">{{ main.constitution }}</span>
+          </div>
+        {% endif %}
+        {% if main.proprietor %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">person</span>
+              <strong style="color: var(--text-primary);">Proprietor</strong>
+            </div>
+            <span style="color: var(--text-secondary);">{{ main.proprietor }}</span>
+          </div>
+        {% endif %}
+        {% if main.partners %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">group</span>
+              <strong style="color: var(--text-primary);">Partners</strong>
+            </div>
+            <span style="color: var(--text-secondary);">{{ main.partners | join: ', ' }}</span>
+          </div>
+        {% endif %}
+        {% if main.contact and main.contact.email %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">email</span>
+              <strong style="color: var(--text-primary);">Email</strong>
+            </div>
+            <a href="mailto:{{ main.contact.email }}" style="color: var(--accent-primary); text-decoration: none;">{{ main.contact.email }}</a>
+          </div>
+        {% endif %}
+        {% if main.contact and main.contact.phone %}
+          <div class="mui-info-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+              <span class="material-icons" style="color: var(--accent-primary); margin-right: 0.5rem;">phone</span>
+              <strong style="color: var(--text-primary);">Phone</strong>
+            </div>
+            <a href="tel:{{ main.contact.phone }}" style="color: var(--accent-primary); text-decoration: none;">{{ main.contact.phone }}</a>
+          </div>
+        {% endif %}
+      </div>
+      {% if main.principal_place %}
+        <div class="mui-address-card" style="margin-top: 2rem; background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary);">
+          <div style="display: flex; align-items: flex-start;">
+            <span class="material-icons" style="color: var(--accent-primary); margin-right: 1rem; margin-top: 0.2rem;">place</span>
+            <div>
+              <strong style="color: var(--text-primary); display: block; margin-bottom: 0.5rem;">Principal Place of Business</strong>
+              <p style="margin: 0; color: var(--text-secondary); line-height: 1.5;">{{ main.principal_place }}</p>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<!-- Enhanced Branches Section -->
+{% assign branch_count = 0 %}
+{% for entry in company %}
+  {% assign k = entry[0] %}
+  {% if k != 'main' %}
+    {% assign branch_count = branch_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if branch_count > 0 %}
+<div class="mui-features" style="padding: 4rem 0; background: var(--bg-primary);">
   <div class="mui-container">
-    <h2 class="mui-section-title">Branches</h2>
-    <div class="mui-features-grid">
+    <div class="mui-section-header" style="text-align: center; margin-bottom: 3rem;">
+      <h2 class="mui-section-title">Our Branch Network</h2>
+      <p class="mui-section-subtitle">{{ branch_count }} location{% if branch_count > 1 %}s{% endif %} serving customers across the region</p>
+    </div>
+    
+    <div class="mui-features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
       {% for entry in company %}
         {% assign k = entry[0] %}
         {% if k != 'main' %}
-          <a href="/companies/{{ key }}/{{ k }}/" class="mui-feature-card" style="text-decoration:none;">
-            <span class="material-icons mui-feature-icon">factory</span>
-            <h3>{{ company[k].name | default: k | capitalize }} Branch</h3>
-            <p>Visit branch page for details and contact information</p>
-            <div class="mui-btn mui-btn--outline">
-              <span class="material-icons">arrow_forward</span>
-              View Branch
+          {% assign branch_data = company[k] %}
+          <div class="mui-feature-card" style="background: var(--bg-elevated); border-radius: var(--mui-radius); padding: 2rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-primary); transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+              <div style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: white; padding: 1rem; border-radius: 12px; margin-right: 1rem; box-shadow: 0 4px 12px rgba(var(--accent-primary-rgb), 0.3);">
+                <span class="material-icons" style="font-size: 1.5rem;">location_city</span>
+              </div>
+              <div>
+                <h3 style="margin: 0 0 0.25rem 0; color: var(--text-primary); font-size: 1.4rem;">{{ branch_data.name | default: k | capitalize }}</h3>
+                <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Branch Location</p>
+              </div>
             </div>
-          </a>
+            
+            {% if branch_data.gstin or branch_data.contact %}
+            <div class="mui-branch-info" style="background: var(--bg-primary); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border-secondary);">
+              {% if branch_data.gstin %}
+                <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                  <span class="material-icons" style="font-size: 1rem; margin-right: 0.5rem; color: var(--text-secondary);">verified_user</span>
+                  <span style="font-size: 0.85rem; color: var(--text-secondary);">GSTIN: {{ branch_data.gstin }}</span>
+                </div>
+              {% endif %}
+              {% if branch_data.contact and branch_data.contact.phone %}
+                <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                  <span class="material-icons" style="font-size: 1rem; margin-right: 0.5rem; color: var(--text-secondary);">phone</span>
+                  <a href="tel:{{ branch_data.contact.phone }}" style="font-size: 0.85rem; color: var(--accent-primary); text-decoration: none;">{{ branch_data.contact.phone }}</a>
+                </div>
+              {% endif %}
+              {% if branch_data.contact and branch_data.contact.email %}
+                <div style="display: flex; align-items: center;">
+                  <span class="material-icons" style="font-size: 1rem; margin-right: 0.5rem; color: var(--text-secondary);">email</span>
+                  <a href="mailto:{{ branch_data.contact.email }}" style="font-size: 0.85rem; color: var(--accent-primary); text-decoration: none;">{{ branch_data.contact.email }}</a>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+            
+            {% if key == 'rk-oxygen' %}
+              <div class="mui-services" style="margin-bottom: 1.5rem;">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <span class="mui-tag" style="background: rgba(33, 150, 243, 0.1); color: #2196F3; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Industrial Gases</span>
+                  <span class="mui-tag" style="background: rgba(33, 150, 243, 0.1); color: #2196F3; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Cylinder Rental</span>
+                  <span class="mui-tag" style="background: rgba(33, 150, 243, 0.1); color: #2196F3; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Emergency Supply</span>
+                </div>
+              </div>
+            {% elsif key == 'rk-electrodes' %}
+              <div class="mui-services" style="margin-bottom: 1.5rem;">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <span class="mui-tag" style="background: rgba(255, 152, 0, 0.1); color: #FF9800; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Welding Equipment</span>
+                  <span class="mui-tag" style="background: rgba(255, 152, 0, 0.1); color: #FF9800; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Electrodes</span>
+                  <span class="mui-tag" style="background: rgba(255, 152, 0, 0.1); color: #FF9800; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem;">Technical Support</span>
+                </div>
+              </div>
+            {% endif %}
+            
+            <a href="/companies/{{ key }}/{{ k }}/" class="mui-btn mui-btn--primary" style="width: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 0.75rem; border-radius: 8px;">
+              <span class="material-icons" style="margin-right: 0.5rem;">store</span>
+              Visit Branch Page
+            </a>
+          </div>
         {% endif %}
       {% endfor %}
     </div>
   </div>
 </div>
-
-<!-- Policies Section -->
-<div class="mui-card">
+{% else %}
+<div class="mui-card mui-card--info" style="margin: 2rem 0; text-align: center; padding: 3rem;">
   <div class="mui-container">
-    <h2 class="mui-section-title">Policies</h2>
-    <div class="mui-card-links">
-      <a href="/companies/{{ key }}/terms/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">description</span>
-        Terms of Service
-      </a>
-      <a href="/companies/{{ key }}/refund-policy/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">refund</span>
-        Refund & Cancellation Policy
-      </a>
+    <span class="material-icons" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem; display: block;">info</span>
+    <h3 style="margin: 0 0 1rem 0; color: var(--text-primary);">Single Location Business</h3>
+    <p style="margin: 0; color: var(--text-secondary);">This company operates from a single location. Please use the contact information above to get in touch.</p>
+  </div>
+</div>
+{% endif %}
+
+<!-- Enhanced Policies Section -->
+<div class="mui-card" style="margin: 3rem 0; background: var(--bg-elevated); border-radius: var(--mui-radius); box-shadow: var(--shadow-md);">
+  <div class="mui-container" style="padding: 2rem;">
+    <div class="mui-section-header" style="text-align: center; margin-bottom: 2rem;">
+      <h2 class="mui-section-title">Legal & Policies</h2>
+      <p class="mui-section-subtitle">Important terms, conditions, and policies for our services</p>
     </div>
+    
+    <div class="mui-policies-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div class="mui-policy-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary); text-align: center;">
+        <div style="background: rgba(33, 150, 243, 0.1); color: #2196F3; width: 4rem; height: 4rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+          <span class="material-icons" style="font-size: 1.5rem;">description</span>
+        </div>
+        <h3 style="margin: 0 0 0.5rem 0; color: var(--text-primary);">Terms of Service</h3>
+        <p style="margin: 0 0 1.5rem 0; color: var(--text-secondary); line-height: 1.5;">Legal terms and conditions governing our services and customer relationships.</p>
+        <a href="/companies/{{ key }}/terms/" class="mui-btn mui-btn--outline" style="width: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 0.75rem; border-radius: 8px;">
+          <span class="material-icons" style="margin-right: 0.5rem;">gavel</span>
+          View Terms
+        </a>
+      </div>
+      
+      <div class="mui-policy-card" style="background: var(--bg-primary); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-primary); text-align: center;">
+        <div style="background: rgba(76, 175, 80, 0.1); color: #4CAF50; width: 4rem; height: 4rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+          <span class="material-icons" style="font-size: 1.5rem;">policy</span>
+        </div>
+        <h3 style="margin: 0 0 0.5rem 0; color: var(--text-primary);">Refund Policy</h3>
+        <p style="margin: 0 0 1.5rem 0; color: var(--text-secondary); line-height: 1.5;">Comprehensive refund and cancellation policies for products and services.</p>
+        <a href="/companies/{{ key }}/refund-policy/" class="mui-btn mui-btn--outline" style="width: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 0.75rem; border-radius: 8px;">
+          <span class="material-icons" style="margin-right: 0.5rem;">assignment_return</span>
+          View Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enhanced CTA Section -->
+<div class="mui-cta-section" style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); padding: 4rem 0; color: white; text-align: center; margin: 3rem 0;">
+  <div class="mui-container">
+    <h2 style="margin: 0 0 1rem 0; font-size: 2.2rem;">Ready to Work With Us?</h2>
+    {% if key == 'rk-oxygen' %}
+      <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.9;">Get industrial gases, medical oxygen, and cylinder services for your business needs</p>
+    {% elsif key == 'rk-electrodes' %}
+      <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.9;">Professional welding solutions and equipment for all your industrial requirements</p>
+    {% elsif key == 'rk-palace' %}
+      <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.9;">Explore our real estate opportunities and property development services</p>
+    {% elsif key == 'sand-creations' %}
+      <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.9;">Creative design and digital art solutions for your brand and business</p>
+    {% else %}
+      <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.9;">Contact us for professional services and business solutions</p>
+    {% endif %}
+    
+    <div class="mui-cta-actions" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+      {% if main.contact and main.contact.phone %}
+        <a href="tel:{{ main.contact.phone }}" class="mui-btn mui-btn--outline mui-btn--large" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); color: white; text-decoration: none; display: flex; align-items: center; padding: 1rem 2rem; border-radius: 8px; backdrop-filter: blur(10px);">
+          <span class="material-icons" style="margin-right: 0.5rem;">phone</span>
+          Call Now
+        </a>
+      {% endif %}
+      {% if main.contact and main.contact.email %}
+        <a href="mailto:{{ main.contact.email }}" class="mui-btn mui-btn--primary mui-btn--large" style="background: rgba(255,255,255,0.2); color: white; text-decoration: none; display: flex; align-items: center; padding: 1rem 2rem; border-radius: 8px; backdrop-filter: blur(10px); border: none;">
+          <span class="material-icons" style="margin-right: 0.5rem;">email</span>
+          Send Email
+        </a>
+      {% endif %}
+    </div>
+    
+    <!-- Quick Info Strip -->
+    {% if main.contact %}
+      <div class="mui-quick-contact" style="padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.9rem;">
+          {% if main.contact.phone %}
+            <div style="display: flex; align-items: center; opacity: 0.9;">
+              <span class="material-icons" style="margin-right: 0.5rem; font-size: 1rem;">phone</span>
+              {{ main.contact.phone }}
+            </div>
+          {% endif %}
+          {% if main.contact.email %}
+            <div style="display: flex; align-items: center; opacity: 0.9;">
+              <span class="material-icons" style="margin-right: 0.5rem; font-size: 1rem;">email</span>
+              {{ main.contact.email }}
+            </div>
+          {% endif %}
+          {% if main.gstin %}
+            <div style="display: flex; align-items: center; opacity: 0.9;">
+              <span class="material-icons" style="margin-right: 0.5rem; font-size: 1rem;">verified</span>
+              GSTIN Registered
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>
