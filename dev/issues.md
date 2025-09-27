@@ -1,9 +1,5 @@
 # Open Issues for rk-Groups/rk-Groups.github.io
 
-*Last updated: 2025-09-27 12:00:00 UTC*
-
-Total open issues: 0
-
 ## ✅ All Issues Resolved!
 
 All reported issues have been successfully resolved and tested. The website is now fully functional.
