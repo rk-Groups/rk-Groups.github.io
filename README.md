@@ -337,10 +337,10 @@ docker run -p 4000:4000 rk-groups-site
 
 ## 🤝 Contributing
 
-1. Follow the [Company Setup Guide](dev/COMPANY_SETUP_GUIDE.md)
+1. Follow the [Company Setup Guide](https://rk-groups.github.io/dev/COMPANY_SETUP_GUIDE/)
 2. Use the development workflow scripts
 3. Run tests before committing
-4. Follow the [Static Rules](dev/STATIC_RULES.md)
+4. Follow the [Static Rules](https://rk-groups.github.io/dev/STATIC_RULES/)
 
 ## 📄 License
 
@@ -349,8 +349,8 @@ MIT License - see LICENSE file for details.
 ## 📞 Support
 
 - [Report Issues](https://github.com/rk-Groups/rk-Groups.github.io/issues)
-- [Development Docs](dev/)
-- [Static Rules](dev/STATIC_RULES.md)
+- [Development Docs](https://rk-groups.github.io/dev/)
+- [Static Rules](https://rk-groups.github.io/dev/STATIC_RULES/)
 
 ---
 
