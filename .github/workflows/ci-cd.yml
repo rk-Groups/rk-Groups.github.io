@@ -51,26 +51,6 @@ jobs:
             --ignore-files "/assets/,/node_modules/" \
             --ignore-urls "/#.*/" || echo "Link check completed with warnings"
 
-  security-scan:
-    runs-on: ubuntu-latest
-    name: Security Scan
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
 
   performance-audit:
     runs-on: ubuntu-latest

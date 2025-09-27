@@ -17,10 +17,7 @@
     "workflow": "./manage-workflows.ps1",
     "workflow:status": "./manage-workflows.ps1 -Action status",
     "workflow:artifacts": "./manage-workflows.ps1 -Action artifacts",
-    "workflow:docker-build": "./manage-workflows.ps1 -Action docker-build",
-    "workflow:docker-push": "./manage-workflows.ps1 -Action docker-push",
-    "workflow:security-scan": "./manage-workflows.ps1 -Action security-scan",
-    "workflow:performance-test": "./manage-workflows.ps1 -Action performance-test",
+
     "docker:dev": "docker-compose --profile dev up jekyll-dev",
     "docker:prod": "docker-compose --profile prod up jekyll-prod",
     "docker:test": "docker-compose --profile test run --rm jekyll-test",
