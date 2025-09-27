@@ -208,3 +208,47 @@ function doBackgroundSync() {
   // Placeholder for future offline functionality
   console.log('[SW] Background sync triggered');
 }
+
+// Performance optimizations
+const PERFORMANCE_CACHE = 'rk-groups-perf-v1.0.0';
+
+// Cache performance resources
+const PERF_RESOURCES = [
+  '/assets/js/web-vitals.min.js',
+  '/assets/js/performance-monitoring.min.js'
+];
+
+// Preload critical resources
+self.addEventListener('message', function(event) {
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+  
+  // Preload critical resources on install
+  if (event.data.action === 'preloadCritical') {
+    caches.open(PERFORMANCE_CACHE)
+      .then(cache => cache.addAll(PERF_RESOURCES))
+      .catch(err => console.warn('[SW] Failed to preload performance resources:', err));
+  }
+});
+
+// Optimize font loading
+self.addEventListener('fetch', function(event) {
+  // Cache Google Fonts for better performance
+  if (event.request.url.includes('fonts.googleapis.com') || 
+      event.request.url.includes('fonts.gstatic.com')) {
+    event.respondWith(
+      caches.open('fonts-cache').then(function(cache) {
+        return cache.match(event.request).then(function(response) {
+          if (response) {
+            return response;
+          }
+          return fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        });
+      })
+    );
+  }
+});

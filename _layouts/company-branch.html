@@ -1,99 +1,53 @@
 ---
 layout: default
 ---
+
 {% assign key = page.company %}
 {% assign branch = page.branch %}
-{% assign details = site.data.companies[key][branch] %}
+{% assign company = site.data.companies[key] %}
+{% assign main = company.main %}
+{% assign details = company[branch] %}
 
 <div class="mui-hero mui-hero--bleed">
-  <div class="mui-hero-content">
-    <div class="mui-hero-icon">
-      <span class="material-icons" style="font-size: 4rem;">factory</span>
-    </div>
-    <h1 class="mui-hero-title">{{ site.data.companies[key].main.name | default: key | replace: '-', ' ' | capitalize }} — {{ details.name | default: branch | capitalize }} Branch</h1>
-    <p class="mui-hero-subtitle">Industrial solutions and services at your location</p>
+  <div class="mui-container">
+    <h1 class="mui-hero-title">{{ details.name | default: branch | capitalize }} Branch</h1>
+    <p class="mui-hero-subtitle">{{ main.name | default: key | replace: '-', ' ' | capitalize }}</p>
   </div>
 </div>
 
-<!-- Branch Switcher -->
-<div class="mui-card">
-  <div class="mui-container">
-    <h2 class="mui-section-title">Switch Branch</h2>
-    <div class="mui-branch-switcher">
-      <div class="mui-btn-group">
-        {% for entry in site.data.companies[key] %}
-          {% assign k = entry[0] %}
-          {% if k != 'main' %}
-            <a class="mui-btn {% if k == branch %}mui-btn--primary{% else %}mui-btn--outline{% endif %}" href="/companies/{{ key }}/{{ k }}/">
-              {{ site.data.companies[key][k].name | default: k | capitalize }}
-            </a>
-          {% endif %}
-        {% endfor %}
+<div class="mui-container">
+  <main class="mui-main">
+    {{ content }}
+
+    <div class="mui-card">
+      <h2>Branch Information</h2>
+      <div class="mui-info-grid">
+        {% if details.gstin %}
+        <div><strong>GSTIN:</strong> {{ details.gstin }}</div>
+        {% endif %}
+        {% if details.contact and details.contact.phone %}
+        <div><strong>Phone:</strong> <a href="tel:{{ details.contact.phone }}">{{ details.contact.phone }}</a></div>
+        {% endif %}
+        {% if details.contact and details.contact.email %}
+        <div><strong>Email:</strong> <a href="mailto:{{ details.contact.email }}">{{ details.contact.email }}</a></div>
+        {% endif %}
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Branch Details -->
-<div class="mui-card">
-  <div class="mui-container">
-    <h2 class="mui-section-title">Branch Information</h2>
-    <div class="mui-info-grid">
-      {% if details.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ details.gstin }}</span></div>{% endif %}
-      {% if details.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ details.constitution }}</span></div>{% endif %}
-      {% if details.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ details.principal_place }}</span></div>{% endif %}
-      {% comment %}{% if details.branch_address %}<div class="mui-info-item"><strong>Branch Address:</strong><span>{{ details.branch_address }}</span></div>{% endif %}{% endcomment %}
-      {% comment %}{% if details.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ details.proprietor }}</span></div>{% endif %}{% endcomment %}
-      {% comment %}{% if details.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ details.partners | join: ', ' }}</span></div>{% endif %}{% endcomment %}
-      {% if details.contact and details.contact.email %}<div class="mui-info-item"><strong>Contact Email:</strong><span><a href="mailto:{{ details.contact.email }}">{{ details.contact.email }}</a></span></div>{% endif %}
-      {% if details.contact and details.contact.phone %}<div class="mui-info-item"><strong>Contact Phone:</strong><span><a href="tel:{{ details.contact.phone }}">{{ details.contact.phone }}</a></span></div>{% endif %}
-    </div>
-  </div>
-</div>
-
-<!-- Branch Policies -->
-<div class="mui-card">
-  <div class="mui-container">
-    <h2 class="mui-section-title">Branch Policies</h2>
-    <div class="mui-card-links">
-      <a href="/companies/{{ key }}/{{ branch }}/terms/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">description</span>
-        Terms of Service
-      </a>
-      <a href="/companies/{{ key }}/{{ branch }}/refund-policy/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">refund</span>
-        Refund & Cancellation Policy
-      </a>
-      <a href="/companies/{{ key }}/{{ branch }}/privacy/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">privacy_tip</span>
-        Privacy Policy
-      </a>
-      <a href="/companies/{{ key }}/{{ branch }}/shipping/" class="mui-btn mui-btn--outline">
-        <span class="material-icons">local_shipping</span>
-        Shipping Policy
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Contact Section -->
-<div class="mui-cta-section">
-  <div class="mui-container">
-    <h2>Get in Touch</h2>
-    <p>Contact this branch for inquiries, orders, or support</p>
-    <div class="mui-cta-actions">
-      {% if details.contact and details.contact.phone %}
-        <a href="tel:{{ details.contact.phone }}" class="mui-btn mui-btn--primary mui-btn--large">
-          <span class="material-icons">phone</span>
-          Call Now
-        </a>
-      {% endif %}
-      {% if details.contact and details.contact.email %}
-        <a href="mailto:{{ details.contact.email }}" class="mui-btn mui-btn--outline mui-btn--large">
-          <span class="material-icons">email</span>
-          Send Email
-        </a>
-      {% endif %}
-    </div>
-  </div>
+    {% assign branch_count = company | size | minus: 1 %}
+    {% if branch_count > 1 %}
+      <div class="mui-card">
+        <h2>Other Branches</h2>
+        {% for branch_item in company %}
+          {% unless branch_item[0] == 'main' or branch_item[0] == branch %}
+            {% assign other_branch_key = branch_item[0] %}
+            {% assign other_branch_info = branch_item[1] %}
+            <a href="/companies/{{ key }}/{{ other_branch_key }}/" class="mui-btn mui-btn--outline">
+              {{ other_branch_info.name | default: other_branch_key | capitalize }}
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </main>
 </div>
