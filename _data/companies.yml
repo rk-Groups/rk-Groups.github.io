@@ -48,9 +48,23 @@ rk-oxygen:
 rk-palace:
   main:
     name: "RK Palace"
+    gstin: "09AAAFR4114P1Z4"
+    constitution: "Proprietorship"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    proprietor: "Ruhil Jaiswal"
+    contact:
+      email: "palace.rkgroup@gmail.com"
+      phone: "+91-7355755506"
 
 # Sand Creations
 sand-creations:
   main:
     name: "Sand Creations"
+    gstin: "09AAAFR4114P1Z5"
+    constitution: "Proprietorship"
+    principal_place: "85, RK Palace, Gangaprasad Road, Rakabganj, Lucknow – 226018, Uttar Pradesh"
+    proprietor: "Ruhil Jaiswal"
+    contact:
+      email: "creations.rkgroup@gmail.com"
+      phone: "+91-7355755506"
 # Add more companies/branches below as needed
