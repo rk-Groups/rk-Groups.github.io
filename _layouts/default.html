@@ -367,6 +367,73 @@
       });
     }
   </script>
+<!-- Lazy Loading Implementation -->
+<script>
+// Intersection Observer for lazy loading
+const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            observer.unobserve(img);
+        }
+    });
+});
+
+// Initialize lazy loading when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('img.lazy');
+    lazyImages.forEach(img => lazyImageObserver.observe(img));
+});
+</script>
+<!-- Optimized CSS Loading -->
+<script>
+// Load CSS asynchronously
+function loadCSS(href, before, media) {
+    var doc = window.document;
+    var ss = doc.createElement("link");
+    var ref;
+    if (before) {
+        ref = before;
+    } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+    }
+    var sheets = doc.styleSheets;
+    ss.rel = "stylesheet";
+    ss.href = href;
+    ss.media = "only x";
+    function ready(cb) {
+        if (doc.body) { return cb(); }
+        setTimeout(function() { ready(cb); });
+    }
+    ready(function() {
+        ref.parentNode.insertBefore(ss, (before ? ref : ref.nextSibling));
+    });
+    var onloadcssdefined = function(cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+            if (sheets[i].href === resolvedHref) {
+                return cb();
+            }
+        }
+        setTimeout(function() { onloadcssdefined(cb); });
+    };
+    function loadCB() {
+        if (ss.addEventListener) { ss.removeEventListener("load", loadCB); }
+        ss.media = media || "all";
+    }
+    if (ss.addEventListener) { ss.addEventListener("load", loadCB); }
+    ss.onloadcssdefined = onloadcssdefined;
+    onloadcssdefined(loadCB);
+    return ss;
+}
+
+// Load non-critical CSS
+loadCSS('/assets/css/mui.min.css');
+</script>
 </head>
 <body class="dark-mode">
   <!-- Skip to main content link for accessibility -->
@@ -405,3 +472,5 @@
   {% endif %}
 </body>
 </html>
+
+

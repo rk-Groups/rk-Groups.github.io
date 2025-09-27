@@ -1,0 +1,79 @@
+# Enhanced Docker-Based Testing Workflow
+
+services:
+  # Jekyll development and build service
+  jekyll-dev:
+    image: jekyll/jekyll:4
+    container_name: rk-groups-jekyll-dev
+    command: jekyll serve --drafts --watch --force_polling --host 0.0.0.0 --livereload --livereload-port 35729 --incremental
+    ports:
+      - "4000:4000"
+      - "35729:35729" # LiveReload port
+    volumes:
+      - .:/srv/jekyll:Z
+      - ./vendor/bundle:/usr/local/bundle:Z
+    environment:
+      - JEKYLL_ENV=development
+    networks:
+      - rk-testing
+
+  # Jekyll production build service
+  jekyll-build:
+    image: jekyll/jekyll:4
+    container_name: rk-groups-jekyll-build
+    command: jekyll build --trace
+    volumes:
+      - .:/srv/jekyll:Z
+      - ./vendor/bundle:/usr/local/bundle:Z
+    environment:
+      - JEKYLL_ENV=production
+    networks:
+      - rk-testing
+
+  # Node.js testing service with all testing tools including Chrome
+  node-testing:
+    image: zenika/alpine-chrome:with-node
+    container_name: rk-groups-node-testing
+    working_dir: /app
+    volumes:
+      - .:/app:Z
+    environment:
+      - NODE_ENV=test
+      - NPM_CONFIG_FUND=false
+      - NPM_CONFIG_AUDIT=false
+      - NPM_CONFIG_UPDATE_NOTIFIER=false
+      - NODE_NO_WARNINGS=1
+      - CHROME_PATH=/usr/bin/chromium-browser
+    networks:
+      - rk-testing
+    command: sh -c "npm install --only=dev && tail -f /dev/null"
+
+  # Lighthouse CI service
+  lighthouse-ci:
+    image: patrickhulce/lhci-server:0.12.x
+    container_name: rk-groups-lighthouse-ci
+    ports:
+      - "9001:9001"
+    environment:
+      - LHCI_SERVER_URL=http://localhost:9001
+    networks:
+      - rk-testing
+
+  # HTTP server for testing built site
+  http-server:
+    image: node:18-alpine
+    container_name: rk-groups-http-server
+    working_dir: /app
+    volumes:
+      - ./_site:/app:ro
+    ports:
+      - "8080:8080"
+    command: sh -c "npx --yes http-server . -p 8080 -s --cors"
+    networks:
+      - rk-testing
+    depends_on:
+      - jekyll-build
+
+networks:
+  rk-testing:
+    driver: bridge

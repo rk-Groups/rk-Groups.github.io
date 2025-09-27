@@ -1,0 +1,153 @@
+# Complete Docker Development Environment
+# Unified setup for all development needs
+
+services:
+  # Primary Jekyll development server
+  jekyll-dev:
+    image: jekyll/jekyll:4
+    container_name: rk-groups-jekyll-dev
+    command: jekyll serve --drafts --watch --force_polling --host 0.0.0.0 --livereload --livereload-port 35729 --incremental --trace
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll:Z
+      - ./vendor/bundle:/usr/local/bundle:Z
+      - jekyll-cache:/srv/jekyll/.jekyll-cache
+    environment:
+      - JEKYLL_ENV=development
+      - BUNDLE_PATH=/usr/local/bundle
+    networks:
+      - rk-dev
+    profiles:
+      - dev
+
+  # Production Jekyll build
+  jekyll-build:
+    image: jekyll/jekyll:4
+    container_name: rk-groups-jekyll-build
+    command: jekyll build --trace
+    volumes:
+      - .:/srv/jekyll:Z
+      - ./vendor/bundle:/usr/local/bundle:Z
+    environment:
+      - JEKYLL_ENV=production
+      - BUNDLE_PATH=/usr/local/bundle
+    networks:
+      - rk-dev
+    profiles:
+      - build
+
+  # Node.js development environment with testing tools
+  node-dev:
+    image: zenika/alpine-chrome:with-node
+    container_name: rk-groups-node-dev
+    working_dir: /app
+    volumes:
+      - .:/app:Z
+      - node-modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - NPM_CONFIG_FUND=false
+      - NPM_CONFIG_AUDIT=false
+      - NPM_CONFIG_UPDATE_NOTIFIER=false
+      - NODE_NO_WARNINGS=1
+      - CHROME_PATH=/usr/bin/chromium-browser
+    networks:
+      - rk-dev
+    profiles:
+      - dev
+      - test
+    command: sh -c "npm install && tail -f /dev/null"
+
+  # HTTP server for testing built sites
+  http-server:
+    image: node:18-alpine
+    container_name: rk-groups-http-server
+    working_dir: /app
+    volumes:
+      - ./_site:/app:ro
+    ports:
+      - "8080:8080"
+    command: sh -c "npx --yes http-server . -p 8080 -s --cors -g"
+    networks:
+      - rk-dev
+    profiles:
+      - test
+      - serve
+    depends_on:
+      - jekyll-build
+
+  # Lighthouse CI service for performance testing
+  lighthouse-ci:
+    image: patrickhulce/lhci-server:0.12.x
+    container_name: rk-groups-lighthouse-ci
+    ports:
+      - "9001:9001"
+    environment:
+      - LHCI_SERVER_URL=http://localhost:9001
+    networks:
+      - rk-dev
+    profiles:
+      - test
+
+  # Database for local development (if needed)
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: rk-groups-db
+  #   environment:
+  #     - POSTGRES_DB=rk_groups_dev
+  #     - POSTGRES_USER=developer
+  #     - POSTGRES_PASSWORD=development
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - rk-dev
+  #   profiles:
+  #     - dev
+  #     - full
+
+  # Redis for caching (if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: rk-groups-redis
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - rk-dev
+  #   profiles:
+  #     - dev
+  #     - full
+
+  # Nginx for reverse proxy and static serving
+  nginx:
+    image: nginx:alpine
+    container_name: rk-groups-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./_site:/usr/share/nginx/html:ro
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - rk-dev
+    profiles:
+      - prod
+      - serve
+    depends_on:
+      - jekyll-build
+
+networks:
+  rk-dev:
+    driver: bridge
+
+volumes:
+  jekyll-cache:
+    driver: local
+  node-modules:
+    driver: local
+  # postgres-data:
+  #   driver: local
+  # redis-data:
+  #   driver: local
