@@ -1,0 +1,85 @@
+name: 🔧 Maintenance
+description: Report maintenance tasks or technical debt
+title: "[Maintenance]: "
+labels: ["maintenance", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report maintenance tasks, technical debt, or infrastructure improvements needed for the RK Groups website.
+
+  - type: dropdown
+    id: maintenance_type
+    attributes:
+      label: Maintenance Type
+      description: What type of maintenance is needed?
+      options:
+        - Dependency updates
+        - Performance optimization
+        - Security improvements
+        - Code refactoring
+        - Build system updates
+        - Testing improvements
+        - Documentation updates
+        - Infrastructure changes
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this maintenance task?
+      options:
+        - Critical (Security issue, site broken)
+        - High (Performance impact, important improvement)
+        - Medium (Standard maintenance)
+        - Low (Nice to have improvement)
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_situation
+    attributes:
+      label: Current Situation
+      description: Describe the current state that needs maintenance
+      placeholder: "What is the current situation or problem?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: How should this maintenance task be addressed?
+      placeholder: "What needs to be done to resolve this?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact Assessment
+      description: What is the impact of not addressing this maintenance task?
+      placeholder: "Performance impact, security risk, technical debt, etc."
+
+  - type: textarea
+    id: technical_details
+    attributes:
+      label: Technical Details
+      description: Any technical specifications, dependencies, or constraints
+      placeholder: "Version numbers, specific files affected, dependencies, etc."
+
+  - type: textarea
+    id: testing_requirements
+    attributes:
+      label: Testing Requirements
+      description: What testing is needed to validate this maintenance task?
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other relevant information, links, or references

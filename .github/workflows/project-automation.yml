@@ -1,0 +1,282 @@
+name: Project Automation
+on:
+  issues:
+    types: [opened, closed, labeled, unlabeled, assigned, unassigned]
+  pull_request:
+    types: [opened, closed, merged, labeled, unlabeled, ready_for_review, converted_to_draft]
+  project_card:
+    types: [created, moved]
+
+jobs:
+  update_project:
+    runs-on: ubuntu-latest
+    name: Update project items
+    steps:
+      - name: Update Project Status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const projectNumber = 1; // Update this to your project number
+            
+            console.log('Event:', context.eventName);
+            console.log('Action:', context.payload.action);
+            
+            // Function to get project item ID
+            async function getProjectItemId(nodeId) {
+              const query = `
+                query($nodeId: ID!) {
+                  node(id: $nodeId) {
+                    ... on Issue {
+                      projectItems(first: 10) {
+                        nodes {
+                          id
+                          project {
+                            number
+                          }
+                        }
+                      }
+                    }
+                    ... on PullRequest {
+                      projectItems(first: 10) {
+                        nodes {
+                          id
+                          project {
+                            number
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              
+              try {
+                const result = await github.graphql(query, { nodeId });
+                const projectItems = result.node.projectItems.nodes;
+                const projectItem = projectItems.find(item => item.project.number === projectNumber);
+                return projectItem ? projectItem.id : null;
+              } catch (error) {
+                console.error('Error getting project item ID:', error);
+                return null;
+              }
+            }
+            
+            // Function to update project field
+            async function updateProjectField(itemId, fieldName, value) {
+              // First get project ID and field ID
+              const projectQuery = `
+                query($owner: String!, $repo: String!, $number: Int!) {
+                  repository(owner: $owner, name: $repo) {
+                    projectV2(number: $number) {
+                      id
+                      fields(first: 20) {
+                        nodes {
+                          ... on ProjectV2SingleSelectField {
+                            id
+                            name
+                            options {
+                              id
+                              name
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `;
+              
+              try {
+                const projectResult = await github.graphql(projectQuery, {
+                  owner,
+                  repo,
+                  number: projectNumber
+                });
+                
+                const project = projectResult.repository.projectV2;
+                const field = project.fields.nodes.find(f => f.name === fieldName);
+                
+                if (!field) {
+                  console.log(`Field "${fieldName}" not found`);
+                  return;
+                }
+                
+                const option = field.options.find(o => o.name === value);
+                if (!option) {
+                  console.log(`Option "${value}" not found for field "${fieldName}"`);
+                  return;
+                }
+                
+                const updateMutation = `
+                  mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                    updateProjectV2ItemFieldValue(input: {
+                      projectId: $projectId
+                      itemId: $itemId
+                      fieldId: $fieldId
+                      value: {
+                        singleSelectOptionId: $optionId
+                      }
+                    }) {
+                      projectV2Item {
+                        id
+                      }
+                    }
+                  }
+                `;
+                
+                await github.graphql(updateMutation, {
+                  projectId: project.id,
+                  itemId,
+                  fieldId: field.id,
+                  optionId: option.id
+                });
+                
+                console.log(`Updated ${fieldName} to ${value}`);
+              } catch (error) {
+                console.error(`Error updating field ${fieldName}:`, error);
+              }
+            }
+            
+            // Handle different events
+            if (context.eventName === 'issues') {
+              const issue = context.payload.issue;
+              const itemId = await getProjectItemId(issue.node_id);
+              
+              if (!itemId) {
+                console.log('Issue not found in project');
+                return;
+              }
+              
+              switch (context.payload.action) {
+                case 'opened':
+                  await updateProjectField(itemId, 'Status', '📋 Backlog');
+                  
+                  // Auto-assign priority based on labels
+                  if (issue.labels.some(label => label.name === 'critical')) {
+                    await updateProjectField(itemId, 'Priority', '🔴 Critical');
+                  } else if (issue.labels.some(label => label.name === 'bug')) {
+                    await updateProjectField(itemId, 'Priority', '🟠 High');
+                    await updateProjectField(itemId, 'Type', '🐛 Bug');
+                  } else if (issue.labels.some(label => label.name === 'enhancement')) {
+                    await updateProjectField(itemId, 'Type', '✨ Feature');
+                    await updateProjectField(itemId, 'Priority', '🟡 Medium');
+                  } else if (issue.labels.some(label => label.name === 'content')) {
+                    await updateProjectField(itemId, 'Type', '📝 Content');
+                  } else if (issue.labels.some(label => label.name === 'maintenance')) {
+                    await updateProjectField(itemId, 'Type', '🔧 Maintenance');
+                  }
+                  
+                  // Auto-assign component based on title or labels
+                  const title = issue.title.toLowerCase();
+                  if (title.includes('calculator') || title.includes('calc')) {
+                    await updateProjectField(itemId, 'Component', '🧮 Calculators');
+                  } else if (title.includes('company') || title.includes('companies')) {
+                    await updateProjectField(itemId, 'Component', '🏢 Companies');
+                  } else if (title.includes('visualization') || title.includes('neural') || title.includes('radial')) {
+                    await updateProjectField(itemId, 'Component', '📊 Visualizations');
+                  } else if (title.includes('homepage') || title.includes('home')) {
+                    await updateProjectField(itemId, 'Component', '🏠 Homepage');
+                  } else if (title.includes('mobile') || title.includes('responsive')) {
+                    await updateProjectField(itemId, 'Component', '📱 Mobile');
+                  }
+                  
+                  console.log('New issue processed:', issue.title);
+                  break;
+                  
+                case 'closed':
+                  if (issue.state_reason === 'completed') {
+                    await updateProjectField(itemId, 'Status', '✅ Done');
+                  } else {
+                    await updateProjectField(itemId, 'Status', '🚫 Cancelled');
+                  }
+                  console.log('Issue closed:', issue.title);
+                  break;
+                  
+                case 'labeled':
+                  const addedLabel = context.payload.label.name;
+                  if (addedLabel === 'critical') {
+                    await updateProjectField(itemId, 'Priority', '🔴 Critical');
+                  } else if (addedLabel === 'high-priority') {
+                    await updateProjectField(itemId, 'Priority', '🟠 High');
+                  } else if (addedLabel === 'in-progress') {
+                    await updateProjectField(itemId, 'Status', '🚧 In Progress');
+                  }
+                  break;
+              }
+            }
+            
+            if (context.eventName === 'pull_request') {
+              const pr = context.payload.pull_request;
+              const itemId = await getProjectItemId(pr.node_id);
+              
+              if (!itemId) {
+                console.log('PR not found in project');
+                return;
+              }
+              
+              switch (context.payload.action) {
+                case 'opened':
+                  await updateProjectField(itemId, 'Status', '👀 In Review');
+                  
+                  // Auto-assign component based on changed files
+                  try {
+                    const files = await github.rest.pulls.listFiles({
+                      owner,
+                      repo,
+                      pull_number: pr.number
+                    });
+                    
+                    let component = null;
+                    for (const file of files.data) {
+                      if (file.filename.startsWith('companies/')) {
+                        component = '🏢 Companies';
+                        break;
+                      } else if (file.filename.startsWith('Calc/')) {
+                        component = '🧮 Calculators';
+                        break;
+                      } else if (file.filename.startsWith('sitemap/')) {
+                        component = '📊 Visualizations';
+                        break;
+                      } else if (file.filename.startsWith('assets/css/') || file.filename.startsWith('_layouts/')) {
+                        component = '🎨 UI/UX';
+                        break;
+                      } else if (file.filename.startsWith('_config.yml') || file.filename.startsWith('.github/')) {
+                        component = '🏗️ Infrastructure';
+                        break;
+                      } else if (file.filename === 'index.md' || file.filename === 'index.html') {
+                        component = '🏠 Homepage';
+                        break;
+                      }
+                    }
+                    
+                    if (component) {
+                      await updateProjectField(itemId, 'Component', component);
+                    }
+                  } catch (error) {
+                    console.error('Error analyzing PR files:', error);
+                  }
+                  
+                  console.log('New PR processed:', pr.title);
+                  break;
+                  
+                case 'closed':
+                  if (pr.merged) {
+                    await updateProjectField(itemId, 'Status', '✅ Done');
+                    console.log('PR merged:', pr.title);
+                  } else {
+                    await updateProjectField(itemId, 'Status', '🚫 Cancelled');
+                    console.log('PR closed without merge:', pr.title);
+                  }
+                  break;
+                  
+                case 'ready_for_review':
+                  await updateProjectField(itemId, 'Status', '👀 In Review');
+                  break;
+                  
+                case 'converted_to_draft':
+                  await updateProjectField(itemId, 'Status', '🚧 In Progress');
+                  break;
+              }
+            }

@@ -1,0 +1,62 @@
+name: 📝 Content Update
+description: Request content updates or additions
+title: "[Content]: "
+labels: ["content", "needs-triage"]
+assignees: []
+
+body:
+  - type: dropdown
+    id: update_type
+    attributes:
+      label: Update Type
+      description: What type of content update is needed?
+      options:
+        - New company addition
+        - Company information update
+        - Policy/legal document update
+        - Calculator content update
+        - General content correction
+        - Translation/localization
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this content update?
+      options:
+        - Critical (Legal/compliance requirement)
+        - High (Important business information)
+        - Medium (Standard update)
+        - Low (Minor correction)
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_content
+    attributes:
+      label: Current Content
+      description: What is the current content that needs updating?
+      placeholder: "Link to current page or describe current content..."
+
+  - type: textarea
+    id: requested_content
+    attributes:
+      label: Requested Changes
+      description: What changes are needed?
+      placeholder: "Describe the new or updated content..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: business_justification
+    attributes:
+      label: Business Justification
+      description: Why is this content update needed?
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any supporting documents, references, or context
