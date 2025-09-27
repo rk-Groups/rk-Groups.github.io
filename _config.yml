@@ -7,7 +7,7 @@ theme: null
 # Plugins
 plugins:
   - jekyll-seo-tag
-  - jekyll-sitemap
+  # - jekyll-sitemap  # Temporarily disabled - causing build errors
   - jekyll-feed
   - jekyll-paginate
   - jekyll-archives
@@ -48,6 +48,16 @@ sitemap:
     - /README.md
     - /.git/
     - /node_modules/
+
+# Exclude files from processing
+exclude:
+  - vendor/
+  - .git/
+  - node_modules/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - sitemap.xml  # Exclude any sitemap.xml from processing
 
 # Build settings
 markdown: kramdown
