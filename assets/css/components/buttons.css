@@ -1,0 +1,200 @@
+/* Button Component Styles */
+
+.mui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--mui-radius);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 36px;
+  user-select: none;
+}
+
+.mui-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--border-focus);
+}
+
+.mui-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary button */
+.mui-btn--primary {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.mui-btn--primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.mui-btn--primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary button */
+.mui-btn--secondary {
+  background: var(--accent-secondary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.mui-btn--secondary:hover:not(:disabled) {
+  background: #7c3aed;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Outline button */
+.mui-btn--outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+}
+
+.mui-btn--outline:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Success button */
+.mui-btn--success {
+  background: var(--accent-success);
+  color: white;
+}
+
+.mui-btn--success:hover:not(:disabled) {
+  background: #059669;
+}
+
+/* Warning button */
+.mui-btn--warning {
+  background: var(--accent-warning);
+  color: white;
+}
+
+.mui-btn--warning:hover:not(:disabled) {
+  background: #d97706;
+}
+
+/* Danger button */
+.mui-btn--danger {
+  background: var(--accent-danger);
+  color: white;
+}
+
+.mui-btn--danger:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+/* Small button */
+.mui-btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  min-height: 28px;
+}
+
+/* Large button */
+.mui-btn--large {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+/* Icon button */
+.mui-btn--icon {
+  padding: 0.5rem;
+  min-width: 36px;
+  border-radius: 50%;
+}
+
+.mui-btn--icon.mui-btn--large {
+  padding: 0.75rem;
+  min-width: 48px;
+}
+
+/* Button with icon */
+.mui-btn .material-icons {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.mui-btn .material-icons:only-child {
+  margin: 0;
+}
+
+/* Floating Action Button */
+.mui-fab {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.2s ease;
+}
+
+.mui-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+.mui-fab .material-icons {
+  font-size: 24px;
+}
+
+/* Button group */
+.mui-btn-group {
+  display: inline-flex;
+  border-radius: var(--mui-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.mui-btn-group .mui-btn {
+  border-radius: 0;
+  border-right: 1px solid var(--border-primary);
+  margin: 0;
+}
+
+.mui-btn-group .mui-btn:last-child {
+  border-right: none;
+}
+
+.mui-btn-group .mui-btn:first-child {
+  border-top-left-radius: var(--mui-radius);
+  border-bottom-left-radius: var(--mui-radius);
+}
+
+.mui-btn-group .mui-btn:last-child {
+  border-top-right-radius: var(--mui-radius);
+  border-bottom-right-radius: var(--mui-radius);
+}

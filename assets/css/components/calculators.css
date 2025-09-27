@@ -1,0 +1,353 @@
+/* Calculator Component Styles */
+
+/* GST Calculator */
+.gst-calculator {
+  background: var(--card-bg);
+  border-radius: var(--mui-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.gst-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.gst-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.gst-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gst-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.gst-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.gst-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.gst-input.calculating {
+  background-color: var(--bg-elevated);
+  opacity: 0.8;
+}
+
+.gst-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gst-select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.gst-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.gst-results {
+  background: var(--bg-elevated);
+  border-radius: var(--mui-radius);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-secondary);
+  transition: opacity 0.2s ease;
+}
+
+.gst-results-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.gst-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.gst-result-item:last-child {
+  border-bottom: none;
+}
+
+.gst-result-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.gst-result-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Loading States */
+.gst-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.gst-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-primary);
+  border-top: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: gst-spin 1s linear infinite;
+}
+
+@keyframes gst-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* EMI Calculator */
+.emi-calculator {
+  background: var(--card-bg);
+  border-radius: var(--mui-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emi-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.emi-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.emi-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.emi-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.emi-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.emi-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.emi-results {
+  background: var(--bg-elevated);
+  border-radius: var(--mui-radius);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-secondary);
+  transition: opacity 0.2s ease;
+}
+
+.emi-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.emi-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-primary);
+  border-top: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: emi-spin 1s linear infinite;
+}
+
+@keyframes emi-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* LIQ Calculator */
+.liq-calculator {
+  background: var(--card-bg);
+  border-radius: var(--mui-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.liq-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.liq-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.liq-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.liq-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.liq-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.liq-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.liq-results {
+  background: var(--bg-elevated);
+  border-radius: var(--mui-radius);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid var(--border-secondary);
+}
+
+.liq-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.liq-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-primary);
+  border-top: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: liq-spin 1s linear infinite;
+}
+
+@keyframes liq-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+  .gst-calculator,
+  .emi-calculator,
+  .liq-calculator {
+    padding: 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .gst-title,
+  .emi-title,
+  .liq-title {
+    font-size: 1.5rem;
+  }
+  
+  .gst-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .gst-results,
+  .emi-results,
+  .liq-results {
+    padding: 1rem;
+  }
+  
+  .gst-result-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .gst-result-value {
+    font-size: 1rem;
+  }
+}

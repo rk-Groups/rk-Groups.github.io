@@ -1,0 +1,183 @@
+/*!
+ * Material UI Components - Modular CSS Architecture
+ * RK Groups Jekyll Site
+ */
+
+/* Import critical CSS inline (loaded in head) */
+/* Critical styles are already loaded via _includes/critical-css.html */
+
+/* Component imports - lazy loaded after critical path */
+@import url('/assets/css/components/buttons.css');
+@import url('/assets/css/components/cards.css');
+@import url('/assets/css/components/navigation.css');
+@import url('/assets/css/components/calculators.css');
+
+/* Layout & Typography */
+.mui-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.mui-container--fluid {
+  max-width: none;
+  width: 100%;
+}
+
+.mui-container--narrow {
+  max-width: 800px;
+}
+
+/* Typography scale */
+.mui-h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin: 0 0 1rem 0; }
+.mui-h2 { font-size: 2rem; font-weight: 600; line-height: 1.3; margin: 0 0 0.875rem 0; }
+.mui-h3 { font-size: 1.75rem; font-weight: 600; line-height: 1.3; margin: 0 0 0.75rem 0; }
+.mui-h4 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; margin: 0 0 0.75rem 0; }
+.mui-h5 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; margin: 0 0 0.5rem 0; }
+.mui-h6 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; margin: 0 0 0.5rem 0; }
+
+.mui-text-primary { color: var(--text-primary); }
+.mui-text-secondary { color: var(--text-secondary); }
+.mui-text-muted { color: var(--text-muted); }
+.mui-text-accent { color: var(--accent-primary); }
+
+/* Spacing utilities */
+.mui-mt-0 { margin-top: 0; }
+.mui-mt-1 { margin-top: 0.5rem; }
+.mui-mt-2 { margin-top: 1rem; }
+.mui-mt-3 { margin-top: 1.5rem; }
+.mui-mt-4 { margin-top: 2rem; }
+
+.mui-mb-0 { margin-bottom: 0; }
+.mui-mb-1 { margin-bottom: 0.5rem; }
+.mui-mb-2 { margin-bottom: 1rem; }
+.mui-mb-3 { margin-bottom: 1.5rem; }
+.mui-mb-4 { margin-bottom: 2rem; }
+
+.mui-p-0 { padding: 0; }
+.mui-p-1 { padding: 0.5rem; }
+.mui-p-2 { padding: 1rem; }
+.mui-p-3 { padding: 1.5rem; }
+.mui-p-4 { padding: 2rem; }
+
+/* Grid system */
+.mui-grid {
+  display: grid;
+  gap: var(--mui-spacing);
+}
+
+.mui-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.mui-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.mui-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .mui-grid-2,
+  .mui-grid-3,
+  .mui-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flexbox utilities */
+.mui-flex { display: flex; }
+.mui-flex-center { display: flex; align-items: center; justify-content: center; }
+.mui-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.mui-flex-col { flex-direction: column; }
+.mui-flex-wrap { flex-wrap: wrap; }
+.mui-flex-gap { gap: var(--mui-spacing); }
+
+/* Visibility utilities */
+.mui-hidden { display: none; }
+.mui-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Glass morphism utility */
+.mui-glass {
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+}
+
+/* Loading states */
+.mui-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: var(--text-secondary);
+}
+
+.mui-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-primary);
+  border-top: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: mui-spin 1s linear infinite;
+}
+
+@keyframes mui-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form elements */
+.mui-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.mui-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.mui-input::placeholder {
+  color: var(--text-muted);
+}
+
+.mui-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.mui-form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .mui-container {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mui-h1 { font-size: 2rem; }
+  .mui-h2 { font-size: 1.75rem; }
+  .mui-h3 { font-size: 1.5rem; }
+  
+  .mui-container {
+    padding: 0 0.5rem;
+  }
+}

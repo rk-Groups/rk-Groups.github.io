@@ -1,0 +1,134 @@
+/* Card Component Styles */
+
+.mui-card {
+  background: var(--card-bg);
+  border-radius: var(--mui-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-secondary);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.mui-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.mui-card-header {
+  padding: 1.5rem 1.5rem 0;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.mui-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.mui-card-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.mui-card-content {
+  padding: 1.5rem;
+}
+
+.mui-card-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-secondary);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.mui-card-actions .mui-btn {
+  margin: 0;
+}
+
+/* Card variants */
+.mui-card--outlined {
+  background: transparent;
+  border: 2px solid var(--border-primary);
+  box-shadow: none;
+}
+
+.mui-card--elevated {
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+.mui-card--interactive {
+  cursor: pointer;
+  user-select: none;
+}
+
+.mui-card--interactive:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.mui-card--interactive:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Media card */
+.mui-card-media {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: var(--bg-secondary);
+}
+
+.mui-card--media .mui-card-media {
+  margin: 0;
+}
+
+/* Compact card */
+.mui-card--compact .mui-card-content {
+  padding: 1rem;
+}
+
+.mui-card--compact .mui-card-header {
+  padding: 1rem 1rem 0;
+}
+
+.mui-card--compact .mui-card-actions {
+  padding: 0.75rem 1rem;
+}
+
+/* Grid layout for cards */
+.mui-card-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .mui-card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .mui-card-content {
+    padding: 1rem;
+  }
+  
+  .mui-card-header {
+    padding: 1rem 1rem 0;
+  }
+  
+  .mui-card-actions {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .mui-card-actions .mui-btn {
+    width: 100%;
+  }
+}
