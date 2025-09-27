@@ -103,7 +103,20 @@ compress_html:
   comments: ["<!-- ", " -->"]
   endings: all
   startings: [html, head, body]
+  blanklines: false
 
 # Asset optimization
 sass:
   style: compressed
+  sourcemap: never
+
+# Build optimization
+incremental: true
+profile: false
+strict_front_matter: true
+
+# Liquid optimization
+liquid:
+  error_mode: strict
+  strict_filters: true
+  strict_variables: true

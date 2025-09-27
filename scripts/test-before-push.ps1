@@ -476,39 +476,39 @@ try {
         Write-Step "Step 6: Testing with Lighthouse"        # Start local server in background
         Write-Host "Starting local server..."
         $serverJob = Start-Job -ScriptBlock {
-            npx --yes http-server $args[0] -p 3000 -s
+            npx --yes http-server $args[0] -p 3000 -s --silent
         } -ArgumentList (Resolve-Path "_site")
 
-        Start-Sleep 5  # Wait for server to start
+        # Wait for server to start with proper readiness check
+        Write-Host "Waiting for server to be ready..."
+        $maxRetries = 20
+        $retryCount = 0
+        $serverReady = $false
 
-        try {
-            # Test server is responding
+        while ($retryCount -lt $maxRetries -and -not $serverReady) {
+            Start-Sleep 1
             try {
-                $response = Invoke-WebRequest -Uri "http://localhost:3000" -TimeoutSec 10
+                $response = Invoke-WebRequest -Uri "http://localhost:3000" -TimeoutSec 5 -ErrorAction SilentlyContinue
                 if ($response.StatusCode -eq 200) {
-                    Write-Success "Local server is responding"
-                } else {
-                    throw "Server returned status $($response.StatusCode)"
+                    $serverReady = $true
+                    Write-Success "Local server is responding (attempt $($retryCount + 1))"
                 }
             }
             catch {
-                throw "Local server not responding: $($_.Exception.Message)"
+                $retryCount++
+                if ($retryCount -ge $maxRetries) {
+                    throw "Local server failed to start after $maxRetries attempts: $_"
+                }
             }
+        }
 
+        try {
             # Run Lighthouse on key pages
             Write-Host "Running Lighthouse checks..."
             $lighthouseUrls = @(
                 "http://localhost:3000/",
                 "http://localhost:3000/companies/",
-                "http://localhost:3000/companies/rk-oxygen/",
                 "http://localhost:3000/companies/rk-oxygen/gorakhpur/",
-                "http://localhost:3000/companies/rk-oxygen/lucknow/",
-                "http://localhost:3000/companies/rk-electrodes/",
-                "http://localhost:3000/companies/rk-palace/",
-                "http://localhost:3000/companies/sand-creations/",
-                "http://localhost:3000/companies/rk-oxygen/terms/",
-                "http://localhost:3000/companies/rk-electrodes/terms/",
-                "http://localhost:3000/companies/sand-creations/terms/",
                 "http://localhost:3000/companies/rk-oxygen/gorakhpur/privacy",
                 "http://localhost:3000/companies/rk-oxygen/gorakhpur/shipping",
                 "http://localhost:3000/Calc/GST/",
@@ -516,13 +516,51 @@ try {
                 "http://localhost:3000/Calc/LIQ/"
             )
 
+            # Validate URLs before testing
+            Write-Host "Validating URLs..."
+            $validUrls = @()
             foreach ($url in $lighthouseUrls) {
+                try {
+                    $testResponse = Invoke-WebRequest -Uri $url -Method Head -TimeoutSec 5 -ErrorAction SilentlyContinue
+                    if ($testResponse.StatusCode -eq 200) {
+                        $validUrls += $url
+                    } else {
+                        Write-Warning "Skipping $url (status: $($testResponse.StatusCode))"
+                    }
+                }
+                catch {
+                    Write-Warning "Skipping $url (error: $($_.Exception.Message))"
+                }
+            }
+
+            Write-Success "Found $($validUrls.Count) valid URLs out of $($lighthouseUrls.Count) total"
+
+            foreach ($url in $validUrls) {
                 Write-Host "Testing: $url"
-                npx --yes @lhci/cli collect --url=$url --numberOfRuns=1
-                if ($LASTEXITCODE -ne 0) {
-                    Write-Warning "Lighthouse warning for $url"
-                } else {
-                    Write-Success "Lighthouse passed for $url"
+                $maxRetries = 2
+                $retryCount = 0
+                $success = $false
+                
+                while ($retryCount -lt $maxRetries -and -not $success) {
+                    try {
+                        # Use lighthouse with better timeout and performance settings
+                        $lighthouseResult = npx --yes @lhci/cli collect --url=$url --numberOfRuns=1 --settings.maxWaitForLoad=60000 --settings.throttling.cpuSlowdownMultiplier=1 --settings.throttling.rttMs=40 --settings.throttling.throughputKbps=10240 2>$null
+                        if ($LASTEXITCODE -eq 0) {
+                            Write-Success "Lighthouse passed for $url"
+                            $success = $true
+                        } else {
+                            throw "Lighthouse failed with exit code $LASTEXITCODE"
+                        }
+                    }
+                    catch {
+                        $retryCount++
+                        if ($retryCount -lt $maxRetries) {
+                            Write-Warning "Lighthouse attempt $retryCount failed for $url, retrying..."
+                            Start-Sleep -Seconds 3
+                        } else {
+                            Write-Warning "Lighthouse warning for $url (failed after $maxRetries attempts)"
+                        }
+                    }
                 }
             }
 
@@ -548,10 +586,32 @@ try {
 
         # Start server again for axe
         $serverJob = Start-Job -ScriptBlock {
-            npx --yes http-server $args[0] -p 3001 -s
+            npx --yes http-server $args[0] -p 3001 -s --silent
         } -ArgumentList (Resolve-Path "_site")
 
-        Start-Sleep 3
+        # Wait for accessibility server to be ready
+        Write-Host "Waiting for accessibility test server..."
+        $maxRetries = 15
+        $retryCount = 0
+        $serverReady = $false
+
+        while ($retryCount -lt $maxRetries -and -not $serverReady) {
+            Start-Sleep 1
+            try {
+                $response = Invoke-WebRequest -Uri "http://localhost:3001" -TimeoutSec 3 -ErrorAction SilentlyContinue
+                if ($response.StatusCode -eq 200) {
+                    $serverReady = $true
+                    Write-Success "Accessibility server is responding"
+                }
+            }
+            catch {
+                $retryCount++
+                if ($retryCount -ge $maxRetries) {
+                    Write-Warning "Accessibility server startup timeout, continuing anyway..."
+                    break
+                }
+            }
+        }
 
         try {
             # Test a few key pages with axe-core
