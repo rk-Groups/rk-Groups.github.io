@@ -42,9 +42,9 @@ layout: default
       {% if details.gstin %}<div class="mui-info-item"><strong>GSTIN:</strong><span>{{ details.gstin }}</span></div>{% endif %}
       {% if details.constitution %}<div class="mui-info-item"><strong>Constitution:</strong><span>{{ details.constitution }}</span></div>{% endif %}
       {% if details.principal_place %}<div class="mui-info-item"><strong>Principal Place:</strong><span>{{ details.principal_place }}</span></div>{% endif %}
-      {% if details.branch_address %}<div class="mui-info-item"><strong>Branch Address:</strong><span>{{ details.branch_address }}</span></div>{% endif %}
-      {% if details.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ details.proprietor }}</span></div>{% endif %}
-      {% if details.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ details.partners | join: ', ' }}</span></div>{% endif %}
+      {% comment %}{% if details.branch_address %}<div class="mui-info-item"><strong>Branch Address:</strong><span>{{ details.branch_address }}</span></div>{% endif %}{% endcomment %}
+      {% comment %}{% if details.proprietor %}<div class="mui-info-item"><strong>Proprietor:</strong><span>{{ details.proprietor }}</span></div>{% endif %}{% endcomment %}
+      {% comment %}{% if details.partners %}<div class="mui-info-item"><strong>Partners:</strong><span>{{ details.partners | join: ', ' }}</span></div>{% endif %}{% endcomment %}
       {% if details.contact and details.contact.email %}<div class="mui-info-item"><strong>Contact Email:</strong><span><a href="mailto:{{ details.contact.email }}">{{ details.contact.email }}</a></span></div>{% endif %}
       {% if details.contact and details.contact.phone %}<div class="mui-info-item"><strong>Contact Phone:</strong><span><a href="tel:{{ details.contact.phone }}">{{ details.contact.phone }}</a></span></div>{% endif %}
     </div>

@@ -1,23 +1,2 @@
-<!-- Breadcrumb Navigation -->
-{% if page.breadcrumbs %}
-<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-  <div class="breadcrumb-container">
-    <ol class="breadcrumb-list">
-      {% for breadcrumb in page.breadcrumbs %}
-      <li class="breadcrumb-item{% if forloop.last %} active{% endif %}">
-        {% if forloop.last %}
-          <span class="breadcrumb-current">{{ breadcrumb.name }}</span>
-        {% else %}
-          <a href="{{ breadcrumb.url | relative_url }}" class="breadcrumb-link">{{ breadcrumb.name }}</a>
-        {% endif %}
-      </li>
-      {% unless forloop.last %}
-      <li class="breadcrumb-separator" aria-hidden="true">
-        <span class="material-icons">chevron_right</span>
-      </li>
-      {% endunless %}
-      {% endfor %}
-    </ol>
-  </div>
-</nav>
-{% endif %}
+<!-- Breadcrumb Navigation - Temporarily Disabled -->
+<!-- Navigation will be restored once breadcrumb data is properly configured -->

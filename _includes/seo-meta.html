@@ -1,55 +1,13 @@
-<!-- Open Graph Meta Tags -->
-<meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
-<meta property="og:title" content="{{ page.title | default: site.title }}">
-<meta property="og:description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-<meta property="og:url" content="{{ page.url | absolute_url }}">
-<meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="{{ site.url }}/favicon.ico">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ page.title | default: site.title }}">
-<meta name="twitter:description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-<meta name="twitter:image" content="{{ site.url }}/favicon.ico">
-
-<!-- Enhanced Open Graph Meta Tags -->
-<meta property="og:title" content="{{ page.title | default: site.title }}">
-<meta property="og:description" content="{{ page.description | default: site.description | strip_html | truncate: 160 }}">
-<meta property="og:image" content="{{ site.url }}/assets/images/og-image.png">
-<meta property="og:url" content="{{ page.url | absolute_url }}">
+<!-- SEO Meta Tags - Simplified for development -->
 <meta property="og:type" content="website">
+<meta property="og:title" content="{{ site.title }}">
+<meta property="og:description" content="{{ site.description }}">
+<meta property="og:url" content="{{ site.url }}">
 <meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:locale" content="en_US">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ page.title | default: site.title }}">
-<meta name="twitter:description" content="{{ page.description | default: site.description | strip_html | truncate: 160 }}">
-<meta name="twitter:image" content="{{ site.url }}/assets/images/twitter-card.png">
-<meta name="twitter:site" content="@rk_groups">
-
-<!-- Additional Meta Tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ site.title }}">
+<meta name="twitter:description" content="{{ site.description }}">
 <meta name="robots" content="index, follow">
 <meta name="author" content="RK Groups">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="{{ page.url | absolute_url }}">
-
-<!-- Business-specific meta -->
-{% if page.url contains '/companies/' %}
-<meta name="geo.region" content="IN-UP">
-<meta name="geo.placename" content="Uttar Pradesh, India">
-<meta name="ICBM" content="26.8467,80.9462">
-<meta property="business:contact_data:locality" content="Lucknow">
-<meta property="business:contact_data:region" content="Uttar Pradesh">
-<meta property="business:contact_data:country_name" content="India">
-{% endif %}
-
-<!-- Calculator-specific meta -->
-{% if page.url contains '/Calc/' %}
-<meta name="keywords" content="calculator, GST, EMI, compound interest, business tools, financial calculator">
-<meta property="og:type" content="article">
-<meta property="article:section" content="Business Tools">
-{% endif %}
+<link rel="canonical" href="{{ site.url }}">

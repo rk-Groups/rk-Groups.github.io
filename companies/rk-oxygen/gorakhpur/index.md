@@ -1,5 +1,5 @@
 ---
-layout: company-branch
+layout: company-branch-simple
 company: rk-oxygen
 branch: gorakhpur
 title: RK Oxygen - Gorakhpur Branch

@@ -1,15 +1,49 @@
+
+
 services:
-  jekyll:
-    image: jekyll/jekyll:4
+  # Development server using our custom builder image
+  jekyll-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
     ports:
       - "4000:4000"
       - "35729:35729"  # LiveReload port
     volumes:
       - .:/srv/jekyll
       - bundle_cache:/usr/local/bundle
+      - node_modules_cache:/srv/jekyll/node_modules
     environment:
       - JEKYLL_ENV=development
-    command: jekyll serve --host 0.0.0.0 --livereload --drafts --incremental
+    command: jekyll serve --host 0.0.0.0 --livereload --drafts --incremental --force_polling
+    profiles: ["dev"]
+
+  # Production build and serve using nginx
+  jekyll-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.jekyll
+    ports:
+      - "8080:80"
+    environment:
+      - JEKYLL_ENV=production
+    profiles: ["prod"]
+    restart: unless-stopped
+
+  # Testing environment with full CI/CD simulation
+  jekyll-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
+    volumes:
+      - .:/srv/jekyll
+      - bundle_cache:/usr/local/bundle
+      - node_modules_cache:/srv/jekyll/node_modules
+    environment:
+      - JEKYLL_ENV=test
+    command: jekyll build --drafts --future
+    profiles: ["test"]
 
 volumes:
   bundle_cache:
+  node_modules_cache:

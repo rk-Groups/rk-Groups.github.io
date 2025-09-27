@@ -41,13 +41,13 @@ if ($Stop) {
 
 if ($Logs) {
     Write-Host "📋 Showing container logs..." -ForegroundColor Yellow
-    docker-compose logs -f jekyll
+    docker-compose logs -f jekyll-dev
     exit 0
 }
 
 # Determine which service to use
-$service = if ($Official) { "jekyll-official" } else { "jekyll" }
-$dockerProfile = if ($Official) { "--profile official" } else { "" }
+$service = if ($Official) { "jekyll-official" } else { "jekyll-dev" }
+$dockerProfile = if ($Official) { "--profile official" } else { "--profile dev" }
 
 Write-Host "📦 Using Docker service: $service" -ForegroundColor Blue
 
@@ -57,7 +57,7 @@ if ($Build -or $Official) {
     if ($Official) {
         Invoke-Expression "docker-compose $dockerProfile pull jekyll-official"
     } else {
-        docker-compose build jekyll
+        docker-compose build jekyll-dev
     }
 }
 
@@ -78,7 +78,7 @@ try {
     if ($Official) {
         Invoke-Expression "docker-compose $dockerProfile up jekyll-official"
     } else {
-        docker-compose up jekyll
+        Invoke-Expression "docker-compose $dockerProfile up jekyll-dev"
     }
 } catch {
     Write-Host "❌ Failed to start development server. Check Docker logs above." -ForegroundColor Red

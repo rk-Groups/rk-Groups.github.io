@@ -1,19 +1,2 @@
-<!-- Breadcrumb Navigation Structured Data -->
-{% if page.breadcrumbs %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {% for breadcrumb in page.breadcrumbs %}
-    {
-      "@type": "ListItem",
-      "position": {{ forloop.index }},
-      "name": "{{ breadcrumb.name }}",
-      "item": "{{ site.url }}{{ breadcrumb.url }}"
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ]
-}
-</script>
-{% endif %}
+<!-- Breadcrumb Structured Data - Temporarily Disabled -->
+<!-- Will be restored once breadcrumb data is properly configured -->

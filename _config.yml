@@ -91,6 +91,11 @@ exclude:
   - Gemfile.lock
   - README.md
   - "*.gemspec"
+  - node_modules/
+  - scripts/
+  - dev/
+  - test-and-push.ps1
+  - LOCAL_TESTING_SETUP.md
 
 # Development settings
 host: 127.0.0.1

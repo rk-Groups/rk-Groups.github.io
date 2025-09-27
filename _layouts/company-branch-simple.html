@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+{% assign key = page.company %}
+{% assign branch = page.branch %}
+{% assign company = site.data.companies[key] %}
+{% assign details = company[branch] %}
+
+<div class="mui-hero mui-hero--bleed">
+  <div class="mui-container">
+    <h1 class="mui-hero-title">{{ details.name | default: branch | capitalize }} Branch</h1>
+    <p class="mui-hero-subtitle">{{ site.data.companies[key].main.name | default: key | replace: '-', ' ' | capitalize }}</p>
+  </div>
+</div>
+
+<div class="mui-container">
+  <main class="mui-main">
+    {{ content }}
+    
+    <div class="mui-card">
+      <h2>Branch Information</h2>
+      {% if details.gstin %}
+        <p><strong>GSTIN:</strong> {{ details.gstin }}</p>
+      {% endif %}
+      {% if details.constitution %}
+        <p><strong>Constitution:</strong> {{ details.constitution }}</p>
+      {% endif %}
+    </div>
+  </main>
+</div>

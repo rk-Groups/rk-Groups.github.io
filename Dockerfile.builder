@@ -3,11 +3,15 @@ FROM jekyll/builder:latest
 
 # Install additional Node.js for asset processing
 USER root
-RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+
+# Check if we're on Alpine or Debian and install accordingly
+RUN if command -v apk > /dev/null; then \
+        apk update && apk add --no-cache nodejs npm curl; \
+    elif command -v apt-get > /dev/null; then \
+        apt-get update && apt-get install -y nodejs npm curl && rm -rf /var/lib/apt/lists/*; \
+    else \
+        echo "Package manager not found" && exit 1; \
+    fi
 
 # Create app directory
 WORKDIR /srv/jekyll
@@ -34,9 +38,8 @@ ARG VERSION
 # Set environment variables
 ENV JEKYLL_ENV=${JEKYLL_ENV}
 
-# Build the site
-RUN npm run build && \
-    jekyll build --baseurl "" --trace
+# Skip build during container creation for development
+# The development server will build when it starts
 
 # Labels for container metadata
 LABEL org.opencontainers.image.created="${BUILD_DATE}" \
