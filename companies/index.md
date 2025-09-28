@@ -82,12 +82,34 @@ breadcrumbs:
         {% assign company = company_pair[1] %}
         {% assign company_name = company.main.name | default: company_key | replace: '-', ' ' | capitalize %}
         
-        <div class="mui-card">
-          <h3>{{ company_name }}</h3>
-          <p><strong>GSTIN:</strong> {{ company.main.gstin | default: 'N/A' }}</p>
-          {% if company.main.contact.email %}
-          <p><strong>Email:</strong> {{ company.main.contact.email }}</p>
-          {% endif %}
+        <div class="mui-card mui-card--clickable">
+          <a href="/companies/{{ company_key }}/" class="mui-company-link">
+            <div class="mui-company-header">
+              <h3>{{ company_name }}</h3>
+              <span class="material-icons mui-company-arrow">arrow_forward</span>
+            </div>
+            <div class="mui-company-details">
+              <p><strong>GSTIN:</strong> {{ company.main.gstin | default: 'N/A' }}</p>
+              {% if company.main.contact.email %}
+              <p><strong>Email:</strong> {{ company.main.contact.email }}</p>
+              {% endif %}
+              {% if company.main.contact.phone %}
+              <p><strong>Phone:</strong> {{ company.main.contact.phone }}</p>
+              {% endif %}
+              
+              <!-- Show branches if available -->
+              {% assign branch_count = 0 %}
+              {% for branch_pair in company %}
+                {% assign branch_key = branch_pair[0] %}
+                {% if branch_key != 'main' %}
+                  {% assign branch_count = branch_count | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+              {% if branch_count > 0 %}
+              <p class="mui-company-branches"><strong>Branches:</strong> {{ branch_count }}</p>
+              {% endif %}
+            </div>
+          </a>
         </div>
       {% endfor %}
     </div>
