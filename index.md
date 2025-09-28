@@ -1,7 +1,9 @@
 ---
 layout: default
 title: RK Groups Home
-description: "RK Groups - Your trusted partner for industrial gases, welding equipment, calculators, and business solutions across Uttar Pradesh, India."
+description:
+  "RK Groups - Your trusted partner for industrial gases, welding equipment,
+  calculators, and business solutions across Uttar Pradesh, India."
 ---
 
 <div class="mui-hero mui-hero--bleed">
@@ -22,6 +24,7 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
         Use Calculators
       </a>
     </div>
+
   </div>
 </div>
 
@@ -60,6 +63,39 @@ description: "RK Groups - Your trusted partner for industrial gases, welding equ
     </div>
   </div>
 </div>
+
+<!-- Quick Links Section -->
+<div class="mui-card mui-card--centered">
+  <div class="mui-container">
+    <h2 class="mui-section-title">Quick Links</h2>
+    <div class="mui-btn-group" style="justify-content:center; flex-wrap:wrap; gap:12px;">
+      <!-- Companies -->
+      <a href="/companies/rk-palace/" class="mui-btn mui-btn--outline" aria-label="Go to RK Palace">
+        <span class="material-icons">apartment</span>
+        RK Palace
+      </a>
+      <a href="/companies/sand-creations/" class="mui-btn mui-btn--outline" aria-label="Go to Sand Creations">
+        <span class="material-icons">brush</span>
+        Sand Creations
+      </a>
+
+      <!-- Calculators -->
+      <a href="/Calc/EMI/" class="mui-btn mui-btn--primary" aria-label="Open EMI Calculator">
+        <span class="material-icons">payments</span>
+        EMI Calculator
+      </a>
+      <a href="/Calc/GST/" class="mui-btn mui-btn--primary" aria-label="Open GST Calculator">
+        <span class="material-icons">request_quote</span>
+        GST Calculator
+      </a>
+      <a href="/Calc/LIQ/" class="mui-btn mui-btn--primary" aria-label="Open Liquid Conversion Calculator">
+        <span class="material-icons">science</span>
+        LIQ Converter
+      </a>
+    </div>
+
+  </div>
+  </div>
 
 <!-- Stats Section -->
 <div class="mui-card mui-card--centered">
