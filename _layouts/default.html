@@ -20,7 +20,6 @@
 
   <!-- Structured Data -->
   {% include structured-data.html %}
-  {% include breadcrumb-structured-data.html %}
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -139,15 +138,12 @@ loadCSS('/assets/css/mui.min.css');
   <!-- Skip to main content link for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  {% include navigation.html %}
-  {% include breadcrumb-nav.html %}
   <main id="main-content" role="main">
   <div class="mui-container">
     {{ content }}
   </div>
   </main>
 
-  {% include bottombar.html %}
   {% include analytics.html %}
 
   <!-- Performance Monitoring -->

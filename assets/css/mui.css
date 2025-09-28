@@ -4,89 +4,6 @@
 html, body { margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: hidden; }
 img, video, svg { max-width: 100%; height: auto; }
 
-/* Bottombar Report Issue Button */
-.mui-bottombar-report {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 50px;
-  padding: 8px 16px;
-  font-size: 0.9em;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  font-weight: 500;
-  margin-left: 8px;
-}
-.mui-bottombar-report:hover, .mui-bottombar-report:focus {
-  background: #fffde7;
-  color: #d32f2f;
-  box-shadow: 0 4px 16px rgba(251, 192, 45, 0.15);
-  transform: translateY(-1px);
-}
-/* MUI Bottombar */
-.mui-bottombar {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background: var(--panel-bg);
-  color: var(--text);
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.10);
-  border-top: 1px solid var(--panel-border);
-  z-index: 2002;
-  font-size: 1em;
-}
-.mui-bottombar-content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 16px;
-  text-align: center;
-}
-.mui-bottombar-links {
-  margin-left: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-}
-.mui-bottombar-links a {
-  color: var(--text);
-  margin: 0 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.mui-bottombar-links a:hover, .mui-bottombar-links a:focus {
-  color: var(--primary);
-  text-decoration: underline;
-}
-.mui-divider {
-  color: var(--divider);
-  margin: 0 2px;
-  user-select: none;
-}
-@media (max-width: 600px) {
-  .mui-bottombar-content {
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px 4px;
-  }
-  .mui-bottombar-links {
-    margin-left: 0;
-    gap: 0.2em;
-  }
-  .mui-bottombar-report {
-    margin-left: 0;
-    margin-top: 8px;
-    padding: 6px 12px;
-    font-size: 0.85em;
-  }
-}
-
 /* Sitemap styling */
 .mui-sitemap-list {
   list-style: none;
@@ -410,70 +327,6 @@ body.dark-mode .mui-menu-btn:focus {
   margin-right: 32px;
 }
 
-/* MUI Nav */
-.mui-nav {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 8px;
-}
-.mui-nav > li {
-  position: relative;
-}
-.mui-nav > li > a {
-  color: var(--text);
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-  display: flex;
-  align-items: center;
-}
-.mui-nav > li > a:hover, .mui-nav > li > a:focus {
-  background: #333a;
-  color: var(--primary);
-}
-
-/* MUI Dropdown */
-.mui-dropdown:hover > .mui-dropdown-menu, .mui-dropdown:focus-within > .mui-dropdown-menu {
-  display: block;
-}
-.mui-dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--panel-bg);
-  color: var(--text);
-  min-width: 180px;
-  max-width: 95vw;
-  overflow-x: auto;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-  border-radius: 8px;
-  margin-top: 4px;
-  padding: 8px 0;
-  z-index: 10;
-}
-.mui-dropdown-menu li {
-  list-style: none;
-}
-.mui-dropdown-menu a {
-  display: block;
-  padding: 8px 20px;
-  color: var(--text);
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.2s, color 0.2s;
-}
-.mui-dropdown-menu a:hover, .mui-dropdown-menu a:focus {
-  background: #333a;
-  color: var(--primary);
-}
-
-
 /* Theme Toggle */
 .theme-toggle {
   background: var(--panel-bg);
@@ -605,13 +458,6 @@ body.dark-mode .theme-toggle:hover, body.dark-mode .theme-toggle:focus {
   z-index: -1;
 }
 
-/* Glass header helper */
-.mui-glass {
-  background: var(--bg-glass) !important;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-primary) !important;
-}
 .mui-hero-content {
   max-width: 800px;
   margin: 0 auto;
@@ -741,13 +587,6 @@ body.dark-mode .mui-feature-card p { color: #cfcfcf; }
 }
 body.dark-mode .mui-info-item span { color: #cfcfcf; }
 
-/* Better hover for report issue button in dark mode */
-body.dark-mode .mui-bottombar-report:hover,
-body.dark-mode .mui-bottombar-report:focus {
-  background: #333a;
-  color: var(--warning);
-}
-
 /* ===== ACCESSIBILITY ENHANCEMENTS ===== */
 
 /* Focus Management */
@@ -856,11 +695,6 @@ input:invalid:focus, textarea:invalid:focus {
   width: 1px;
   height: 1px;
   overflow: hidden;
-}
-
-/* Keyboard Navigation for Dropdowns */
-.dropdown:focus-within .dropdown-menu {
-  display: block;
 }
 
 /* Touch Target Sizes */
@@ -1152,12 +986,6 @@ input:invalid:focus, textarea:invalid:focus {
   .mui-btn, .form-control, input[type="number"], select, button {
     min-height: 48px;
   }
-
-  .nav-link {
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-  }
 }
 
 /* EMI Calculator Enhanced Layout */
@@ -1187,87 +1015,6 @@ input:invalid:focus, textarea:invalid:focus {
 .result-item span {
   font-weight: 600;
   color: var(--accent-primary);
-}
-
-/* Breadcrumb Navigation */
-.breadcrumb-nav {
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border-primary);
-  padding: 0;
-  margin-bottom: 2rem;
-}
-
-.breadcrumb-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.breadcrumb-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem 0;
-  margin: 0;
-  list-style: none;
-}
-
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumb-link {
-  color: var(--accent-primary);
-  text-decoration: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-  font-weight: 500;
-}
-
-.breadcrumb-link:hover, .breadcrumb-link:focus {
-  background: var(--mui-surface-variant);
-  color: var(--accent-primary);
-}
-
-.breadcrumb-current {
-  color: var(--text-primary);
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-}
-
-.breadcrumb-separator {
-  color: var(--text-muted);
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumb-separator .material-icons {
-  font-size: 1.2rem;
-}
-
-/* Mobile breadcrumb styles */
-@media (max-width: 768px) {
-  .breadcrumb-container {
-    padding: 0 1rem;
-  }
-
-  .breadcrumb-list {
-    padding: 0.75rem 0;
-    gap: 0.25rem;
-  }
-
-  .breadcrumb-link, .breadcrumb-current {
-    padding: 0.25rem;
-    font-size: 0.9rem;
-  }
-
-  .breadcrumb-separator .material-icons {
-    font-size: 1rem;
-  }
 }
 
 /* Homepage button contrast fixes for accessibility */
@@ -2293,8 +2040,6 @@ body.dark-mode .mui-card:nth-child(5) > div > .mui-btn[href$="companies/"] {
 /* Print Styles for Calculators */
 @media print {
   /* Hide unnecessary elements when printing */
-  .mui-navigation,
-  .mui-bottombar,
   .feedback-button,
   .mui-btn--calculate,
   .mui-calculator__input,
