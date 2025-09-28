@@ -1,0 +1,129 @@
+{
+  "name": "rk-groups-github-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol configuration for RK Groups GitHub operations",
+  "mcpVersion": "2024-11-05",
+  "capabilities": {
+    "resources": {
+      "subscribe": true,
+      "listChanged": true
+    },
+    "tools": {
+      "listChanged": true
+    },
+    "prompts": {
+      "listChanged": true
+    }
+  },
+  "resources": [
+    {
+      "uri": "github://repo/status",
+      "name": "Repository Status",
+      "description": "Current status of the GitHub repository",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "github://repo/actions",
+      "name": "GitHub Actions",
+      "description": "GitHub Actions workflow status and results",
+      "mimeType": "application/json"
+    }
+  ],
+  "tools": [
+    {
+      "name": "build_site",
+      "description": "Build the Jekyll site using Docker",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "environment": {
+            "type": "string",
+            "enum": ["development", "production"],
+            "default": "production"
+          },
+          "clean_build": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    {
+      "name": "run_tests",
+      "description": "Run comprehensive testing suite including Lighthouse and accessibility",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "test_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["lighthouse", "accessibility", "links", "markup"]
+            },
+            "default": ["lighthouse", "accessibility"]
+          }
+        }
+      }
+    },
+    {
+      "name": "deploy_to_github",
+      "description": "Deploy changes to GitHub Pages",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commit_message": {
+            "type": "string",
+            "description": "Commit message for the deployment"
+          },
+          "force_push": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": ["commit_message"]
+      }
+    },
+    {
+      "name": "check_status",
+      "description": "Check overall project status including git, build artifacts, and CI",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "prompts": [
+    {
+      "name": "deployment_checklist",
+      "description": "Generate a pre-deployment checklist",
+      "arguments": [
+        {
+          "name": "deployment_type",
+          "description": "Type of deployment (hotfix, feature, major)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "commit_message_generator",
+      "description": "Generate conventional commit messages",
+      "arguments": [
+        {
+          "name": "change_type",
+          "description": "Type of change (feat, fix, docs, style, refactor, test, chore)",
+          "required": true
+        },
+        {
+          "name": "scope",
+          "description": "Scope of the change",
+          "required": false
+        },
+        {
+          "name": "description",
+          "description": "Brief description of the change",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

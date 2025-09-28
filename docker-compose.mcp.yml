@@ -1,0 +1,87 @@
+# Model Context Protocol (MCP) Configuration for GitHub Operations
+version: '3.8'
+
+services:
+  # MCP GitHub Integration Service
+  mcp-github:
+    image: node:18-alpine
+    container_name: rk-groups-mcp-github
+    working_dir: /app
+    volumes:
+      - .:/app:ro
+      - ./docker/mcp:/mcp-config
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-rk-Groups/rk-Groups.github.io}
+      - MCP_PROTOCOL_VERSION=2024-11-05
+    command: >
+      sh -c "
+        echo '🔧 Setting up MCP GitHub environment...' &&
+        npm install -g @modelcontextprotocol/cli @octokit/rest &&
+        echo '✅ MCP GitHub service ready' &&
+        tail -f /dev/null
+      "
+    networks:
+      - rk-mcp
+    profiles:
+      - mcp
+
+  # Jekyll build with MCP integration
+  jekyll-mcp-build:
+    image: jekyll/jekyll:4
+    container_name: rk-groups-jekyll-mcp
+    command: >
+      sh -c "
+        echo '🏗️ Building Jekyll site for MCP deployment...' &&
+        bundle install &&
+        jekyll build --trace &&
+        echo '✅ Site built successfully'
+      "
+    volumes:
+      - .:/srv/jekyll:Z
+      - ./vendor/bundle:/usr/local/bundle:Z
+    environment:
+      - JEKYLL_ENV=production
+      - BUNDLE_PATH=/usr/local/bundle
+    networks:
+      - rk-mcp
+    profiles:
+      - mcp
+
+  # Testing suite with MCP reporting
+  test-mcp:
+    image: zenika/alpine-chrome:with-node
+    container_name: rk-groups-test-mcp
+    working_dir: /app
+    volumes:
+      - .:/app:Z
+      - ./_site:/app/_site:ro
+    environment:
+      - NODE_ENV=test
+      - CHROME_BIN=/usr/bin/chromium-browser
+      - CHROME_PATH=/usr/bin/chromium-browser
+    command: >
+      sh -c "
+        echo '🧪 Running comprehensive test suite...' &&
+        npm install -g lighthouse @lhci/cli @axe-core/cli http-server &&
+        echo '🌐 Starting test server...' &&
+        npx http-server _site -p 3000 -s &
+        sleep 5 &&
+        echo '🚀 Running Lighthouse tests...' &&
+        npx lighthouse http://localhost:3000 --chrome-flags='--no-sandbox --headless --disable-gpu' --output=json --output-path=/app/lighthouse-results.json &&
+        echo '♿ Running accessibility tests...' &&
+        npx @axe-core/cli http://localhost:3000 --timeout=30000 --exit || true &&
+        echo '✅ All tests completed'
+      "
+    networks:
+      - rk-mcp
+    profiles:
+      - mcp
+
+networks:
+  rk-mcp:
+    driver: bridge
+
+volumes:
+  mcp-cache:
+  mcp-artifacts:
