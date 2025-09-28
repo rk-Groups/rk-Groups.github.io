@@ -9,6 +9,370 @@
   transition: all 0.2s ease;
 }
 
+/* Company Card Styles */
+.mui-company-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mui-company-card--small {
+  max-width: 280px;
+}
+
+.mui-company-card--medium {
+  max-width: 320px;
+}
+
+.mui-company-card--large {
+  max-width: 380px;
+}
+
+.mui-company-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.mui-company-card__header {
+  padding: 1.5rem 1.5rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.mui-company-card__image {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: var(--mui-radius);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mui-company-card__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--mui-radius);
+}
+
+.mui-company-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 2rem;
+}
+
+.mui-company-card__content {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.mui-company-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.mui-company-card__location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.mui-company-card__location .material-icons {
+  font-size: 1rem;
+  color: var(--accent-primary);
+}
+
+.mui-company-card__type {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.mui-company-card__gstin {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 1rem 0;
+}
+
+.mui-company-card__label {
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.mui-company-card__gstin code {
+  background: var(--bg-elevated);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+.mui-company-card__specialties {
+  margin: 1rem 0;
+}
+
+.mui-company-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mui-tag {
+  background: var(--accent-primary);
+  color: var(--text-primary-inverted);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mui-tag--small {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+}
+
+.mui-company-card__contact {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-secondary);
+}
+
+.mui-contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-radius: var(--mui-radius);
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.mui-contact-link:hover {
+  background: var(--bg-elevated);
+  color: var(--accent-primary);
+  transform: translateX(4px);
+}
+
+.mui-contact-link .material-icons {
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+}
+
+.mui-company-card__footer {
+  padding: 1rem 1.5rem;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-secondary);
+}
+
+.mui-company-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--accent-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.mui-company-card__cta .material-icons {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.mui-company-card__link:hover .mui-company-card__cta .material-icons {
+  transform: translateX(4px);
+}
+
+/* Service Card Styles */
+.mui-service-card {
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+
+.mui-service-card--grid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mui-service-card--list {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.mui-service-card--minimal {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.mui-service-card__icon {
+  margin: -1.5rem auto 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.mui-service-card--list .mui-service-card__icon {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.mui-service-card__icon-bg {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary, var(--accent-primary)));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.mui-service-card__icon-bg::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.mui-service-card:hover .mui-service-card__icon-bg::before {
+  opacity: 0.3;
+}
+
+.mui-service-card__icon-bg .material-icons {
+  font-size: 2rem;
+  color: var(--text-primary-inverted);
+}
+
+.mui-service-card__icon--outlined .mui-service-card__icon-bg {
+  background: var(--bg-elevated);
+  border: 2px solid var(--accent-primary);
+}
+
+.mui-service-card__icon--outlined .material-icons {
+  color: var(--accent-primary);
+}
+
+.mui-service-card__content {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.mui-service-card--list .mui-service-card__content {
+  padding: 0;
+}
+
+.mui-service-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.mui-service-card__description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.mui-service-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.mui-service-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.mui-service-card__feature .material-icons {
+  font-size: 1rem;
+  color: var(--success-color, var(--accent-primary));
+}
+
+.mui-service-card__price {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.mui-service-card__price-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-bottom: 0.25rem;
+}
+
+.mui-service-card__price-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.mui-service-card__footer {
+  padding: 1rem 1.5rem;
+  margin-top: auto;
+}
+
+.mui-service-card__cta {
+  width: 100%;
+  justify-content: center;
+}
+
+.mui-service-card__overlay-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Service Card Hover Effects */
+.mui-service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.mui-service-card:hover .mui-service-card__icon-bg {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
 .mui-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);

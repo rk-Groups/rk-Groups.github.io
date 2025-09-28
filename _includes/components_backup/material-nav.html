@@ -1,0 +1,197 @@
+<!--
+  Enhanced Material Navigation Component
+  
+  Usage:
+    {%- include components/material-nav.html 
+       navigation=site.data.navigation.main
+       current_page=page.url
+       style="fixed"
+       brand_text=site.title %}
+  
+  Parameters:
+    - navigation: Navigation data array from _data/navigation.yml
+    - current_page: Current page URL for active state highlighting
+    - style: Navigation style ('fixed', 'absolute', 'static') (default: 'fixed')
+    - brand_text: Brand text for logo area (optional)
+    - brand_image: Brand image URL (optional, overrides text)
+    - brand_link: Brand link URL (default: '/')
+    - show_glass_effect: Enable glass morphism effect (default: true)
+-->
+
+{% assign nav_style = include.style | default: 'fixed' %}
+{% assign brand_link = include.brand_link | default: '/' %}
+{% assign show_glass = include.show_glass_effect | default: true %}
+
+<nav class="mui-nav mui-nav--material mui-nav--{{ nav_style }} {% if show_glass %}mui-glass{% endif %}"
+     role="navigation" 
+     aria-label="Main navigation">
+  
+  <div class="mui-nav__container">
+    <!-- Brand/Logo Section -->
+    <div class="mui-nav__brand">
+      <a href="{{ brand_link }}" 
+         class="mui-nav__brand-link"
+         aria-label="Go to homepage">
+        {% if include.brand_image %}
+          <img src="{{ include.brand_image }}" 
+               alt="{{ include.brand_text | default: site.title }}"
+               class="mui-nav__brand-image"
+               height="32">
+        {% elsif include.brand_text %}
+          <span class="mui-nav__brand-text">{{ include.brand_text }}</span>
+        {% else %}
+          <span class="mui-nav__brand-text">{{ site.title }}</span>
+        {% endif %}
+      </a>
+    </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mui-nav__mobile-toggle" 
+            type="button"
+            data-toggle="nav-menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+            aria-label="Toggle navigation menu">
+      <span class="mui-nav__hamburger">
+        <span class="mui-nav__hamburger-line"></span>
+        <span class="mui-nav__hamburger-line"></span>
+        <span class="mui-nav__hamburger-line"></span>
+      </span>
+    </button>
+    
+    <!-- Navigation Menu -->
+    <div class="mui-nav__menu" id="main-navigation">
+      <ul class="mui-nav__list" role="menubar">
+        {% for item in include.navigation %}
+          <li class="mui-nav__item {% if item.dropdown %}mui-nav__item--dropdown{% endif %}" 
+              role="none">
+            
+            {% if item.dropdown %}
+              <!-- Dropdown Menu Item -->
+              <button class="mui-nav__link mui-nav__link--dropdown" 
+                      type="button"
+                      role="menuitem"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      data-toggle="dropdown">
+                {% if item.icon %}
+                  <i class="material-icons mui-nav__icon">{{ item.icon }}</i>
+                {% endif %}
+                <span>{{ item.title }}</span>
+                <i class="material-icons mui-nav__dropdown-arrow">keyboard_arrow_down</i>
+              </button>
+              
+              <ul class="mui-nav__dropdown" role="menu" aria-label="{{ item.title }} submenu">
+                {% for subitem in item.dropdown %}
+                  <li class="mui-nav__dropdown-item" role="none">
+                    <a href="{{ subitem.url }}" 
+                       class="mui-nav__dropdown-link {% if include.current_page == subitem.url %}mui-nav__dropdown-link--active{% endif %}"
+                       role="menuitem">
+                      {% if subitem.icon %}
+                        <i class="material-icons mui-nav__dropdown-icon">{{ subitem.icon }}</i>
+                      {% endif %}
+                      <div class="mui-nav__dropdown-content">
+                        <span class="mui-nav__dropdown-title">{{ subitem.title }}</span>
+                        {% if subitem.desc %}
+                          <small class="mui-nav__dropdown-desc">{{ subitem.desc }}</small>
+                        {% endif %}
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            
+            {% else %}
+              <!-- Regular Menu Item -->
+              <a href="{{ item.url }}" 
+                 class="mui-nav__link {% if include.current_page == item.url %}mui-nav__link--active{% endif %}"
+                 role="menuitem">
+                {% if item.icon %}
+                  <i class="material-icons mui-nav__icon">{{ item.icon }}</i>
+                {% endif %}
+                <span>{{ item.title }}</span>
+                <div class="mui-nav__link-indicator"></div>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Material Design Elevation Shadow -->
+  <div class="mui-nav__shadow"></div>
+</nav>
+
+<!-- Navigation JavaScript for Mobile Toggle and Dropdown -->
+<script>
+(function() {
+  // Mobile menu toggle
+  const mobileToggle = document.querySelector('[data-toggle="nav-menu"]');
+  const navMenu = document.querySelector('#main-navigation');
+  
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('mui-nav__menu--open');
+      document.body.classList.toggle('mui-nav-open');
+    });
+  }
+  
+  // Dropdown toggles
+  const dropdownToggles = document.querySelectorAll('[data-toggle="dropdown"]');
+  dropdownToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      // Close all other dropdowns
+      dropdownToggles.forEach(function(otherToggle) {
+        if (otherToggle !== toggle) {
+          otherToggle.setAttribute('aria-expanded', 'false');
+          otherToggle.parentNode.classList.remove('mui-nav__item--open');
+        }
+      });
+      
+      // Toggle current dropdown
+      this.setAttribute('aria-expanded', !isExpanded);
+      this.parentNode.classList.toggle('mui-nav__item--open');
+    });
+  });
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.mui-nav__item--dropdown')) {
+      dropdownToggles.forEach(function(toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.parentNode.classList.remove('mui-nav__item--open');
+      });
+    }
+  });
+  
+  // Handle scroll behavior for fixed navigation
+  if (document.querySelector('.mui-nav--fixed')) {
+    let lastScroll = 0;
+    const nav = document.querySelector('.mui-nav--fixed');
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        nav.classList.add('mui-nav--scrolled');
+      } else {
+        nav.classList.remove('mui-nav--scrolled');
+      }
+      
+      // Hide/show nav on scroll
+      if (currentScroll > lastScroll && currentScroll > 200) {
+        nav.classList.add('mui-nav--hidden');
+      } else {
+        nav.classList.remove('mui-nav--hidden');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  }
+})();
+</script>

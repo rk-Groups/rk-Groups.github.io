@@ -8,11 +8,9 @@ layout: default
 {% assign main = company.main %}
 {% assign details = company[branch] %}
 
-<div class="mui-hero mui-hero--bleed">
-  <div class="mui-container">
-    <h1 class="mui-hero-title">{{ details.name | default: branch | capitalize }} Branch</h1>
-    <p class="mui-hero-subtitle">{{ main.name | default: key | replace: '-', ' ' | capitalize }}</p>
-  </div>
+<div class="mui-hero">
+  <h1>{{ details.name }}</h1>
+  <p class="subtitle">{{ main.name }}</p>
 </div>
 
 <div class="mui-container">
@@ -38,15 +36,23 @@ layout: default
     {% if branch_count > 1 %}
       <div class="mui-card">
         <h2>Other Branches</h2>
-        {% for branch_item in company %}
-          {% unless branch_item[0] == 'main' or branch_item[0] == branch %}
-            {% assign other_branch_key = branch_item[0] %}
-            {% assign other_branch_info = branch_item[1] %}
-            <a href="/companies/{{ key }}/{{ other_branch_key }}/" class="mui-btn mui-btn--outline">
-              {{ other_branch_info.name | default: other_branch_key | capitalize }}
-            </a>
-          {% endunless %}
-        {% endfor %}
+        <div class="mui-company-grid">
+          {% for branch_item in company %}
+            {% unless branch_item[0] == 'main' or branch_item[0] == branch %}
+              {% assign other_branch_key = branch_item[0] %}
+              {% assign other_branch_info = branch_item[1] %}
+              <div class="mui-card compact">
+                <h4>{{ other_branch_info.name }}</h4>
+                {% if other_branch_info.gstin %}
+                <p><strong>GSTIN:</strong> {{ other_branch_info.gstin }}</p>
+                {% endif %}
+                {% if other_branch_info.contact and other_branch_info.contact.phone %}
+                <p><strong>Phone:</strong> {{ other_branch_info.contact.phone }}</p>
+                {% endif %}
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
   </main>

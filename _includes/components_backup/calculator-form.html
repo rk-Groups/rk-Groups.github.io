@@ -1,0 +1,379 @@
+<!--
+  Enhanced Calculator Form Component
+  
+  Usage:
+    {%- include components/calculator-form.html 
+       calculator_type="gst"
+       form_id="gst-calculator"
+       title="GST Calculator"
+       description="Calculate GST amounts quickly and accurately" %}
+  
+  Parameters:
+    - calculator_type: Type of calculator ('gst', 'emi', 'custom')
+    - form_id: Unique form ID for the calculator
+    - title: Calculator title
+    - description: Calculator description (optional)
+    - theme: Calculator theme ('material', 'minimal') (default: 'material')
+    - show_history: Show calculation history (default: false)
+-->
+
+{% assign calculator_type = include.calculator_type | default: 'custom' %}
+{% assign form_id = include.form_id | default: 'calculator-form' %}
+{% assign theme = include.theme | default: 'material' %}
+{% assign show_history = include.show_history | default: false %}
+
+<div class="mui-calculator mui-calculator--{{ theme }} mui-calculator--{{ calculator_type }}">
+  
+  <div class="mui-calculator__header">
+    {% if include.title %}
+      <h2 class="mui-calculator__title">{{ include.title }}</h2>
+    {% endif %}
+    
+    {% if include.description %}
+      <p class="mui-calculator__description">{{ include.description }}</p>
+    {% endif %}
+  </div>
+  
+  <div class="mui-calculator__container">
+    <form id="{{ form_id }}" class="mui-calculator__form" novalidate>
+      
+      <div class="mui-calculator__inputs">
+        {% if calculator_type == 'gst' %}
+          <!-- GST Calculator Inputs -->
+          <div class="mui-form-group">
+            <input type="number" 
+                   name="amount" 
+                   id="{{ form_id }}-amount" 
+                   class="mui-form-control mui-calculator__input" 
+                   step="0.01" 
+                   min="0"
+                   required>
+            <label for="{{ form_id }}-amount" class="mui-form-label">Amount (₹)</label>
+            <div class="mui-form-error"></div>
+          </div>
+          
+          <div class="mui-form-group">
+            <select name="gst_rate" 
+                    id="{{ form_id }}-gst-rate" 
+                    class="mui-form-control mui-calculator__select" 
+                    required>
+              <option value="">Select GST Rate</option>
+              <option value="5">5%</option>
+              <option value="12">12%</option>
+              <option value="18">18%</option>
+              <option value="28">28%</option>
+              <option value="custom">Custom Rate</option>
+            </select>
+            <label for="{{ form_id }}-gst-rate" class="mui-form-label">GST Rate</label>
+          </div>
+          
+          <div class="mui-form-group" id="{{ form_id }}-custom-rate" style="display: none;">
+            <input type="number" 
+                   name="custom_rate" 
+                   id="{{ form_id }}-custom-rate-input" 
+                   class="mui-form-control mui-calculator__input" 
+                   step="0.01" 
+                   min="0" 
+                   max="100">
+            <label for="{{ form_id }}-custom-rate-input" class="mui-form-label">Custom Rate (%)</label>
+          </div>
+          
+          <div class="mui-form-group">
+            <div class="mui-radio-group">
+              <div class="mui-radio-option">
+                <input type="radio" 
+                       name="calculation_type" 
+                       id="{{ form_id }}-exclusive" 
+                       value="exclusive" 
+                       class="mui-radio-input" 
+                       checked>
+                <label for="{{ form_id }}-exclusive" class="mui-radio-label">
+                  <span class="mui-radio-indicator"></span>
+                  <div class="mui-radio-content">
+                    <strong>Add GST</strong>
+                    <small>Calculate GST on base amount</small>
+                  </div>
+                </label>
+              </div>
+              <div class="mui-radio-option">
+                <input type="radio" 
+                       name="calculation_type" 
+                       id="{{ form_id }}-inclusive" 
+                       value="inclusive" 
+                       class="mui-radio-input">
+                <label for="{{ form_id }}-inclusive" class="mui-radio-label">
+                  <span class="mui-radio-indicator"></span>
+                  <div class="mui-radio-content">
+                    <strong>Remove GST</strong>
+                    <small>Extract GST from total amount</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        
+        {% elsif calculator_type == 'emi' %}
+          <!-- EMI Calculator Inputs -->
+          <div class="mui-form-group">
+            <input type="number" 
+                   name="loan_amount" 
+                   id="{{ form_id }}-loan-amount" 
+                   class="mui-form-control mui-calculator__input" 
+                   step="1000" 
+                   min="1000"
+                   required>
+            <label for="{{ form_id }}-loan-amount" class="mui-form-label">Loan Amount (₹)</label>
+            <div class="mui-form-helper">Enter the total loan amount</div>
+          </div>
+          
+          <div class="mui-form-group">
+            <input type="number" 
+                   name="interest_rate" 
+                   id="{{ form_id }}-interest-rate" 
+                   class="mui-form-control mui-calculator__input" 
+                   step="0.1" 
+                   min="0.1" 
+                   max="30"
+                   required>
+            <label for="{{ form_id }}-interest-rate" class="mui-form-label">Annual Interest Rate (%)</label>
+            <div class="mui-form-helper">Enter annual interest rate</div>
+          </div>
+          
+          <div class="mui-form-group">
+            <input type="number" 
+                   name="loan_tenure" 
+                   id="{{ form_id }}-loan-tenure" 
+                   class="mui-form-control mui-calculator__input" 
+                   min="1" 
+                   max="30"
+                   required>
+            <label for="{{ form_id }}-loan-tenure" class="mui-form-label">Loan Tenure (Years)</label>
+            <div class="mui-form-helper">Enter loan tenure in years</div>
+          </div>
+        
+        {% else %}
+          <!-- Custom Calculator - Content will be provided via additional includes -->
+          <div class="mui-calculator__custom-inputs">
+            {{ content }}
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="mui-calculator__actions">
+        <button type="submit" 
+                class="mui-btn mui-btn--primary mui-calculator__calculate">
+          <span class="mui-calculator__calculate-text">Calculate</span>
+          <span class="mui-calculator__calculate-loading">Calculating...</span>
+          <i class="material-icons">calculate</i>
+        </button>
+        
+        <button type="reset" 
+                class="mui-btn mui-btn--outline mui-calculator__reset">
+          Clear
+          <i class="material-icons">refresh</i>
+        </button>
+      </div>
+    </form>
+    
+    <!-- Results Section -->
+    <div class="mui-calculator__results" id="{{ form_id }}-results" style="display: none;">
+      <div class="mui-calculator__results-header">
+        <h3 class="mui-calculator__results-title">Calculation Results</h3>
+        <button type="button" 
+                class="mui-btn mui-btn--text mui-calculator__copy-results"
+                title="Copy results to clipboard">
+          <i class="material-icons">content_copy</i>
+        </button>
+      </div>
+      
+      <div class="mui-calculator__results-content" id="{{ form_id }}-results-content">
+        <!-- Results will be populated by JavaScript -->
+      </div>
+    </div>
+    
+    {% if show_history %}
+      <!-- Calculation History -->
+      <div class="mui-calculator__history" id="{{ form_id }}-history" style="display: none;">
+        <div class="mui-calculator__history-header">
+          <h3 class="mui-calculator__history-title">Recent Calculations</h3>
+          <button type="button" 
+                  class="mui-btn mui-btn--text mui-calculator__clear-history">
+            Clear History
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+        <div class="mui-calculator__history-content" id="{{ form_id }}-history-content">
+          <!-- History items will be populated by JavaScript -->
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Enhanced Calculator JavaScript -->
+<script>
+(function() {
+  const form = document.getElementById('{{ form_id }}');
+  const resultsContainer = document.getElementById('{{ form_id }}-results');
+  const resultsContent = document.getElementById('{{ form_id }}-results-content');
+  
+  if (!form) return;
+  
+  {% if calculator_type == 'gst' %}
+    // GST Calculator Logic
+    const gstRateSelect = document.getElementById('{{ form_id }}-gst-rate');
+    const customRateGroup = document.getElementById('{{ form_id }}-custom-rate');
+    
+    gstRateSelect.addEventListener('change', function() {
+      customRateGroup.style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const amount = parseFloat(document.getElementById('{{ form_id }}-amount').value);
+      const gstRateValue = gstRateSelect.value;
+      const customRate = document.getElementById('{{ form_id }}-custom-rate-input').value;
+      const calculationType = document.querySelector('input[name="calculation_type"]:checked').value;
+      
+      let gstRate = gstRateValue === 'custom' ? parseFloat(customRate) : parseFloat(gstRateValue);
+      
+      if (!amount || !gstRate) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      let results = {};
+      
+      if (calculationType === 'exclusive') {
+        // Add GST to base amount
+        results.baseAmount = amount;
+        results.gstAmount = (amount * gstRate) / 100;
+        results.totalAmount = amount + results.gstAmount;
+      } else {
+        // Remove GST from total amount
+        results.totalAmount = amount;
+        results.baseAmount = amount / (1 + gstRate / 100);
+        results.gstAmount = amount - results.baseAmount;
+      }
+      
+      displayGSTResults(results, gstRate, calculationType);
+    });
+    
+    function displayGSTResults(results, rate, type) {
+      const html = `
+        <div class="mui-result-card">
+          <div class="mui-result-item">
+            <label>Base Amount</label>
+            <value>₹${results.baseAmount.toFixed(2)}</value>
+          </div>
+          <div class="mui-result-item mui-result-item--highlight">
+            <label>GST Amount (${rate}%)</label>
+            <value>₹${results.gstAmount.toFixed(2)}</value>
+          </div>
+          <div class="mui-result-item mui-result-item--total">
+            <label>Total Amount</label>
+            <value>₹${results.totalAmount.toFixed(2)}</value>
+          </div>
+        </div>
+        <div class="mui-result-meta">
+          <small>Calculation: ${type === 'exclusive' ? 'GST Added' : 'GST Extracted'} at ${rate}% rate</small>
+        </div>
+      `;
+      
+      resultsContent.innerHTML = html;
+      resultsContainer.style.display = 'block';
+      resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  
+  {% elsif calculator_type == 'emi' %}
+    // EMI Calculator Logic
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const loanAmount = parseFloat(document.getElementById('{{ form_id }}-loan-amount').value);
+      const annualRate = parseFloat(document.getElementById('{{ form_id }}-interest-rate').value);
+      const tenureYears = parseFloat(document.getElementById('{{ form_id }}-loan-tenure').value);
+      
+      if (!loanAmount || !annualRate || !tenureYears) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      const monthlyRate = annualRate / 12 / 100;
+      const tenureMonths = tenureYears * 12;
+      
+      const emi = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) / 
+                  (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+      
+      const totalAmount = emi * tenureMonths;
+      const totalInterest = totalAmount - loanAmount;
+      
+      displayEMIResults({
+        emi: emi,
+        totalAmount: totalAmount,
+        totalInterest: totalInterest,
+        loanAmount: loanAmount,
+        tenureMonths: tenureMonths
+      });
+    });
+    
+    function displayEMIResults(results) {
+      const html = `
+        <div class="mui-result-card">
+          <div class="mui-result-item mui-result-item--highlight">
+            <label>Monthly EMI</label>
+            <value>₹${results.emi.toFixed(2)}</value>
+          </div>
+          <div class="mui-result-item">
+            <label>Total Amount Payable</label>
+            <value>₹${results.totalAmount.toFixed(2)}</value>
+          </div>
+          <div class="mui-result-item">
+            <label>Total Interest</label>
+            <value>₹${results.totalInterest.toFixed(2)}</value>
+          </div>
+        </div>
+        <div class="mui-result-breakdown">
+          <div class="mui-result-chart">
+            <div class="mui-chart-item" style="width: ${(results.loanAmount/results.totalAmount)*100}%">
+              <span>Principal: ₹${results.loanAmount.toFixed(0)}</span>
+            </div>
+            <div class="mui-chart-item" style="width: ${(results.totalInterest/results.totalAmount)*100}%">
+              <span>Interest: ₹${results.totalInterest.toFixed(0)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      resultsContent.innerHTML = html;
+      resultsContainer.style.display = 'block';
+      resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  {% endif %}
+  
+  // Reset functionality
+  form.addEventListener('reset', function() {
+    resultsContainer.style.display = 'none';
+    {% if calculator_type == 'gst' %}
+      document.getElementById('{{ form_id }}-custom-rate').style.display = 'none';
+    {% endif %}
+  });
+  
+  // Copy results functionality
+  const copyButton = document.querySelector('.mui-calculator__copy-results');
+  if (copyButton) {
+    copyButton.addEventListener('click', function() {
+      const resultsText = resultsContent.innerText;
+      navigator.clipboard.writeText(resultsText).then(function() {
+        const icon = copyButton.querySelector('.material-icons');
+        const originalText = icon.textContent;
+        icon.textContent = 'check';
+        setTimeout(function() {
+          icon.textContent = originalText;
+        }, 2000);
+      });
+    });
+  }
+})();
+</script>

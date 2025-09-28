@@ -1,0 +1,349 @@
+/* Hero Section Component Styles */
+
+.mui-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Hero Height Variants */
+.mui-hero--small {
+  min-height: 40vh;
+}
+
+.mui-hero--medium {
+  min-height: 60vh;
+}
+
+.mui-hero--large {
+  min-height: 80vh;
+}
+
+.mui-hero--fullscreen {
+  min-height: 100vh;
+}
+
+/* Hero Text Alignment */
+.mui-hero--left {
+  text-align: left;
+}
+
+.mui-hero--center {
+  text-align: center;
+}
+
+.mui-hero--right {
+  text-align: right;
+}
+
+/* Hero Video Background */
+.mui-hero__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.mui-hero__video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hero Overlay */
+.mui-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  z-index: 2;
+}
+
+/* Hero Container */
+.mui-hero__container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.mui-hero__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mui-hero--left .mui-hero__content {
+  margin-left: 0;
+}
+
+.mui-hero--right .mui-hero__content {
+  margin-right: 0;
+}
+
+/* Hero Typography */
+.mui-hero__subtitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.mui-hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroFadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.mui-hero__description {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 2.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.mui-hero__description p {
+  margin: 0;
+}
+
+/* Hero Actions */
+.mui-hero__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+.mui-hero--left .mui-hero__actions {
+  justify-content: flex-start;
+}
+
+.mui-hero--right .mui-hero__actions {
+  justify-content: flex-end;
+}
+
+.mui-hero__cta {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.mui-hero__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.mui-hero__cta .material-icons {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.mui-hero__cta:hover .material-icons {
+  transform: translateX(4px);
+}
+
+/* Hero Scroll Indicator */
+.mui-hero__scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  opacity: 0;
+  animation: heroFadeIn 1s ease-out 1.2s forwards;
+}
+
+.mui-hero__scroll-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  animation: heroScrollBounce 2s ease-in-out infinite;
+}
+
+.mui-hero__scroll-btn:hover {
+  background: var(--bg-elevated);
+  color: var(--accent-primary);
+  transform: translateX(-50%) scale(1.1);
+}
+
+.mui-hero__scroll-btn .material-icons {
+  font-size: 2rem;
+  display: block;
+}
+
+/* Hero Animations */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroScrollBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Hero Responsive Design */
+@media (max-width: 768px) {
+  .mui-hero__container {
+    padding: 1.5rem;
+  }
+  
+  .mui-hero__title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 1rem;
+  }
+  
+  .mui-hero__subtitle {
+    font-size: 1rem;
+  }
+  
+  .mui-hero__description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+  }
+  
+  .mui-hero__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mui-hero--left .mui-hero__actions {
+    align-items: flex-start;
+  }
+  
+  .mui-hero--right .mui-hero__actions {
+    align-items: flex-end;
+  }
+  
+  .mui-hero__cta {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .mui-hero--small {
+    min-height: 50vh;
+  }
+  
+  .mui-hero--medium {
+    min-height: 70vh;
+  }
+  
+  .mui-hero--large {
+    min-height: 85vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .mui-hero__container {
+    padding: 1rem;
+  }
+  
+  .mui-hero__scroll-indicator {
+    bottom: 1rem;
+  }
+}
+
+/* Hero Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mui-hero__subtitle,
+  .mui-hero__title,
+  .mui-hero__description,
+  .mui-hero__actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .mui-hero__scroll-btn {
+    animation: none;
+  }
+  
+  .mui-hero__cta,
+  .mui-hero__cta .material-icons {
+    transition: none;
+  }
+}
+
+/* Hero Print Styles */
+@media print {
+  .mui-hero {
+    background: none !important;
+    min-height: auto !important;
+    page-break-inside: avoid;
+  }
+  
+  .mui-hero__video,
+  .mui-hero__overlay,
+  .mui-hero__scroll-indicator {
+    display: none;
+  }
+  
+  .mui-hero__subtitle,
+  .mui-hero__title,
+  .mui-hero__description,
+  .mui-hero__actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    color: #000 !important;
+  }
+}

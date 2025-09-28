@@ -1,0 +1,82 @@
+<!--
+  Hero Section Component
+  
+  Usage:
+    {%- include components/hero-section.html 
+       title="Company Name"
+       subtitle="Your trusted partner"
+       background_image="/assets/img/hero-bg.jpg"
+       cta_text="Get Started"
+       cta_link="/contact/"
+       overlay_opacity="0.6" %}
+  
+  Parameters:
+    - title: Main hero title (required)
+    - subtitle: Hero subtitle/tagline (optional)
+    - description: Additional description text (optional)
+    - background_image: Hero background image URL (optional)
+    - background_video: Hero background video URL (optional, overrides image)
+    - cta_text: Call-to-action button text (optional)
+    - cta_link: Call-to-action button URL (optional)
+    - cta_style: CTA button style ('primary', 'outline') (default: 'primary')
+    - overlay_opacity: Background overlay opacity 0-1 (default: '0.5')
+    - height: Hero height ('small', 'medium', 'large', 'fullscreen') (default: 'large')
+    - text_align: Text alignment ('left', 'center', 'right') (default: 'center')
+-->
+
+{% assign overlay_opacity = include.overlay_opacity | default: '0.5' %}
+{% assign height = include.height | default: 'large' %}
+{% assign text_align = include.text_align | default: 'center' %}
+{% assign cta_style = include.cta_style | default: 'primary' %}
+
+<section class="mui-hero mui-hero--{{ height }} mui-hero--{{ text_align }}"
+         {% if include.background_image %}
+         style="background-image: url('{{ include.background_image }}');"
+         {% endif %}>
+  
+  {% if include.background_video %}
+    <div class="mui-hero__video">
+      <video autoplay muted loop playsinline class="mui-hero__video-element">
+        <source src="{{ include.background_video }}" type="video/mp4">
+      </video>
+    </div>
+  {% endif %}
+  
+  <div class="mui-hero__overlay" style="opacity: {{ overlay_opacity }};"></div>
+  
+  <div class="mui-hero__container">
+    <div class="mui-hero__content">
+      {% if include.subtitle %}
+        <p class="mui-hero__subtitle">{{ include.subtitle }}</p>
+      {% endif %}
+      
+      <h1 class="mui-hero__title">{{ include.title }}</h1>
+      
+      {% if include.description %}
+        <div class="mui-hero__description">
+          <p>{{ include.description }}</p>
+        </div>
+      {% endif %}
+      
+      {% if include.cta_text and include.cta_link %}
+        <div class="mui-hero__actions">
+          <a href="{{ include.cta_link }}" 
+             class="mui-btn mui-btn--{{ cta_style }} mui-btn--xl mui-hero__cta">
+            {{ include.cta_text }}
+            <i class="material-icons">arrow_forward</i>
+          </a>
+        </div>
+      {% endif %}
+      
+      {% if include.scroll_indicator != false %}
+        <div class="mui-hero__scroll-indicator">
+          <button class="mui-hero__scroll-btn" 
+                  onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})"
+                  aria-label="Scroll to content">
+            <i class="material-icons">keyboard_arrow_down</i>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

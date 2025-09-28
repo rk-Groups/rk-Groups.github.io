@@ -1,0 +1,72 @@
+<!--
+  Service Card Component
+  
+  Usage:
+    {%- include components/service-card.html 
+       service=service_data 
+       layout="grid"
+       show_cta=true %}
+  
+  Parameters:
+    - service: Service data object with title, description, icon, link
+    - layout: Layout variant ('grid', 'list', 'minimal') (default: 'grid')
+    - show_cta: Boolean to show/hide call-to-action button (default: false)
+    - icon_style: Icon style ('filled', 'outlined', 'round') (default: 'filled')
+-->
+
+{% assign layout = include.layout | default: 'grid' %}
+{% assign show_cta = include.show_cta | default: false %}
+{% assign icon_style = include.icon_style | default: 'filled' %}
+
+<div class="mui-card mui-service-card mui-service-card--{{ layout }}">
+  <div class="mui-service-card__icon mui-service-card__icon--{{ icon_style }}">
+    <div class="mui-service-card__icon-bg">
+      <i class="material-icons">{{ include.service.icon | default: 'business_center' }}</i>
+    </div>
+  </div>
+  
+  <div class="mui-service-card__content">
+    <h4 class="mui-service-card__title">{{ include.service.title }}</h4>
+    
+    {% if include.service.description %}
+      <p class="mui-service-card__description">{{ include.service.description }}</p>
+    {% endif %}
+    
+    {% if include.service.features %}
+      <ul class="mui-service-card__features">
+        {% for feature in include.service.features %}
+          <li class="mui-service-card__feature">
+            <i class="material-icons">check_circle</i>
+            <span>{{ feature }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+    {% if include.service.price %}
+      <div class="mui-service-card__price">
+        <span class="mui-service-card__price-label">Starting at</span>
+        <span class="mui-service-card__price-amount">{{ include.service.price }}</span>
+      </div>
+    {% endif %}
+  </div>
+  
+  {% if show_cta and include.service.link %}
+    <div class="mui-service-card__footer">
+      <a href="{{ include.service.link }}" 
+         class="mui-btn mui-btn--outline mui-service-card__cta"
+         title="Learn more about {{ include.service.title }}">
+        {% if layout == 'minimal' %}
+          Learn More
+        {% else %}
+          Learn More
+          <i class="material-icons">arrow_forward</i>
+        {% endif %}
+      </a>
+    </div>
+  {% elsif include.service.link %}
+    <a href="{{ include.service.link }}" 
+       class="mui-service-card__overlay-link"
+       aria-label="Learn more about {{ include.service.title }}"></a>
+  {% endif %}
+</div>

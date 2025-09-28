@@ -1,0 +1,162 @@
+<!--
+  Contact Form Component
+  
+  Usage:
+    {%- include components/contact-form.html 
+       action="https://formspree.io/your-email"
+       company=company_data
+       show_company_info=true
+       form_id="contact-form" %}
+  
+  Parameters:
+    - action: Form submission URL (Formspree or custom endpoint)
+    - company: Company data for pre-filling or display (optional)
+    - show_company_info: Show company contact info alongside form (default: false)
+    - form_id: Unique form ID for multiple forms on same page (default: 'contact-form')
+    - success_message: Custom success message (optional)
+    - layout: Form layout ('stacked', 'horizontal') (default: 'stacked')
+-->
+
+{% assign form_id = include.form_id | default: 'contact-form' %}
+{% assign layout = include.layout | default: 'stacked' %}
+{% assign show_company_info = include.show_company_info | default: false %}
+
+<div class="mui-contact-section mui-contact-section--{{ layout }}">
+  {% if show_company_info and include.company %}
+    <div class="mui-contact-info">
+      <h3 class="mui-contact-info__title">Get in Touch</h3>
+      
+      {% if include.company.contact.address %}
+        <div class="mui-contact-info__item">
+          <i class="material-icons">place</i>
+          <div class="mui-contact-info__content">
+            <h4>Address</h4>
+            <p>{{ include.company.contact.address }}</p>
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if include.company.contact.phone %}
+        <div class="mui-contact-info__item">
+          <i class="material-icons">phone</i>
+          <div class="mui-contact-info__content">
+            <h4>Phone</h4>
+            <a href="tel:{{ include.company.contact.phone }}">{{ include.company.contact.phone }}</a>
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if include.company.contact.email %}
+        <div class="mui-contact-info__item">
+          <i class="material-icons">email</i>
+          <div class="mui-contact-info__content">
+            <h4>Email</h4>
+            <a href="mailto:{{ include.company.contact.email }}">{{ include.company.contact.email }}</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  <div class="mui-contact-form-wrapper">
+    <form id="{{ form_id }}" 
+          class="mui-form mui-contact-form" 
+          method="POST" 
+          action="{{ include.action | default: 'https://formspree.io/' | append: site.email }}"
+          novalidate>
+      
+      <div class="mui-contact-form__header">
+        <h3 class="mui-contact-form__title">Send us a message</h3>
+        <p class="mui-contact-form__description">We'll get back to you as soon as possible.</p>
+      </div>
+      
+      <div class="mui-form-row">
+        <div class="mui-form-group mui-form-group--half">
+          <input type="text" 
+                 name="name" 
+                 id="{{ form_id }}-name" 
+                 class="mui-form-control" 
+                 required 
+                 autocomplete="name">
+          <label for="{{ form_id }}-name" class="mui-form-label">Full Name *</label>
+          <div class="mui-form-error" data-error="name"></div>
+        </div>
+        
+        <div class="mui-form-group mui-form-group--half">
+          <input type="email" 
+                 name="email" 
+                 id="{{ form_id }}-email" 
+                 class="mui-form-control" 
+                 required 
+                 autocomplete="email">
+          <label for="{{ form_id }}-email" class="mui-form-label">Email Address *</label>
+          <div class="mui-form-error" data-error="email"></div>
+        </div>
+      </div>
+      
+      <div class="mui-form-row">
+        <div class="mui-form-group mui-form-group--half">
+          <input type="tel" 
+                 name="phone" 
+                 id="{{ form_id }}-phone" 
+                 class="mui-form-control" 
+                 autocomplete="tel">
+          <label for="{{ form_id }}-phone" class="mui-form-label">Phone Number</label>
+          <div class="mui-form-error" data-error="phone"></div>
+        </div>
+        
+        <div class="mui-form-group mui-form-group--half">
+          <select name="subject" 
+                  id="{{ form_id }}-subject" 
+                  class="mui-form-control">
+            <option value="">Select a topic</option>
+            <option value="general">General Inquiry</option>
+            <option value="quote">Request Quote</option>
+            <option value="support">Technical Support</option>
+            <option value="partnership">Business Partnership</option>
+          </select>
+          <label for="{{ form_id }}-subject" class="mui-form-label">Subject</label>
+        </div>
+      </div>
+      
+      <div class="mui-form-group">
+        <textarea name="message" 
+                  id="{{ form_id }}-message" 
+                  class="mui-form-control" 
+                  rows="5" 
+                  required></textarea>
+        <label for="{{ form_id }}-message" class="mui-form-label">Message *</label>
+        <div class="mui-form-error" data-error="message"></div>
+      </div>
+      
+      <!-- Honeypot field for spam protection -->
+      <input type="text" 
+             name="_gotcha" 
+             class="mui-form-honeypot" 
+             tabindex="-1" 
+             autocomplete="off">
+      
+      <div class="mui-contact-form__footer">
+        <button type="submit" 
+                class="mui-btn mui-btn--primary mui-contact-form__submit">
+          <span class="mui-contact-form__submit-text">Send Message</span>
+          <span class="mui-contact-form__submit-loading">Sending...</span>
+          <i class="material-icons">send</i>
+        </button>
+        
+        <div class="mui-contact-form__status">
+          <div class="mui-contact-form__success">
+            {% if include.success_message %}
+              {{ include.success_message }}
+            {% else %}
+              Thank you! Your message has been sent successfully. We'll get back to you soon.
+            {% endif %}
+          </div>
+          <div class="mui-contact-form__error">
+            Sorry, there was an error sending your message. Please try again or contact us directly.
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

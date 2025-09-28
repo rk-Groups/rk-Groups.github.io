@@ -6,13 +6,9 @@ layout: default
 {% assign company = site.data.companies[key] %}
 {% assign main = company.main %}
 
-<div class="mui-hero mui-hero--bleed">
-  <div class="mui-container">
-    <h1 class="mui-hero-title">
-      {% if main.name %}{{ main.name }}{% else %}{{ key | replace: '-', ' ' | capitalize }}{% endif %}
-    </h1>
-    <p class="mui-hero-subtitle">Company Information</p>
-  </div>
+<div class="mui-hero">
+  <h1>{{ main.name }}</h1>
+  <p>Company Information</p>
 </div>
 
 <div class="mui-container">
@@ -21,29 +17,30 @@ layout: default
     
     <div class="mui-card">
       <h2>Company Information</h2>
-      <div class="mui-info-grid">
-        <div><strong>GSTIN:</strong> {{ main.gstin | default: 'Not provided' }}</div>
-        <div><strong>Constitution:</strong> {{ main.constitution | default: 'Not provided' }}</div>
-        {% if main.contact and main.contact.phone %}
-        <div><strong>Phone:</strong> <a href="tel:{{ main.contact.phone }}">{{ main.contact.phone }}</a></div>
-        {% endif %}
-        {% if main.contact and main.contact.email %}
-        <div><strong>Email:</strong> <a href="mailto:{{ main.contact.email }}">{{ main.contact.email }}</a></div>
-        {% endif %}
-      </div>
+      <div><strong>GSTIN:</strong> {{ main.gstin | default: 'Not provided' }}</div>
+      <div><strong>Constitution:</strong> {{ main.constitution | default: 'Not provided' }}</div>
+      {% if main.contact.email %}
+      <div><strong>Email:</strong> {{ main.contact.email }}</div>
+      {% endif %}
+      {% if main.contact.phone %}
+      <div><strong>Phone:</strong> {{ main.contact.phone }}</div>
+      {% endif %}
     </div>
     
     {% assign branch_count = company | size | minus: 1 %}
     {% if branch_count > 0 %}
       <div class="mui-card">
         <h2>Branches ({{ branch_count }})</h2>
-        <div class="mui-branch-grid">
+        <div class="mui-company-grid">
           {% for branch_item in company %}
             {% unless branch_item[0] == 'main' %}
               {% assign branch_key = branch_item[0] %}
               {% assign branch_info = branch_item[1] %}
-              <div class="mui-branch-card">
-                <h3><a href="/companies/{{ key }}/{{ branch_key }}/">{{ branch_info.name | default: branch_key | capitalize }}</a></h3>
+              <div class="mui-card">
+                <h4>{{ branch_info.name }}</h4>
+                {% if branch_info.gstin %}
+                <p><strong>GSTIN:</strong> {{ branch_info.gstin }}</p>
+                {% endif %}
               </div>
             {% endunless %}
           {% endfor %}

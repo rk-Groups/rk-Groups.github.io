@@ -1,0 +1,104 @@
+<!--
+  Company Card Component
+  
+  Usage:
+    {%- include components/company-card.html 
+       company=branch_data 
+       link="/companies/company-key/branch-key/"
+       show_contact=true %}
+  
+  Parameters:
+    - company: Company or branch data object
+    - link: Optional URL to link the entire card
+    - show_contact: Boolean to show/hide contact info (default: true)
+    - size: Card size variant ('small', 'medium', 'large') (default: 'medium')
+-->
+
+{% assign card_size = include.size | default: 'medium' %}
+{% assign show_contact = include.show_contact | default: true %}
+
+<div class="mui-card mui-company-card mui-company-card--{{ card_size }}">
+  {% if include.link %}
+    <a href="{{ include.link }}" class="mui-company-card__link" aria-label="View {{ include.company.name }} details">
+  {% endif %}
+  
+  <div class="mui-company-card__header">
+    <div class="mui-company-card__image">
+      {% if include.company.image %}
+        <img src="{{ include.company.image }}" 
+             alt="{{ include.company.name }} logo"
+             class="mui-company-card__logo"
+             loading="lazy">
+      {% else %}
+        <div class="mui-company-card__placeholder">
+          <i class="material-icons">business</i>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="mui-company-card__content">
+    <h4 class="mui-company-card__title">{{ include.company.name }}</h4>
+    
+    {% if include.company.location %}
+      <p class="mui-company-card__location">
+        <i class="material-icons">place</i>
+        {{ include.company.location }}
+      </p>
+    {% endif %}
+    
+    {% if include.company.constitution %}
+      <p class="mui-company-card__type">{{ include.company.constitution }}</p>
+    {% endif %}
+    
+    {% if include.company.gstin %}
+      <p class="mui-company-card__gstin">
+        <span class="mui-company-card__label">GSTIN:</span>
+        <code>{{ include.company.gstin }}</code>
+      </p>
+    {% endif %}
+    
+    {% if include.company.specialties %}
+      <div class="mui-company-card__specialties">
+        <span class="mui-company-card__label">Specialties:</span>
+        <div class="mui-company-card__tags">
+          {% for specialty in include.company.specialties %}
+            <span class="mui-tag mui-tag--small">{{ specialty }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if show_contact and include.company.contact %}
+      <div class="mui-company-card__contact">
+        {% if include.company.contact.phone %}
+          <a href="tel:{{ include.company.contact.phone }}" 
+             class="mui-contact-link mui-contact-link--phone"
+             title="Call {{ include.company.name }}">
+            <i class="material-icons">phone</i>
+            <span>{{ include.company.contact.phone }}</span>
+          </a>
+        {% endif %}
+        
+        {% if include.company.contact.email %}
+          <a href="mailto:{{ include.company.contact.email }}" 
+             class="mui-contact-link mui-contact-link--email"
+             title="Email {{ include.company.name }}">
+            <i class="material-icons">email</i>
+            <span>{{ include.company.contact.email }}</span>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+  
+  {% if include.link %}
+    <div class="mui-company-card__footer">
+      <span class="mui-company-card__cta">
+        View Details
+        <i class="material-icons">arrow_forward</i>
+      </span>
+    </div>
+    </a>
+  {% endif %}
+</div>
