@@ -2132,3 +2132,321 @@ body.dark-mode .mui-card:nth-child(5) > div > .mui-btn[href$="companies/"] {
     width: 100%;
   }
 }
+
+/* Social Media Sharing Component */
+.mui-social-sharing {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--mui-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.mui-social-sharing__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mui-social-sharing__title .material-icons {
+  font-size: 1.2rem;
+  color: var(--accent-primary);
+}
+
+.mui-social-sharing__buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.mui-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: var(--mui-radius);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.mui-social-btn:hover,
+.mui-social-btn:focus {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.mui-social-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.mui-social-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Platform-specific colors */
+.mui-social-btn--twitter {
+  background: #1DA1F2;
+  color: white;
+  border-color: #1DA1F2;
+}
+
+.mui-social-btn--twitter:hover {
+  background: #1a91da;
+  border-color: #1a91da;
+}
+
+.mui-social-btn--linkedin {
+  background: #0077B5;
+  color: white;
+  border-color: #0077B5;
+}
+
+.mui-social-btn--linkedin:hover {
+  background: #006ca5;
+  border-color: #006ca5;
+}
+
+.mui-social-btn--whatsapp {
+  background: #25D366;
+  color: white;
+  border-color: #25D366;
+}
+
+.mui-social-btn--whatsapp:hover {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.mui-social-btn--email {
+  background: var(--accent-secondary, #6366f1);
+  color: white;
+  border-color: var(--accent-secondary, #6366f1);
+}
+
+.mui-social-btn--email:hover {
+  background: var(--accent-secondary-hover, #5855eb);
+  border-color: var(--accent-secondary-hover, #5855eb);
+}
+
+.mui-social-btn--copy {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+.mui-social-btn--copy:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* Mobile responsiveness for social sharing */
+@media (max-width: 480px) {
+  .mui-social-sharing__buttons {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  
+  .mui-social-btn {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .mui-social-btn span {
+    display: none;
+  }
+  
+  .mui-social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .mui-social-sharing__buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .mui-social-btn span {
+    display: inline;
+  }
+}
+
+/* Print Styles for Calculators */
+@media print {
+  /* Hide unnecessary elements when printing */
+  .mui-navigation,
+  .mui-bottombar,
+  .feedback-button,
+  .mui-btn--calculate,
+  .mui-calculator__input,
+  .mui-calculator__loading,
+  .mui-social-sharing,
+  input[type="range"] {
+    display: none !important;
+  }
+  
+  /* Ensure good contrast for print */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .mui-calculator,
+  .mui-card,
+  .mui-results {
+    background: white !important;
+    color: black !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+  
+  /* Optimize calculator layout for print */
+  .mui-calculator {
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  
+  .mui-calculator__section {
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+  }
+  
+  .mui-calculator__results {
+    page-break-before: auto;
+    page-break-inside: avoid;
+    border: 2px solid #333 !important;
+    background: #f9f9f9 !important;
+  }
+  
+  /* Show input values instead of input fields */
+  .mui-calculator__input-wrapper::after {
+    content: attr(data-value);
+    display: block;
+    padding: 0.5rem;
+    border-bottom: 1px dotted #666;
+    font-weight: 500;
+  }
+  
+  /* Print-friendly result display */
+  .mui-results__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted #ccc;
+  }
+  
+  .mui-results__label {
+    font-weight: 600;
+    color: black !important;
+  }
+  
+  .mui-results__value {
+    font-weight: 700;
+    color: black !important;
+  }
+  
+  /* GST Calculator specific styles */
+  .gst-rate-section {
+    border: 1px solid #666;
+    margin: 1rem 0;
+    padding: 1rem;
+    page-break-inside: avoid;
+  }
+  
+  .gst-rate-section h4 {
+    background: #f0f0f0 !important;
+    color: black !important;
+    padding: 0.5rem;
+    margin: -1rem -1rem 1rem -1rem;
+  }
+  
+  /* EMI Calculator specific styles */
+  .emi-breakdown {
+    border: 1px solid #666;
+    padding: 1rem;
+    margin: 1rem 0;
+    page-break-inside: avoid;
+  }
+  
+  .emi-breakdown h3 {
+    background: #f0f0f0 !important;
+    color: black !important;
+    padding: 0.5rem;
+    margin: -1rem -1rem 1rem -1rem;
+  }
+  
+  /* Print page header */
+  @page {
+    margin: 1in;
+    @top-center {
+      content: "RK Groups Calculator Results";
+      font-size: 12pt;
+      font-weight: bold;
+    }
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 10pt;
+    }
+    @bottom-left {
+      content: "Generated: " attr(data-print-date);
+      font-size: 10pt;
+    }
+  }
+  
+  /* Ensure proper page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* Optimize font sizes for print */
+  body {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+  
+  .mui-hero-title {
+    font-size: 18pt !important;
+  }
+  
+  .mui-calculator__label {
+    font-size: 11pt !important;
+  }
+  
+  /* Print-specific utility classes */
+  .print-only {
+    display: block !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Show URLs for external links */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+}

@@ -62,18 +62,13 @@ function calculateEMI() {
   // Show loading state
   showEMILoading();
 
-  // Small delay to show loading state for better UX
-  setTimeout(() => {
-    var P = parseFloat(document.getElementById('principal').value) || 0;
-    var annualRate = parseFloat(document.getElementById('rate').value) || 0;
-    var n = parseInt(document.getElementById('months').value) || 0;
-    var r = annualRate / 12 / 100;
-    var emi = 0, total = 0, interest = 0;
-    if (P > 0 && r > 0 && n > 0) {
-      emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
-      total = emi * n;
-      interest = total - P;
-    }
+// Small delay to show loading state for better UX setTimeout(() => { var P =
+parseFloat(document.getElementById('principal').value) || 0; var annualRate =
+parseFloat(document.getElementById('rate').value) || 0; var n =
+parseInt(document.getElementById('months').value) || 0; var r = annualRate / 12
+/ 100; var emi = 0, total = 0, interest = 0; if (P > 0 && r > 0 && n > 0) { emi
+= P _ r _ Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1); total = emi \* n;
+interest = total - P; }
 
     document.getElementById('emi').textContent = emi > 0 ? emi.toLocaleString('en-IN', {maximumFractionDigits:2}) : '—';
     document.getElementById('interest').textContent = interest > 0 ? interest.toLocaleString('en-IN', {maximumFractionDigits:2}) : '—';
@@ -81,20 +76,18 @@ function calculateEMI() {
 
     // Hide loading state
     hideEMILoading();
-  }, 200);
-}
 
-function showEMILoading() {
-  const loadingEl = document.getElementById('emi-loading');
-  const resultsEl = document.getElementById('emi-results');
-  if (loadingEl) loadingEl.style.display = 'flex';
-  if (resultsEl) resultsEl.style.opacity = '0.5';
-}
+}, 200); }
 
-function hideEMILoading() {
-  const loadingEl = document.getElementById('emi-loading');
-  const resultsEl = document.getElementById('emi-results');
-  if (loadingEl) loadingEl.style.display = 'none';
-  if (resultsEl) resultsEl.style.opacity = '1';
-}
-</script>
+function showEMILoading() { const loadingEl =
+document.getElementById('emi-loading'); const resultsEl =
+document.getElementById('emi-results'); if (loadingEl) loadingEl.style.display =
+'flex'; if (resultsEl) resultsEl.style.opacity = '0.5'; }
+
+function hideEMILoading() { const loadingEl =
+document.getElementById('emi-loading'); const resultsEl =
+document.getElementById('emi-results'); if (loadingEl) loadingEl.style.display =
+'none'; if (resultsEl) resultsEl.style.opacity = '1'; } } </script>
+
+<!-- Print Enhancement Script -->
+<script src="/assets/js/print-enhancements.min.js"></script>
