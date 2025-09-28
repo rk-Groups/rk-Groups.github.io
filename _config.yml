@@ -3,6 +3,7 @@ title: RK Groups
 baseurl: ""
 url: "https://rk-groups.github.io"
 theme: null
+version: "2.1.0"
 
 # Plugins
 plugins:

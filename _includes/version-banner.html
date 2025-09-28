@@ -1,0 +1,180 @@
+<!-- Site Version Banner -->
+<div class="mui-version-banner" id="version-banner">
+  <div class="mui-version-content">
+    <span class="mui-version-label">v{{ site.version }}</span>
+    <button class="mui-version-toggle" id="version-toggle" aria-label="Show version info" title="Site Version">
+      <span class="material-icons">info</span>
+    </button>
+  </div>
+  
+  <!-- Extended version info (hidden by default) -->
+  <div class="mui-version-details" id="version-details">
+    <div class="mui-version-info">
+      <strong>RK Groups Site v{{ site.version }}</strong>
+      <div class="mui-version-meta">
+        <div>Built: {{ site.time | date: "%B %d, %Y" }}</div>
+        <div>Jekyll {{ jekyll.version }}</div>
+        <div>Environment: {{ jekyll.environment }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Version Banner Styles */
+.mui-version-banner {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+}
+
+.mui-version-content {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: 20px;
+  padding: 4px 12px 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.mui-version-content:hover {
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.mui-version-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.mui-version-toggle {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mui-version-toggle:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.mui-version-toggle .material-icons {
+  font-size: 14px;
+}
+
+.mui-version-details {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 200px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(12px);
+}
+
+.mui-version-details.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mui-version-info strong {
+  color: var(--accent-primary);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.mui-version-meta {
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.mui-version-meta div {
+  margin: 2px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mui-version-banner {
+    top: 12px;
+    left: 12px;
+  }
+  
+  .mui-version-content {
+    padding: 3px 10px 3px 6px;
+  }
+  
+  .mui-version-label {
+    font-size: 10px;
+  }
+  
+  .mui-version-details {
+    min-width: 180px;
+    font-size: 10px;
+  }
+}
+
+/* Hide in print mode */
+@media print {
+  .mui-version-banner {
+    display: none !important;
+  }
+}
+</style>
+
+<script>
+// Version banner interaction
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('version-toggle');
+  const details = document.getElementById('version-details');
+  
+  if (toggle && details) {
+    toggle.addEventListener('click', function() {
+      details.classList.toggle('active');
+    });
+    
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!document.getElementById('version-banner').contains(e.target)) {
+        details.classList.remove('active');
+      }
+    });
+    
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        details.classList.remove('active');
+      }
+    });
+  }
+});
+</script>

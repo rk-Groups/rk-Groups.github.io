@@ -9,6 +9,9 @@
 
   <!-- Material Icons with font-display optimization -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
+  
+  <!-- Roboto Mono for version banner -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,6 +146,9 @@ loadCSS('/assets/css/mui.min.css');
     {{ content }}
   </div>
   </main>
+
+  <!-- Version Banner -->
+  {% include version-banner.html %}
 
   {% include analytics.html %}
 
