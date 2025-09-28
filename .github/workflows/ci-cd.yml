@@ -29,6 +29,10 @@ jobs:
         run: |
           npm install -g html-validate
           gem install html-proofer
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_LOGLEVEL: error
 
       - name: Jekyll build (test)
         run: |
@@ -73,6 +77,10 @@ jobs:
 
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_LOGLEVEL: error
 
       - name: Run Lighthouse CI
         run: |
@@ -103,6 +111,10 @@ jobs:
 
       - name: Install accessibility checker
         run: npm install -g @axe-core/cli
+        env:
+          NPM_CONFIG_FUND: false
+          NPM_CONFIG_AUDIT: false
+          NPM_CONFIG_LOGLEVEL: error
 
       - name: Run accessibility tests
         run: |
