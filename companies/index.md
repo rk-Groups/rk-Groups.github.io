@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Our Companies Network
-description: "Discover RK Groups' diverse portfolio of industrial solutions including gases, welding equipment, real estate, and creative services across Uttar Pradesh."
+description:
+  "Discover RK Groups' diverse portfolio of industrial solutions including
+  gases, welding equipment, real estate, and creative services across Uttar
+  Pradesh."
 breadcrumbs:
   - name: Home
     url: /

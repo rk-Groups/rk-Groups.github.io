@@ -33,10 +33,34 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Configure npm to suppress warnings
+        run: |
+          npm config set fund false
+          npm config set audit false
+          npm config set update-notifier false
+          npm config set warnings false
+
       - name: Start local server
         run: |
           npx --yes http-server _site -p 3000 &
-          echo "Waiting for server..." && sleep 3
+          SERVER_PID=$!
+          echo "Server PID: $SERVER_PID"
+          
+          # Wait for server to be ready with better health check
+          for i in {1..30}; do
+            if curl -s http://localhost:3000/ > /dev/null; then
+              echo "✅ Server is ready after ${i} seconds"
+              break
+            fi
+            echo "⏳ Waiting for server... (attempt $i/30)"
+            sleep 2
+          done
+          
+          # Final check
+          if ! curl -s http://localhost:3000/ > /dev/null; then
+            echo "❌ Server failed to start properly"
+            exit 1
+          fi
         env:
           NPM_CONFIG_FUND: false
           NPM_CONFIG_AUDIT: false
@@ -48,8 +72,17 @@ jobs:
 
       - name: Run Lighthouse (key pages)
         run: |
-          npx --yes @lhci/cli collect \
-            --config=lighthouserc.json
+          echo "🔍 Testing server connectivity..."
+          curl -I http://localhost:3000/ || (echo "❌ Server not responding" && exit 1)
+          
+          echo "🚀 Starting Lighthouse CI..."
+          npx --yes @lhci/cli collect --config=lighthouserc.json || {
+            echo "❌ Lighthouse failed, checking server status..."
+            curl -I http://localhost:3000/ || echo "Server is down"
+            echo "Server logs:"
+            ps aux | grep http-server || echo "No server process found"
+            exit 1
+          }
         env:
           NPM_CONFIG_FUND: false
           NPM_CONFIG_AUDIT: false

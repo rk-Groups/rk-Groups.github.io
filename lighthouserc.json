@@ -1,12 +1,19 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:4000/"],
+      "url": ["http://localhost:3000/"],
+      "numberOfRuns": 1,
+      "settings": {
+        "maxWaitForFcp": 15000,
+        "maxWaitForLoad": 35000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000
+      },
       "crawler": {
         "maxDepth": 7,
-        "maxConcurrency": 2
+        "maxConcurrency": 1
       },
-      "chromeFlags": "--no-sandbox --headless --disable-gpu"
+      "chromeFlags": "--no-sandbox --headless --disable-gpu --disable-dev-shm-usage --no-first-run --disable-default-apps"
     },
     "assert": {
       "assertions": {
