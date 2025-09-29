@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Contact RK Groups
-description: Get in touch with RK Groups for industrial gases, welding solutions, and business inquiries across Uttar Pradesh.
+description:
+  Get in touch with RK Groups for industrial gases, welding solutions, and
+  business inquiries across Uttar Pradesh.
 ---
 
 <div class="mui-hero">
@@ -27,28 +29,25 @@ description: Get in touch with RK Groups for industrial gases, welding solutions
       
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
         <div>
-          <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">
-            Full Name <span style="color: var(--accent-danger);">*</span>
+          <label for="name" class="mui-form-label">
+            Full Name <span class="mui-required-asterisk">*</span>
           </label>
-          <input type="text" id="name" name="name" required 
-                 style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-primary); border-radius: var(--mui-radius); background: var(--bg-elevated); color: var(--text);">
+          <input type="text" id="name" name="name" required class="mui-form-input">
         </div>
         
         <div>
-          <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">
-            Email Address <span style="color: var(--accent-danger);">*</span>
+          <label for="email" class="mui-form-label">
+            Email Address <span class="mui-required-asterisk">*</span>
           </label>
-          <input type="email" id="email" name="email" required 
-                 style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-primary); border-radius: var(--mui-radius); background: var(--bg-elevated); color: var(--text);">
+          <input type="email" id="email" name="email" required class="mui-form-input">
         </div>
       </div>
       
       <div>
-        <label for="phone" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text);">
+        <label for="phone" class="mui-form-label">
           Phone Number
         </label>
-        <input type="tel" id="phone" name="phone" 
-               style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-primary); border-radius: var(--mui-radius); background: var(--bg-elevated); color: var(--text);">
+        <input type="tel" id="phone" name="phone" class="mui-form-input">
       </div>
       
       <div>

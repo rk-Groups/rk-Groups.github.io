@@ -146,6 +146,57 @@ try {
                 if ($Verbose) { Write-Success "Found: $file" }
             }
         }
+
+        # 4.1 Branding & Theme Guard Checks
+        Write-Step "Step 4.1: Branding & Theme Guard Checks"
+        $brandErrors = @()
+
+        # A) Disallow inline color/background styles in source content (prefer CSS variables/classes)
+        $sourceFiles = Get-ChildItem -Recurse -Include *.md,*.html -File | Where-Object {
+            $_.FullName -notmatch "node_modules|vendor|_site"
+        }
+        foreach ($sf in $sourceFiles) {
+            try {
+                $c = Get-Content $sf.FullName -Raw -ErrorAction Stop
+                # Match style="... color: ..." or background/background-color/border-color
+                $lines = $c -split "`n"
+                foreach ($line in $lines) {
+                    if ($line -match 'style="' -and ($line -match 'color:' -or $line -match 'background:' -or $line -match 'border-color:')) {
+                        $snippet = $line.Trim()
+                        if ($snippet.Length -gt 80) { $snippet = $snippet.Substring(0,80) + '…' }
+                        $brandErrors += "Inline color/background style found in $($sf.FullName). Use CSS variables/classes instead. Example: $snippet"
+                    }
+                }
+            } catch {
+                if ($Verbose) { Write-Host "Skip scan error in $($sf.FullName): $($_.Exception.Message)" -ForegroundColor Gray }
+            }
+        }
+
+        # B) Rendered HTML: ensure <body> has dark-mode class and no light-mode/theme toggles
+        $renderedHtml = Get-ChildItem -Path "_site" -Recurse -Filter "*.html" -File
+        foreach ($rh in $renderedHtml) {
+            try {
+                $hc = Get-Content $rh.FullName -Raw -ErrorAction Stop
+                # Must include dark-mode on body
+                if (-not ([regex]::IsMatch($hc, '<body[^>]*class=["''][^"'']*dark-mode'))) {
+                    $brandErrors += "Body missing 'dark-mode' class in $($rh.FullName). Ensure correct layout (default/company/branch/policy)."
+                }
+                # No theme toggles or light-mode allowed
+                if ([regex]::IsMatch($hc, '(?i)theme-toggle|light-mode')) {
+                    $brandErrors += "Disallowed theme toggle/light-mode reference in rendered HTML: $($rh.FullName). Dark mode only."
+                }
+            } catch {
+                if ($Verbose) { Write-Host "Skip HTML scan error in $($rh.FullName): $($_.Exception.Message)" -ForegroundColor Gray }
+            }
+        }
+
+        if ($brandErrors.Count -gt 0) {
+            Write-Error "Branding/Theme guard checks failed:"
+            foreach ($e in $brandErrors) { Write-Host " - $e" -ForegroundColor Red }
+            throw "Branding/Theme guard checks failed with $($brandErrors.Count) issue(s)."
+        } else {
+            Write-Success "Branding & theme guard checks passed"
+        }
     } else {
         if (-not $JekyllAvailable) {
             Write-Warning "Skipping Jekyll build test (Jekyll not available)"

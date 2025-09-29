@@ -128,17 +128,17 @@ description:
     <h2 class="mui-section-title">Why Choose RK Groups?</h2>
     <div class="mui-features-grid mui-features-grid--3">
       <div class="mui-feature-card">
-        <span class="material-icons mui-feature-icon" style="color: var(--accent-success);">verified</span>
+        <span class="material-icons mui-feature-icon-large">verified</span>
         <h3>Quality Assured</h3>
         <p>All our products meet industry standards with proper certifications and quality control processes</p>
       </div>
       <div class="mui-feature-card">
-        <span class="material-icons mui-feature-icon" style="color: var(--accent-warning);">schedule</span>
+        <span class="material-icons mui-feature-icon-warning">schedule</span>
         <h3>Reliable Service</h3>
         <p>Consistent delivery schedules and responsive customer support across all our business operations</p>
       </div>
       <div class="mui-feature-card">
-        <span class="material-icons mui-feature-icon" style="color: var(--accent-secondary);">support</span>
+        <span class="material-icons mui-feature-icon-secondary">support</span>
         <h3>Expert Support</h3>
         <p>Technical expertise and consultation to help you choose the right solutions for your business needs</p>
       </div>
