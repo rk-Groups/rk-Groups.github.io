@@ -15,6 +15,20 @@ layout: default
   <main class="mui-main">
     {{ content }}
     
+    <div class="mui-card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%); border: 1px solid var(--accent-primary); margin-bottom: 24px;">
+      <h3 style="margin-top: 0; color: var(--accent-primary);">Quick Links</h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/companies/{{ page.company }}/products/" class="mui-btn mui-btn--primary">
+          <span class="material-icons">inventory</span>
+          View Products
+        </a>
+        <a href="#branches" class="mui-btn mui-btn--outline">
+          <span class="material-icons">location_on</span>
+          Our Branches
+        </a>
+      </div>
+    </div>
+    
     <div class="mui-card">
       <h2>Company Information</h2>
       <div><strong>GSTIN:</strong> {{ main.gstin | default: 'Not provided' }}</div>
@@ -29,7 +43,7 @@ layout: default
     
     {% assign branch_count = company | size | minus: 1 %}
     {% if branch_count > 0 %}
-      <div class="mui-card">
+      <div class="mui-card" id="branches">
         <h2>Branches ({{ branch_count }})</h2>
         <div class="mui-company-grid">
           {% for branch_item in company %}
